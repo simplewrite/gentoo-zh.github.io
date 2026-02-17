@@ -8,7 +8,7 @@ title: "關於"
 * 這是一個充滿希望的社群
 * 這是一個期待你加入的社群
 * 我們需要你
-* 不求大師的水準
+* 不求大師的水平
 * 只需分享、參與的熱情
 
 快來加入我們吧！Gentoo 中文
@@ -57,13 +57,13 @@ title: "關於"
 ## 我能得到什麼？
 
 1. 別人的感謝
-2. 自己水準的提高
+2. 自己水平的提高
 3. 沒有物質或金錢上的獎勵，沒有妹子
    - 當然，換一個次元就有了，[Install Gentoo](http://knowyourmeme.com/memes/install-gentoo) 是個 4chan 的典故。
    ![Install Gentoo](https://oss.aliyuncs.com/file-share/onii-chan-install-gentoo.gif)
 
 ---
 
-## 版權聲明
+## 版權宣告
 
 Logo 來自: [https://wiki.gentoo.org/wiki/Project:Artwork/Artwork#Genchu](https://wiki.gentoo.org/wiki/Project:Artwork/Artwork#Genchu)

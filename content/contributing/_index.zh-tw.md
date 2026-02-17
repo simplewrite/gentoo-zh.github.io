@@ -9,7 +9,7 @@ description: "如何為 Gentoo 中文社群網站做出貢獻"
 
 本網站使用 [Hugo](https://gohugo.io/) 靜態網站產生器和 [Blowfish](https://blowfish.page/) 主題構建，託管在 GitHub Pages 上。
 
-**專案儲存庫**：<https://github.com/gentoo-zh/gentoo-zh.github.com>
+**專案倉庫**：<https://github.com/gentoo-zh/gentoo-zh.github.com>
 
 ## 專案結構
 
@@ -17,9 +17,9 @@ description: "如何為 Gentoo 中文社群網站做出貢獻"
 
 `content/` 目錄下的各個子目錄對應網站的不同欄目：
 
-- `content/download/` - 下載頁面（包含鏡像源和安裝媒介）
+- `content/download/` - 下載頁面（包含映象源和安裝介質）
 - `content/overlay/` - gentoo-zh Overlay 說明
-- `content/mirrorlist/` - 鏡像列表（Portage 樹和 Distfiles 配置）
+- `content/mirrorlist/` - 映象列表（Portage 樹和 Distfiles 配置）
 - `content/about/` - 關於頁面（專案歷史和定位）
 - `content/contributors/` - 貢獻者頁面（社群成員資訊，自動更新）
 - `content/authors/` - 作者頁面（文章作者資訊）
@@ -28,16 +28,16 @@ description: "如何為 Gentoo 中文社群網站做出貢獻"
 - `content/posts/` - 新聞文章和教學目錄
 - `content/categories/` - 文章分類定義
 
-每個欄目包含簡體中文（`_index.zh-cn.md`）和傳統中文（`_index.zh-tw.md`）版本。
+每個欄目包含簡體中文（`_index.zh-tw.md`）和傳統中文（`_index.zh-tw.md`）版本。
 
 ### 配置檔案
 
 主要配置檔案位於 `config/_default/` 目錄：
 
 - `hugo.toml` - Hugo 主配置（網站基本資訊、分類法定義）
-- `languages.zh-cn.toml` / `languages.zh-tw.toml` - 語言配置
-- `menus.zh-cn.toml` / `menus.zh-tw.toml` - 導覽選單配置
-- `params.toml` - 主題參數配置（外觀、功能開關）
+- `languages.zh-tw.toml` / `languages.zh-tw.toml` - 語言配置
+- `menus.zh-tw.toml` / `menus.zh-tw.toml` - 導航選單配置
+- `params.toml` - 主題引數配置（外觀、功能開關）
 - `markup.toml` - Markdown 渲染配置
 
 ### 資料檔案
@@ -58,8 +58,8 @@ description: "如何為 Gentoo 中文社群網站做出貢獻"
 
 - `themes/blowfish/` - Blowfish 主題（透過 git submodule 管理）
 - `static/` - 靜態資源（圖片、CNAME 等）
-- `assets/` - 需要處理的資源檔案
-- `layouts/` - 自訂版面配置範本（如作者頁面）
+- `assets/` - 需要處理的資原始檔
+- `layouts/` - 自定義佈局模板（如作者頁面）
 
 ## 如何貢獻
 
@@ -74,16 +74,16 @@ cd content/posts/YYYY-MM-DD-article-name
 
 建立簡體和傳統中文版本：
 
-**index.zh-cn.md** (簡體中文)：
+**index.zh-tw.md** (簡體中文)：
 ```yaml
 ---
-title: "文章标题"
+title: "文章標題"
 date: 2025-11-22
 categories: ["tutorial"]
 authors: ["yourname"]
 ---
 
-文章内容...
+文章內容...
 ```
 
 **index.zh-tw.md** (傳統中文)：
@@ -127,7 +127,7 @@ authors: ["yourname"]
 - 修正錯別字或不準確的表述
 - 更新過時的技術資訊
 - 新增新的使用技巧
-- 完善文件說明
+- 完善檔案說明
 - 補充缺失的傳統中文翻譯
 
 ### 4. 技術改進
@@ -136,14 +136,14 @@ authors: ["yourname"]
 - 功能增強
 - 效能提升
 - 新功能開發
-- 主題客製化
+- 主題定製
 
 ## 貢獻流程
 
 ### Fork 和 Clone
 
 ```bash
-# Fork 專案到你的 GitHub 帳號
+# Fork 專案到你的 GitHub 賬號
 # 然後 clone 到本機
 git clone https://github.com/你的使用者名稱/gentoo-zh.github.com.git
 cd gentoo-zh.github.com
@@ -161,7 +161,7 @@ emerge --ask www-apps/hugo
 # 啟動本機伺服器
 hugo server -D
 
-# 造訪 http://localhost:1313 預覽
+# 訪問 http://localhost:1313 預覽
 ```
 
 ### 提交 Pull Request
@@ -183,7 +183,7 @@ git push origin your-feature-branch
 ### Markdown 格式
 
 - 使用標準 Markdown 語法
-- 程式碼區塊指定語言：\`\`\`bash
+- 程式碼塊指定語言：\`\`\`bash
 - 圖片使用相對路徑
 - 連結使用 Markdown 格式
 
@@ -201,7 +201,7 @@ Gentoo Linux 是一個基於原始碼的 Linux 發行版，使用 Portage 套件
 
 ## 安裝步驟
 
-1. 下載 Stage3 壓縮包
+1. 下載 Stage3 壓縮套件
 2. 解壓到目標目錄：
    ```bash
    tar xpvf stage3-*.tar.xz --xattrs-include='*.*' --numeric-owner
@@ -222,14 +222,14 @@ git commit -m "更新 Blowfish 主題"
 
 ### 如何新增新的頁面？
 
-在 `content/` 下建立新目錄，新增 `_index.zh-cn.md` 和 `_index.zh-tw.md`。
+在 `content/` 下建立新目錄，新增 `_index.zh-tw.md` 和 `_index.zh-tw.md`。
 
 ### 傳統中文如何轉換？
 
 可以使用 `opencc` 工具：
 
 ```bash
-opencc -c s2twp -i index.zh-cn.md -o index.zh-tw.md
+opencc -c s2twp -i index.zh-tw.md -o index.zh-tw.md
 ```
 
 然後手動調整地域詞彙差異。
@@ -242,11 +242,11 @@ opencc -c s2twp -i index.zh-cn.md -o index.zh-tw.md
 - **Telegram 頻道**：[@gentoocn](https://t.me/gentoocn)
 - **GitHub Issues**：<https://github.com/gentoo-zh/gentoo-zh.github.com/issues>
 
-## 授權協議
+## 許可協議
 
-本站內容採用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 授權協議，除非另有說明。
+本站內容採用 [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) 許可協議，除非另有說明。
 
-程式碼貢獻遵循專案的 MIT 授權。
+程式碼貢獻遵循專案的 MIT 許可。
 
 ---
 

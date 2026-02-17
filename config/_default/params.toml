@@ -55,8 +55,8 @@ Logo = "img/genchu.webp"
   showReadingTime = true
   showTableOfContents = true
   showTaxonomies = false
-  showRelatedContent = true
-  relatedContentLimit = 6
+  showRelatedContent = false
+  relatedContentLimit = 0
 
 [list]
   showHero = true
