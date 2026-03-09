@@ -5,7 +5,7 @@ externalUrl: "https://github.com/douglarek"
 links:
   - name: "blog"
     url: "https://lingchao.xin"
-weight: 9770
+weight: 9769
 showDate: false
 showAuthor: false
 showReadingTime: false
@@ -15,4 +15,4 @@ showViews: false
 layoutBackgroundHeaderSpace: false
 ---
 
-230 次提交
+231 次提交

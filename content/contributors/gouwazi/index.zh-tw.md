@@ -5,7 +5,7 @@ externalUrl: "https://github.com/gouwazi"
 links:
   - name: "blog"
     url: "https://blog.gouwazi.org"
-weight: 9284
+weight: 9278
 showDate: false
 showAuthor: false
 showReadingTime: false
@@ -15,4 +15,4 @@ showViews: false
 layoutBackgroundHeaderSpace: false
 ---
 
-716 次提交
+722 次提交
