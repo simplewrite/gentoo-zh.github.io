@@ -7,7 +7,7 @@ links:
     url: "https://yamad.me"
   - name: "twitter"
     url: "https://twitter.com/_yamader"
-weight: 9989
+weight: 9988
 showDate: false
 showAuthor: false
 showReadingTime: false
@@ -17,4 +17,4 @@ showViews: false
 layoutBackgroundHeaderSpace: false
 ---
 
-11 次提交
+12 次提交
