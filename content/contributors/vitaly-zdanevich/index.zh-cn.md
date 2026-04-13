@@ -7,7 +7,7 @@ externalUrl: "https://github.com/vitaly-zdanevich"
 links:
   - name: "blog"
     url: "https://about.me/zdanevich"
-weight: 9962
+weight: 9961
 ---
 
-38 次提交
+39 次提交
