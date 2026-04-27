@@ -5,7 +5,7 @@ externalUrl: "https://github.com/xen0n"
 links:
   - name: "blog"
     url: "https://blog.xen0n.name"
-weight: 9919
+weight: 9914
 showDate: false
 showAuthor: false
 showReadingTime: false
@@ -15,4 +15,4 @@ showViews: false
 layoutBackgroundHeaderSpace: false
 ---
 
-81 次提交
+86 次提交
