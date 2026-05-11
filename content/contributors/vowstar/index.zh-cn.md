@@ -2,7 +2,7 @@
 title: "Huang Rui"
 tags: ['Overlay 貢獻者']
 externalUrl: "https://github.com/vowstar"
-weight: 9774
+weight: 9768
 showDate: false
 showAuthor: false
 showReadingTime: false
@@ -12,4 +12,4 @@ showViews: false
 layoutBackgroundHeaderSpace: false
 ---
 
-226 次提交
+232 次提交
