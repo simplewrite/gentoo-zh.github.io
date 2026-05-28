@@ -8,6 +8,8 @@ blocklist:
   - charm
   # 已刪除的 GitHub 帳號（歷史 commits 仍保留在 microcai/gentoo-zh git log）
   - dearfl
+  # 應本人請求移除（dearfl 改名後的 ID）
+  - serephus
 
 # 最小提交次數（默認值）
 min_commits: 10
