@@ -1,8 +1,0 @@
-global:
-  language: "简体中文"
-
-shortcode:
-  recent_articles: "文章"
-
-recent:
-  show_more: "显示更多"

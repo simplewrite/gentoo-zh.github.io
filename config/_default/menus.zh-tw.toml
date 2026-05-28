@@ -1,11 +1,12 @@
-[[main]]
-  name = "下載"
-  pageRef = "/download"
-  weight = 10
-
+# 頂欄：主條目平鋪，次級條目收進「更多 ▾」原生下拉（可展開收起）
 [[main]]
   name = "Overlay"
   pageRef = "/overlay"
+  weight = 10
+
+[[main]]
+  name = "下載"
+  pageRef = "/download"
   weight = 20
 
 [[main]]
@@ -14,42 +15,60 @@
   weight = 30
 
 [[main]]
-  name = "更多"
-  identifier = "more"
+  name = "文章"
+  pageRef = "/posts"
   weight = 40
 
 [[main]]
-  name = "類別"
-  pageRef = "/categories"
-  parent = "more"
-  weight = 41
+  name = "關於"
+  pageRef = "/about"
+  weight = 60
+
+# 更多 ▾（可展開收起）
+[[main]]
+  name = "更多"
+  identifier = "more"
+  weight = 65
 
 [[main]]
-  name = "貢獻者列表"
+  name = "貢獻者"
   pageRef = "/contributors"
   parent = "more"
-  weight = 42
+  weight = 1
 
 [[main]]
   name = "貢獻指南"
   pageRef = "/contributing"
   parent = "more"
-  weight = 43
-
-[[main]]
-  name = "關於"
-  pageRef = "/about"
-  parent = "more"
-  weight = 44
+  weight = 2
 
 [[main]]
   name = "更新記錄"
   pageRef = "/changelog"
   parent = "more"
-  weight = 45
+  weight = 3
 
 [[main]]
-  identifier = "github"
-  pre = "github"
-  url = "https://github.com/gentoo-zh/gentoo-zh.github.io"
-  weight = 50
+  name = "Search"
+  weight = 70
+  [main.params]
+    type = "search"
+
+[[main]]
+  name = "GitHub"
+  weight = 80
+  url = "https://github.com/Gentoo-zh/gentoo-zh.github.io"
+  [main.params]
+    icon = "github"
+
+[[main]]
+  identifier = "lang-switch"
+  weight = 90
+  [main.params]
+    type = "language-switch"
+
+[[main]]
+  identifier = "theme-toggle"
+  weight = 100
+  [main.params]
+    type = "theme-toggle"

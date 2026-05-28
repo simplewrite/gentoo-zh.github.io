@@ -10,9 +10,11 @@ blocklist:
   - dearfl
   # 應本人請求移除（dearfl 改名後的 ID）
   - serephus
+  # 自動化 bot，不計入貢獻者
+  - dependabot[bot]
 
 # 最小提交次數（默認值）
-min_commits: 10
+min_commits: 5
 
 # 倉庫配置
 repository: microcai/gentoo-zh

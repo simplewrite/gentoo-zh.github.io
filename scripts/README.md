@@ -1,10 +1,10 @@
 # 貢獻者更新腳本
 
-`scripts/update-contributors.py` 會從 GitHub 取得貢獻者資料、更新提交次數與權重，並在需要時自動建立新頁面（提交 >= 10 次）。
+`scripts/update-contributors.py` 會從 GitHub 取得貢獻者資料、更新提交次數與權重，並在需要時自動建立新頁面（提交 >= 5 次）。
 
 ## 自動化更新
 
-本腳本已配置為 **每週一 00:00 UTC 自動運行**（通過 GitHub Actions）：
+本腳本配置為 **每週一 00:00 UTC 自動運行**（通過 GitHub Actions；Hextra 遷移期間已暫停為每年一次，遷移完成後在 workflow 中恢復為 `0 0 * * 1`）：
 - 自動更新所有貢獻者的提交次數和權重
 - 自動更新索引頁面時間戳
 - 自動過濾屏蔽名單中的用戶
@@ -25,7 +25,7 @@ blocklist:
   - charm
 
 # 最小提交次數（默認值）
-min_commits: 10
+min_commits: 5
 
 # 倉庫配置
 repository: microcai/gentoo-zh
@@ -70,18 +70,18 @@ python3 scripts/update-contributors.py --dry-run
 - **例行模式** (`--commits-only`)
   - 更新所有已存在頁面的提交次數與權重（`weight = 10000 - commits`）
   - 更新索引頁面時間戳並添加"每週一自動更新"說明
-  - 若找到新達標的貢獻者會自動建立 `content/contributors/<login>/index.zh-{cn,tw}.md` 以及 200/240px WebP 頭像
+  - 若找到新達標的貢獻者會自動建立 `content/zh-{cn,tw}/contributors/<login>/index.md` 以及 WebP 頭像
   - 自動過濾屏蔽名單中的用戶
   
 - **完整模式**
-  - 重新產生頁面並覆蓋標籤，特殊角色需手動調整
+  - 重新產生頁面；若既有頁面使用社群創始人、網站維護者、主要維護者等特殊分類，腳本會保留該標籤
   - 下載並轉換頭像為 WebP 格式
   - 頁面內容只保留「XX 次提交」描述，不寫 email 或個人簡介
 
 ## 建議流程
 
 1. **自動化**：每週一自動運行 `--commits-only` 模式
-2. **新成員**：發現 GitHub 有新達 10 次提交的成員時，跑一次完整模式並手動調整標籤
+2. **新成員**：發現 GitHub 有新達 5 次提交的成員時，跑一次完整模式並手動調整標籤
 3. **局部更新**：若只需要更新頭像或連結，搭配 `--skip-avatars` / `--skip-info`
 
 ## 注意事項

@@ -1,9 +1,9 @@
 name: Update Contributors
 
 on:
-  # 每週一 00:00 UTC 自動執行
+  # 每月 1 號 00:00 UTC 自動更新貢獻者。
   schedule:
-    - cron: '0 0 * * 1'
+    - cron: '0 0 1 * *'
   # 允許手動觸發
   workflow_dispatch:
 
@@ -46,13 +46,13 @@ jobs:
         id: check_changes
         run: |
           # 用 git status --porcelain 才能捕捉到新增的未追蹤檔案（新貢獻者）
-          if [ -z "$(git status --porcelain content/contributors/)" ]; then
+          if [ -z "$(git status --porcelain content/zh-cn/contributors/ content/zh-tw/contributors/)" ]; then
             echo "has_changes=false" >> "$GITHUB_OUTPUT"
             echo "沒有需要更新的內容"
           else
             echo "has_changes=true" >> "$GITHUB_OUTPUT"
             echo "發現變更："
-            git status --short content/contributors/ | head -50
+            git status --short content/zh-cn/contributors/ content/zh-tw/contributors/ | head -50
           fi
 
       - name: Commit and push changes
@@ -61,7 +61,7 @@ jobs:
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
 
-          git add content/contributors/
+          git add content/zh-cn/contributors/ content/zh-tw/contributors/
 
           # 統計變更供 commit 訊息使用
           changed=$(git diff --cached --name-only | wc -l | tr -d ' ')

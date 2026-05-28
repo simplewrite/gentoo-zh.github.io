@@ -2,6 +2,29 @@
 public/
 resources/
 .hugo_build*.lock
+hugo_stats.json
+
+# Node
+node_modules/
+package.json
+package-lock.json
+
+# Playwright / migration review artifacts — keep repo clean
+test-results/
+playwright-report/
+screenshots/
+tests/migration/*.spec.ts
+tests/migration/*.test.ts
+playwright.config.ts
+
+# AI / migration notes — local-only
+design-system.md
+DESIGN_SYSTEM.md
+DESIGN_DECISIONS.md
+*MIGRATION_NOTES*.md
+MIGRATION_REVIEW*.md
+CLAUDE.md
+.claude/
 
 # OS files
 .DS_Store

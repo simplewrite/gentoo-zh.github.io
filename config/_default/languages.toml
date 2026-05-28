@@ -1,0 +1,17 @@
+[zh-cn]
+  label = "简体中文"
+  locale = "zh-CN"
+  contentDir = "content/zh-cn"
+  weight = 1
+  title = "Gentoo 中文社区"
+  [zh-cn.params]
+    description = "Gentoo 中文社区 — 中文 Gentoo 用户的交流平台。提供 gentoo-zh Overlay 与社区定制 Live ISO，汇聚新手与资深用户，共同解决安装与使用中的问题。"
+
+[zh-tw]
+  label = "傳統中文"
+  locale = "zh-TW"
+  contentDir = "content/zh-tw"
+  weight = 2
+  title = "Gentoo 中文社群"
+  [zh-tw.params]
+    description = "Gentoo 中文社群 — 中文 Gentoo 使用者的交流平臺。提供 gentoo-zh Overlay 與社群定製 Live ISO，匯聚新手與資深使用者，共同解決安裝與使用中的問題。"

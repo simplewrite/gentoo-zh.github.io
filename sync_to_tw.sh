@@ -19,6 +19,9 @@ TARGET_FILE=${2:-}
 
 export PATH="/opt/homebrew/bin:$PATH"
 
+# 可移植的就地编辑：GNU sed（Linux / CI）用 `-i`，BSD/macOS sed 用 `-i ''`。
+if sed --version >/dev/null 2>&1; then SEDI=(-i); else SEDI=(-i ''); fi
+
 if [ -z "$SOURCE_FILE" ] || [ -z "$TARGET_FILE" ]; then
     echo "Usage: $0 <source_file> <target_file>" >&2
     exit 1
@@ -41,7 +44,7 @@ fi
 # Keep this list short and word-specific. Multi-char phrases first to avoid
 # greedy single-char matches.
 
-sed -i '' \
+sed "${SEDI[@]}" \
   -e 's/分区/分割/g' \
   -e 's/挂载/掛載/g' \
   -e 's/卸载/卸載/g' \
@@ -183,7 +186,7 @@ sed -i '' \
 # Step 3: Cleanup pass — fix OpenCC s2twp + sed phrase-dict artifacts.
 # These run AFTER all substitutions above to undo known over-conversions.
 
-sed -i '' \
+sed "${SEDI[@]}" \
   -e 's/使用者名稱稱/使用者名稱/g' \
   -e 's/套件含/包含/g' \
   -e 's/套件括/包括/g' \
@@ -212,15 +215,24 @@ sed -i '' \
 # Step 4: Mirror-source localization for Taiwan (TWAREN).
 # Only fires when the source file references the BFSU mirror.
 
-sed -i '' \
+sed "${SEDI[@]}" \
   -e 's|https://mirrors\.bfsu\.edu\.cn/gentoo/releases/amd64/autobuilds/|http://ftp.twaren.net/Linux/Gentoo/releases/amd64/autobuilds/|g' \
   -e 's|GENTOO_MIRRORS="https://mirrors\.bfsu\.edu\.cn/gentoo/"|GENTOO_MIRRORS="http://ftp.twaren.net/Linux/Gentoo/"|g' \
   -e 's|sync-uri = https://mirrors\.bfsu\.edu\.cn/git/gentoo-portage\.git|sync-uri = https://github.com/gentoo-mirror/gentoo.git|g' \
   -e 's|以 BFSU 鏡像站|以 TWAREN 鏡像站|g' \
   "$TARGET_FILE"
 
+# Step 4b: Terminology localization for Taiwan readers.
+# 简体的「国内」对台湾读者指的是台湾；繁体版改用「中国内陆」把所指说清楚。
+# 先用占位符保护「國內外」（国内外）以免被误伤成「中國內陸外」。
+sed "${SEDI[@]}" \
+  -e 's/國內外/GUONEIWAI_KEEP/g' \
+  -e 's/國內/中國內陸/g' \
+  -e 's/GUONEIWAI_KEEP/國內外/g' \
+  "$TARGET_FILE"
+
 # Step 5: Strip /zh-tw suffix from Gentoo wiki links (no Taiwan locale exists)
-sed -i '' \
+sed "${SEDI[@]}" \
   -e 's|wiki.gentoo.org/wiki/\([^)]*\)/zh-tw)|wiki.gentoo.org/wiki/\1)|g' \
   -e 's|wiki.gentoo.org/wiki/\([^)]*\)/zh-tw#|wiki.gentoo.org/wiki/\1#|g' \
   "$TARGET_FILE"

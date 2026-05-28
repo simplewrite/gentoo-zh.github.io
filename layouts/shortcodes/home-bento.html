@@ -1,0 +1,104 @@
+{{- /*
+  Bento-style home: hero + entry tiles + community band + latest-articles +
+  contributors band, as a responsive CSS-grid mosaic (1 → 2 → 4 cols). No JS.
+  Hero text comes from shortcode params (kept in _index.md); entries/community/
+  articles/contributors are dynamic. Contributor avatars render twice per row so
+  the two opposite-scrolling marquees loop seamlessly (2nd copy aria-hidden).
+*/ -}}
+{{- $isTw := eq .Site.Language.Lang "zh-tw" -}}
+{{- $badge := .Get "badge" -}}
+{{- $badgeLink := .Get "badgeLink" | default "#" -}}
+{{- $title := .Get "title" -}}
+{{- $subtitle := .Get "subtitle" -}}
+{{- $cta := .Get "cta" -}}
+{{- $ctaLink := .Get "ctaLink" -}}
+{{- $cta2 := .Get "cta2" -}}
+{{- $cta2Link := .Get "cta2Link" -}}
+{{- $entries := slice
+  (dict "icon" "book-open"          "title" (cond $isTw "安裝手冊" "安装手册")  "sub" "Gentoo 官方 Handbook" "link" "https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation/zh-cn")
+  (dict "icon" "download"           "title" (cond $isTw "下載" "下载")       "sub" (cond $isTw "介質 · Stage3 · 鏡像" "介质 · Stage3 · 镜像") "link" "download")
+  (dict "icon" "globe-alt"          "title" (cond $isTw "鏡像列表" "镜像列表") "sub" (cond $isTw "Portage 鏡像加速" "Portage 镜像加速") "link" "mirrorlist")
+  (dict "icon" "information-circle"  "title" (cond $isTw "關於" "关于")       "sub" (cond $isTw "社群介紹與參與" "社区介绍与参与") "link" "about")
+-}}
+{{- $community := slice
+  (dict "icon" "speakerphone" "name" (cond $isTw "Telegram 頻道" "Telegram 频道") "sub" (cond $isTw "@gentoocn · 公告" "@gentoocn · 公告") "link" "https://t.me/gentoocn")
+  (dict "icon" "chat-alt-2"   "name" (cond $isTw "Telegram 交流群" "Telegram 交流群") "sub" "@gentoo_zh" "link" "https://t.me/gentoo_zh")
+  (dict "icon" "chat"         "name" (cond $isTw "Telegram 閒聊群" "Telegram 闲聊群") "sub" "@gentoo_zh_offtopic" "link" "https://t.me/gentoo_zh_offtopic")
+  (dict "icon" "github"     "name" "GitHub" "sub" "Gentoo-zh"  "link" "https://github.com/Gentoo-zh")
+-}}
+<div class="bento not-prose">
+
+  <section class="bento-tile bento-hero">
+    {{- with $badge }}<a class="bento-badge" href="{{ $badgeLink }}"{{ if hasPrefix $badgeLink "http" }} target="_blank" rel="noreferrer"{{ end }}>{{ . }}</a>{{ end }}
+    <h1 class="bento-title hx:bg-clip-text hx:text-transparent hx:bg-gradient-to-r hx:from-gray-900 hx:to-gray-600 hx:dark:from-gray-100 hx:dark:to-gray-400">{{ $title }}</h1>
+    <p class="bento-subtitle">{{ $subtitle }}</p>
+    <div class="bento-cta-row">
+      {{- with $cta }}{{ $h := cond (hasPrefix $ctaLink "http") $ctaLink (relLangURL (strings.TrimPrefix "/" $ctaLink)) }}<a class="bento-cta" href="{{ $h }}"{{ if hasPrefix $ctaLink "http" }} target="_blank" rel="noreferrer"{{ end }}>{{ . }}</a>{{ end }}
+      {{- with $cta2 }}{{ $h := cond (hasPrefix $cta2Link "http") $cta2Link (relLangURL (strings.TrimPrefix "/" $cta2Link)) }}<a class="bento-cta-2" href="{{ $h }}"{{ if hasPrefix $cta2Link "http" }} target="_blank" rel="noreferrer"{{ end }}>{{ . }}</a>{{ end }}
+    </div>
+  </section>
+
+  {{- range $entries }}
+  {{- $ext := hasPrefix .link "http" -}}
+  <a class="bento-tile bento-entry" href="{{ if $ext }}{{ .link }}{{ else }}{{ relLangURL .link }}{{ end }}"{{ if $ext }} target="_blank" rel="noreferrer"{{ end }}>
+    <span class="bento-entry-icon">{{ partial "utils/icon.html" (dict "name" .icon "attributes" "height=1.5rem") }}</span>
+    <span class="bento-entry-title">{{ .title }}</span>
+    <span class="bento-entry-sub">{{ .sub }}</span>
+  </a>
+  {{- end }}
+
+  <section class="bento-tile bento-full">
+    <div class="bento-head"><h2 class="bento-head-title">{{ cond $isTw "加入社群" "加入社区" }}</h2><a class="bento-head-more" href="{{ relLangURL "about/" }}">全部入口 <span class="bento-head-more-arrow">→</span></a></div>
+    <div class="bento-links">
+      {{- range $community }}
+      <a class="bento-link" href="{{ .link | safeURL }}"{{ if hasPrefix .link "http" }} target="_blank" rel="noreferrer"{{ end }}>
+        <span class="bento-link-icon">{{ partial "utils/icon.html" (dict "name" .icon "attributes" "height=1.35rem") }}</span>
+        <span class="bento-link-text"><span class="bento-link-name">{{ .name }}</span><span class="bento-link-sub">{{ .sub }}</span></span>
+      </a>
+      {{- end }}
+    </div>
+  </section>
+
+  {{- $posts := first 3 (where .Site.RegularPages "Section" "posts").ByDate.Reverse -}}
+  {{- if $posts }}
+  <section class="bento-tile bento-full">
+    <div class="bento-head">
+      <h2 class="bento-head-title">最新文章</h2>
+      <span class="bento-head-actions">
+        <a class="bento-head-rss" href="{{ "feed.xml" | relLangURL }}" title="RSS" aria-label="RSS {{ cond $isTw "訂閱" "订阅" }}"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg></a>
+        <a class="bento-head-more" href="{{ relLangURL "posts/" }}">全部文章 <span class="bento-head-more-arrow">→</span></a>
+      </span>
+    </div>
+    <div class="bento-articles">
+      {{- range $posts }}
+      <a class="bento-article" href="{{ .RelPermalink }}">
+        <span class="bento-article-meta">{{ with .Params.tags }}<span class="bento-article-tag">#{{ index . 0 }}</span>{{ end }}<span class="bento-article-date">{{ .Date.Format "2006-01-02" }}</span></span>
+        <span class="bento-article-title">{{ .Title }}</span>
+        {{- $sum := .Summary | plainify -}}
+        {{- $excerpt := .Description | default (cond (in $sum "。") (printf "%s。" (index (split $sum "。") 0)) ($sum | truncate 80)) -}}
+        {{- with $excerpt }}<span class="bento-article-excerpt">{{ . }}</span>{{ end }}
+      </a>
+      {{- end }}
+    </div>
+  </section>
+  {{- end }}
+
+  {{- $contribs := where .Site.RegularPages "Section" "contributors" -}}
+  {{- $shown := first 40 $contribs -}}
+  {{- $rowA := first 20 $shown -}}
+  {{- $rowB := last 20 $shown -}}
+  {{- if $shown }}
+  <section class="bento-tile bento-full">
+    <div class="bento-head"><h2 class="bento-head-title">{{ cond $isTw "社群貢獻者" "社区贡献者" }}</h2><a class="bento-head-more" href="{{ relLangURL "contributors/" }}">{{ printf "查看全部 %d 位 " (len $contribs) }}<span class="bento-head-more-arrow">→</span></a></div>
+    <div class="home-marquee">
+      <div class="home-marquee-track">
+        {{- range $i := seq 2 }}{{- $dup := ge $i 2 -}}{{- range $p := $rowA }}{{ partial "home-avatar.html" (dict "page" $p "dup" $dup) }}{{ end }}{{- end }}
+      </div>
+      <div class="home-marquee-track home-marquee-track--rev">
+        {{- range $i := seq 2 }}{{- $dup := ge $i 2 -}}{{- range $p := $rowB }}{{ partial "home-avatar.html" (dict "page" $p "dup" $dup) }}{{ end }}{{- end }}
+      </div>
+    </div>
+  </section>
+  {{- end }}
+
+</div>

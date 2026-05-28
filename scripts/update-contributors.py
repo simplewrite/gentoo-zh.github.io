@@ -10,7 +10,7 @@
     python3 scripts/update-contributors.py [選項]
 
 選項:
-    --min-commits N    只處理提交次數 >= N 的貢獻者 (預設: 10)
+    --min-commits N    只處理提交次數 >= N 的貢獻者 (預設: 5)
     --skip-avatars     跳過頭像下載
     --skip-info        跳過個人資訊更新
     --commits-only     只更新提交次數和權重 (CI 排程用)
@@ -27,7 +27,18 @@ import yaml
 from datetime import datetime, timezone
 from pathlib import Path
 
-CONTENT_DIR = Path("content/contributors")
+CONTENT_DIRS = {
+    'zh-cn': Path("content/zh-cn/contributors"),
+    'zh-tw': Path("content/zh-tw/contributors"),
+}
+
+# 手動指定的特殊分組標籤（創始人 / 維護者等）。重新生成頁面時必須保留，
+# 不可被預設的 "Overlay 贡献者" 覆蓋。
+SPECIAL_TAGS = {
+    '社区创始人', '社群创始人', '现任主要维护者', '网站维护者', '网站内容贡献者',
+    '社區創始人', '社群創始人', '現任主要維護者', '網站維護者', '網站內容貢獻者',
+}
+
 CONFIG_FILE = Path(__file__).parent / "contributors-config.yaml"
 
 # 重試設定
@@ -42,7 +53,7 @@ def load_config():
     """從配置檔載入設定，提供預設值"""
     default_config = {
         'repository': 'microcai/gentoo-zh',
-        'min_commits': 10,
+        'min_commits': 5,
         'blocklist': [],
         'avatar_sizes': {'card': 200, 'single': 240},
     }
@@ -164,17 +175,28 @@ def fetch_contributors():
 
 
 def fetch_user_info(login):
-    """取得使用者詳細資訊。404 時回傳僅含 login 的 dict。"""
+    """取得使用者詳細資訊（含 GitHub 自填的社交帳號）。404 時回傳僅含 login 的 dict。"""
     try:
         out = run_with_retry(
             ['gh', 'api', f'/users/{login}'],
             what=f"取得 {login} 個人資訊",
         )
-        return parse_json(out, f"user {login}")
+        data = parse_json(out, f"user {login}")
     except RuntimeError as e:
         # 帳號可能被刪除，退回到只用 login
         print(f"  警告: 無法取得 {login} 詳細資訊（{e}），僅以 login 為名稱")
         return {'login': login}
+    # 額外抓 GitHub 個人頁「社交帳號」(mastodon / youtube / 自填連結如 t.me 等)，
+    # 與 blog / twitter 欄位互補，盡量把能抓到的連結都收進來。
+    try:
+        sout = run_with_retry(
+            ['gh', 'api', f'/users/{login}/social_accounts'],
+            what=f"取得 {login} 社交帳號",
+        )
+        data['social_accounts'] = parse_json(sout, f"social {login}") or []
+    except RuntimeError:
+        data['social_accounts'] = []
+    return data
 
 
 def update_index_timestamp(dry_run=False):
@@ -184,16 +206,16 @@ def update_index_timestamp(dry_run=False):
 
     updated = False
     for lang in ('zh-cn', 'zh-tw'):
-        file_path = CONTENT_DIR / f"_index.{lang}.md"
+        file_path = CONTENT_DIRS[lang] / "_index.md"
         if not file_path.exists():
             print(f"  警告: {file_path} 不存在")
             continue
 
         content = file_path.read_text(encoding='utf-8')
         if lang == 'zh-tw':
-            label = f'最後更新時間 {timestamp}（每週一自動更新）'
+            label = f'最後更新時間 {timestamp}（每月自動更新）'
         else:
-            label = f'最后更新时间 {timestamp}（每周一自动更新）'
+            label = f'最后更新时间 {timestamp}（每月自动更新）'
 
         new_content, count = re.subn(
             r'最[後后]更新[時时][間间].*',
@@ -216,22 +238,21 @@ def update_index_timestamp(dry_run=False):
 
 
 def download_and_convert_avatar(login, avatar_url, dry_run=False):
-    """下載並轉換頭像為 WebP（多尺寸）。失敗時不破壞既有檔案。"""
-    contrib_dir = CONTENT_DIR / login
-
+    """下載並轉換頭像為 WebP（多尺寸），輸出到兩個語言子目錄。"""
     if dry_run:
         print(f"  [DRY-RUN] 會下載頭像: {avatar_url}")
         return
 
-    contrib_dir.mkdir(parents=True, exist_ok=True)
+    import os
+    # 用第一個語言目錄當暫存空間
+    first_dir = CONTENT_DIRS['zh-cn'] / login
+    first_dir.mkdir(parents=True, exist_ok=True)
 
-    # 用 mkstemp 避免並行 / 殘留問題
     fd, temp_path = tempfile.mkstemp(
         prefix=f".avatar_{login}_",
         suffix=".png",
-        dir=str(contrib_dir),
+        dir=str(first_dir),
     )
-    import os
     os.close(fd)
     temp_avatar = Path(temp_path)
 
@@ -252,9 +273,8 @@ def download_and_convert_avatar(login, avatar_url, dry_run=False):
             return
 
         for size_name, size in AVATAR_SIZES.items():
-            output_file = contrib_dir / f"avatar_{size_name}.webp"
-            # 先寫到暫存檔再 rename 以保留舊版直到新版完成
-            tmp_out = output_file.with_suffix('.webp.tmp')
+            # 一次轉一份，然後複製到每個語言目錄
+            tmp_out = first_dir / f".avatar_{size_name}.{login}.tmp"
             try:
                 run_command(
                     ['cwebp', '-quiet', '-q', '90',
@@ -263,13 +283,27 @@ def download_and_convert_avatar(login, avatar_url, dry_run=False):
                     check=True,
                     timeout=30,
                 )
-                os.replace(str(tmp_out), str(output_file))
+                for lang, base_dir in CONTENT_DIRS.items():
+                    target_dir = base_dir / login
+                    target_dir.mkdir(parents=True, exist_ok=True)
+                    target = target_dir / f"avatar_{size_name}.webp"
+                    # 用 fileinput-safe shutil copy + rename 模式
+                    import shutil
+                    final_tmp = target.with_suffix('.webp.tmp')
+                    shutil.copyfile(str(tmp_out), str(final_tmp))
+                    os.replace(str(final_tmp), str(target))
+                tmp_out.unlink()
             except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as e:
                 print(f"  警告: 轉換 {login} {size_name} 失敗（{e}）")
                 try:
                     tmp_out.unlink()
                 except FileNotFoundError:
                     pass
+        # 新尺寸寫好後，清掉舊命名的單檔頭像（feature.webp），避免冗餘堆積
+        for base_dir in CONTENT_DIRS.values():
+            d = base_dir / login
+            if (d / "avatar_card.webp").exists():
+                (d / "feature.webp").unlink(missing_ok=True)
     finally:
         try:
             temp_avatar.unlink()
@@ -279,12 +313,11 @@ def download_and_convert_avatar(login, avatar_url, dry_run=False):
 
 def update_commits_only(login, commits, dry_run=False):
     """只更新提交次數與權重"""
-    contrib_dir = CONTENT_DIR / login
     weight = 10000 - commits
 
     updated = False
     for lang in ('zh-cn', 'zh-tw'):
-        file_path = contrib_dir / f"index.{lang}.md"
+        file_path = CONTENT_DIRS[lang] / login / "index.md"
         if not file_path.exists():
             continue
 
@@ -311,39 +344,30 @@ def update_commits_only(login, commits, dry_run=False):
 
 
 def generate_frontmatter(login, name, links, weight, tag, commits):
-    """產生貢獻者頁的 frontmatter + 內容"""
-    lines = [
-        '---',
-        f'title: "{name}"',
-        f"tags: ['{tag}']",
-        f'externalUrl: "https://github.com/{login}"',
-    ]
+    """產生貢獻者頁的 frontmatter + 內容。
+
+    用 yaml.safe_dump 序列化，確保不受信任的 GitHub 顯示名稱 / 連結
+    （可能含 " : 換行 --- {{ }} 等）被正確轉義 —— 無法注入額外 frontmatter
+    參數、提前關閉 frontmatter 圍欄、或破壞站點建構。"""
+    fm = {
+        'title': name,
+        'tags': [tag],
+        'externalUrl': f'https://github.com/{login}',
+        'weight': weight,
+    }
     if links:
-        lines.append('links:')
-        for link in links:
-            lines.append(f'  - name: "{link["name"]}"')
-            lines.append(f'    url: "{link["url"]}"')
-    lines.extend([
-        f'weight: {weight}',
-        'showDate: false',
-        'showAuthor: false',
-        'showReadingTime: false',
-        'showEdit: false',
-        'showLikes: false',
-        'showViews: false',
-        'layoutBackgroundHeaderSpace: false',
-        '---',
-        '',
-        f'{commits} 次提交',
-        '',
-    ])
-    return '\n'.join(lines)
+        fm['links'] = [{'name': l['name'], 'url': l['url']} for l in links]
+    front = yaml.safe_dump(
+        fm, allow_unicode=True, default_flow_style=False, sort_keys=False)
+    return f'---\n{front}---\n\n{commits} 次提交\n'
 
 
 def create_contributor_page(login, user_data, commits, dry_run=False):
     """建立或更新貢獻者頁（首次建立用）"""
-    contrib_dir = CONTENT_DIR / login
-
+    # 防禦性：login 同時用於 URL 與磁碟路徑，限制為 GitHub 合法字元集
+    if not re.fullmatch(r'[A-Za-z0-9-]{1,39}', login or ''):
+        print(f"  [跳過] 非法 login，已略過: {login!r}")
+        return
     name = user_data.get('name') or login
     blog = (user_data.get('blog') or '').strip()
     twitter = (user_data.get('twitter_username') or '').strip()
@@ -357,6 +381,24 @@ def create_contributor_page(login, user_data, commits, dry_run=False):
         # Twitter 已 rebrand 為 X
         links.append({'name': 'twitter', 'url': f'https://x.com/{twitter}'})
 
+    # 併入 GitHub 自填的社交帳號（mastodon / youtube / 自填連結，含可能的 t.me）。
+    # 去重，且不與上面的 blog / twitter 重複。
+    for acct in (user_data.get('social_accounts') or []):
+        url = (acct.get('url') or '').strip()
+        if not url or not url.startswith(('http://', 'https://')):
+            continue
+        provider = (acct.get('provider') or '').strip().lower()
+        is_twitter = provider == 'twitter' or 'twitter.com' in url or 'x.com' in url
+        if is_twitter:
+            if any(l['name'] == 'twitter' for l in links):
+                continue
+            link_name = 'twitter'
+        else:
+            link_name = provider or 'link'
+        if any(l['url'].rstrip('/') == url.rstrip('/') for l in links):
+            continue
+        links.append({'name': link_name, 'url': url})
+
     weight = 10000 - commits
     tag_cn = "Overlay 贡献者"
     tag_tw = "Overlay 貢獻者"
@@ -368,12 +410,65 @@ def create_contributor_page(login, user_data, commits, dry_run=False):
             print(f"    連結: {', '.join(l['name'] for l in links)}")
         return
 
-    contrib_dir.mkdir(parents=True, exist_ok=True)
-
-    for lang, tag in (('zh-cn', tag_cn), ('zh-tw', tag_tw)):
-        file_path = contrib_dir / f"index.{lang}.md"
+    for lang, default_tag in (('zh-cn', tag_cn), ('zh-tw', tag_tw)):
+        contrib_dir = CONTENT_DIRS[lang] / login
+        contrib_dir.mkdir(parents=True, exist_ok=True)
+        file_path = contrib_dir / "index.md"
+        # 保留既有的特殊分組標籤（手動指定的創始人 / 維護者等）。
+        # 解析既有 frontmatter 取得 tag，相容舊的 flow（tags: ['x']）
+        # 與新的 block（tags:\n- x）兩種格式。
+        tag = default_tag
+        if file_path.exists():
+            fm_match = re.match(r'^---\s*\n(.*?)\n---',
+                                file_path.read_text(encoding='utf-8'), re.S)
+            if fm_match:
+                try:
+                    existing_tags = (yaml.safe_load(fm_match.group(1)) or {}).get('tags') or []
+                    if existing_tags and existing_tags[0] in SPECIAL_TAGS:
+                        tag = existing_tags[0]
+                except yaml.YAMLError:
+                    pass
         atomic_write_text(file_path, generate_frontmatter(
             login, name, links, weight, tag, commits))
+
+
+def prune_dropped_contributors(kept_logins, dry_run=False):
+    """移除已掉出名單的貢獻者頁（特殊標籤的創始人 / 維護者除外）。
+    安全護欄：保留集異常偏少（疑似 API 抓取失敗）時跳過，避免誤刪。"""
+    import shutil
+    base = CONTENT_DIRS['zh-cn']
+    existing = [d for d in base.iterdir() if d.is_dir()]
+    if len(kept_logins) < 30 or len(kept_logins) < len(existing) * 0.5:
+        print(f"  [跳過剪枝] 保留集 {len(kept_logins)} 偏少（現有 {len(existing)} 頁），疑似抓取異常，不刪除")
+        return
+    removed = 0
+    for d in existing:
+        login = d.name
+        if login in kept_logins:
+            continue
+        # 特殊標籤（創始人 / 維護者等）即使掉出名單也保留
+        idx = d / "index.md"
+        keep_special = False
+        if idx.exists():
+            m = re.match(r'^---\s*\n(.*?)\n---', idx.read_text(encoding='utf-8'), re.S)
+            if m:
+                try:
+                    tags = (yaml.safe_load(m.group(1)) or {}).get('tags') or []
+                    keep_special = bool(tags) and tags[0] in SPECIAL_TAGS
+                except yaml.YAMLError:
+                    keep_special = True  # 解析失敗保守保留
+        if keep_special:
+            continue
+        for lang_base in CONTENT_DIRS.values():
+            target = lang_base / login
+            if not target.exists():
+                continue
+            if dry_run:
+                print(f"  [DRY-RUN] 會移除已下線貢獻者: {target}")
+            else:
+                shutil.rmtree(target)
+        removed += 1
+    print(f"  剪枝：移除 {removed} 位已下線（非特殊標籤）貢獻者")
 
 
 def main():
@@ -420,7 +515,8 @@ def main():
 
         try:
             if args.commits_only:
-                contrib_dir = CONTENT_DIR / login
+                # 任何語言目錄存在就視為已建立過
+                contrib_dir = CONTENT_DIRS['zh-cn'] / login
                 if not contrib_dir.exists():
                     print(f"  [新貢獻者] 建立頁面...")
                     user_data = fetch_user_info(login)
@@ -451,6 +547,9 @@ def main():
 
     print(f"\n正在更新索引頁時間戳...")
     update_index_timestamp(args.dry_run)
+
+    print(f"\n正在清理已下線的貢獻者...")
+    prune_dropped_contributors({c['login'] for c in filtered}, args.dry_run)
 
     print(f"\n{'=' * 50}")
     print(f"完成！")

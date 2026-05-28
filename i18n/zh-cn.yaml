@@ -1,0 +1,11 @@
+# Gentoo 中文社区 — 站点级 i18n 覆写
+# Hextra 主题已提供完整 zh-cn 翻译，本檔僅覆寫站點特有字串。
+
+copyright: "© Gentoo 中文社区"
+poweredBy: "由 Hugo 与 Hextra 驱动"
+editThisPage: "在 GitHub 上编辑此页 →"
+readMore: "阅读全文 →"
+searchPlaceholder: "搜索站内文档…"
+backToTop: "返回顶部"
+onThisPage: "本页内容"
+lastUpdated: "最近更新"

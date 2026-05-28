@@ -1,0 +1,8 @@
+{{- /* RSS feed autodiscovery. Hextra doesn't emit a <link rel="alternate">
+       for the feed by default, so feed readers (and the homepage) can't find
+       it. Added here via Hextra's official custom/head-end hook — no core
+       override. Emits the feed link on any page that has an RSS output
+       (the homepage → /feed.xml, and each section's feed). */ -}}
+{{- with .OutputFormats.Get "rss" -}}
+  <link rel="alternate" type="application/rss+xml" href="{{ .Permalink | safeURL }}" title="{{ $.Site.Title }}" />
+{{- end -}}
