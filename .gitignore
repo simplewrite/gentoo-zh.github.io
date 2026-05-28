@@ -1,7 +1,7 @@
 # Hugo generated files
 public/
 resources/
-.hugo_build.lock
+.hugo_build*.lock
 
 # OS files
 .DS_Store

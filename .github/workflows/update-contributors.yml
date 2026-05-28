@@ -1,63 +1,76 @@
 name: Update Contributors
 
 on:
-  # 每週一 00:00 UTC 自動運行
+  # 每週一 00:00 UTC 自動執行
   schedule:
     - cron: '0 0 * * 1'
-  
   # 允許手動觸發
   workflow_dispatch:
 
+# 同時只允許一個更新作業執行，避免推送衝突
+concurrency:
+  group: update-contributors
+  cancel-in-progress: false
+
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
   update-contributors:
     runs-on: ubuntu-latest
-    
+    timeout-minutes: 30
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
       - name: Install Python dependencies
-        run: |
-          pip install pyyaml
-      
-      - name: Install dependencies
+        run: pip install 'pyyaml==6.0.2'
+
+      - name: Install webp tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y webp
-      
+          sudo apt-get install -y --no-install-recommends webp
+
       - name: Run update script
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          python3 scripts/update-contributors.py --commits-only
-      
+        run: python3 scripts/update-contributors.py --commits-only
+
       - name: Check for changes
         id: check_changes
         run: |
-          if git diff --quiet; then
-            echo "has_changes=false" >> $GITHUB_OUTPUT
+          # 用 git status --porcelain 才能捕捉到新增的未追蹤檔案（新貢獻者）
+          if [ -z "$(git status --porcelain content/contributors/)" ]; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
             echo "沒有需要更新的內容"
           else
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "發現變更，準備提交"
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "發現變更："
+            git status --short content/contributors/ | head -50
           fi
-      
+
       - name: Commit and push changes
         if: steps.check_changes.outputs.has_changes == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
+
           git add content/contributors/
-          git commit -m "chore: 自動更新貢獻者信息"
-          git push
+
+          # 統計變更供 commit 訊息使用
+          changed=$(git diff --cached --name-only | wc -l | tr -d ' ')
+          git commit -m "chore: 自動更新貢獻者資訊（${changed} 個檔案）"
+
+          # 防止有人在 workflow 執行期間 push，rebase 後重試
+          for i in 1 2 3; do
+            git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && \
+              git push origin "HEAD:${GITHUB_REF_NAME}" && break
+            echo "推送失敗（嘗試 $i/3），等待後重試"
+            sleep 5
+          done

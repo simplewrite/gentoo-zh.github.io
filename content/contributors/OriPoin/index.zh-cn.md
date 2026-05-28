@@ -1,6 +1,6 @@
 ---
 title: "Yachen"
-tags: ['Overlay 貢獻者']
+tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/OriPoin"
 weight: 9707
 showDate: false

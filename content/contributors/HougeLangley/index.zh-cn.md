@@ -1,6 +1,6 @@
 ---
 title: "苏业钦"
-tags: ['Overlay 貢獻者']
+tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/HougeLangley"
 links:
   - name: "blog"

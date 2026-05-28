@@ -1,6 +1,6 @@
 ---
 title: "比尔盖子"
-tags: ['社群創始人']
+tags: ['社区创始人']
 externalUrl: "https://github.com/biergaizi"
 links:
   - name: "blog"

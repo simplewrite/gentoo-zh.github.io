@@ -1,6 +1,6 @@
 ---
 title: "transtone"
-tags: ['Overlay 貢獻者']
+tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/transtone"
 weight: 9960
 showDate: false

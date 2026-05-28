@@ -1,6 +1,6 @@
 ---
 title: "jinqiang zhang"
-tags: ['現任主要維護者']
+tags: ['现任主要维护者']
 externalUrl: "https://github.com/peeweep"
 links:
   - name: "blog"

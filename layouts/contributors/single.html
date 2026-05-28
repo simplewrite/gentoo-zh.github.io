@@ -70,7 +70,7 @@
           {{ range .Params.links }}
             {{ $icon := "link" }}
             {{ if in .url "github.com" }}{{ $icon = "github" }}
-            {{ else if in .url "twitter.com" }}{{ $icon = "twitter" }}
+            {{ else if or (in .url "twitter.com") (in .url "x.com") }}{{ $icon = "twitter" }}
             {{ else if in .url "instagram.com" }}{{ $icon = "instagram" }}
             {{ else if in .url "t.me" }}{{ $icon = "telegram" }}
             {{ else if eq .name "blog" }}{{ $icon = "globe" }}

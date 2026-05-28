@@ -1,6 +1,6 @@
 ---
 title: "Hong Hao"
-tags: ['Overlay 貢獻者']
+tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/oahong"
 weight: 9608
 showDate: false

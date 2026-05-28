@@ -1,6 +1,6 @@
 ---
 title: "狗娃子"
-tags: ['現任主要維護者']
+tags: ['现任主要维护者']
 externalUrl: "https://github.com/gouwazi"
 links:
   - name: "blog"

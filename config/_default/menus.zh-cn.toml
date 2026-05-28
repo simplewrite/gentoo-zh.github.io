@@ -51,5 +51,5 @@
 [[main]]
   identifier = "github"
   pre = "github"
-  url = "https://github.com/gentoo-zh/gentoo-zh.github.com"
+  url = "https://github.com/gentoo-zh/gentoo-zh.github.io"
   weight = 50

@@ -36,7 +36,7 @@ gentoo-zh overlay 的源代码托管在 GitHub 上：
 >
 > **这意味着什么？**
 > - `eselect repository` 和 `layman` 等工具仍可正常使用
-> - 官方将不再提供快取镜像，改为直接从上游源（GitHub）同步
+> - 官方将不再提供缓存镜像，改为直接从上游源（GitHub）同步
 > - 官方仓库（::gentoo、::guru、::kde、::science）不受影响，仍可使用镜像
 >
 > **如果您之前已添加 gentoo-zh overlay，请更新同步 URI：**

@@ -1,5 +1,5 @@
-languageCode = "zh-TW"
-languageName = "傳統中文"
+locale = "zh-TW"
+label = "傳統中文"
 weight = 2
 title = "Gentoo 中文社群"
 

@@ -40,19 +40,29 @@ hugo
 
 ```
 .
-├── config/
-│   └── _default/          # 配置文件
-│       ├── hugo.toml      # 主配置
-│       ├── languages.*.toml # 语言配置
-│       ├── menus.*.toml   # 菜单配置
-│       ├── params.toml    # 主题参数
-│       └── markup.toml    # Markdown 配置
-├── content/
-│   ├── zh-cn/            # 简体中文内容
-│   └── zh-tw/            # 传统中文内容
-├── themes/
-│   └── blowfish/         # 主题 (submodule)
-└── .gitignore            # Git 忽略文件
+├── config/_default/          # Hugo 配置
+│   ├── hugo.toml             # 主配置
+│   ├── languages.zh-cn.toml  # 简体中文站点配置
+│   ├── languages.zh-tw.toml  # 传统中文站点配置
+│   ├── menus.zh-cn.toml      # 简体菜单
+│   ├── menus.zh-tw.toml      # 传统菜单
+│   ├── params.toml           # 主题参数
+│   └── markup.toml           # Markdown 配置
+├── content/                  # 内容（每个文档配对 index.zh-cn.md / index.zh-tw.md）
+│   ├── posts/                # 文章
+│   ├── contributors/         # 贡献者页面（自动生成）
+│   ├── authors/              # 作者
+│   ├── about/, download/, mirrorlist/, overlay/, contributing/, changelog/
+│   └── categories/           # 分类
+├── data/authors/             # 作者元数据（JSON）
+├── i18n/                     # 字串翻译覆盖
+├── layouts/                  # 自定义模板（贡献者、SEO 头）
+├── assets/                   # Hugo 处理的资源（logo 等）
+├── static/                   # 原样输出的静态文件（favicon、CNAME）
+├── scripts/                  # 贡献者更新脚本
+├── sync_to_tw.sh             # 简体 → 传统中文翻译辅助脚本
+├── themes/blowfish/          # 主题（git submodule）
+└── .github/workflows/        # CI/CD（Hugo 构建 + 贡献者自动更新）
 ```
 
 ## GitHub Pages 部署

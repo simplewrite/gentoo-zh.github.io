@@ -1,6 +1,6 @@
 ---
 title: "Locez"
-tags: ['Overlay 貢獻者']
+tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/locez"
 links:
   - name: "blog"

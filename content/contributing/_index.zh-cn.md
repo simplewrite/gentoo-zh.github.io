@@ -9,7 +9,7 @@ description: "如何为 Gentoo 中文社区网站做出贡献"
 
 本网站使用 [Hugo](https://gohugo.io/) 静态网站生成器和 [Blowfish](https://blowfish.page/) 主题构建，托管在 GitHub Pages 上。
 
-**项目仓库**：<https://github.com/gentoo-zh/gentoo-zh.github.com>
+**项目仓库**：<https://github.com/gentoo-zh/gentoo-zh.github.io>
 
 ## 项目结构
 
@@ -145,8 +145,8 @@ authors: ["yourname"]
 ```bash
 # Fork 项目到你的 GitHub 账号
 # 然后 clone 到本地
-git clone https://github.com/你的用户名/gentoo-zh.github.com.git
-cd gentoo-zh.github.com
+git clone https://github.com/你的用户名/gentoo-zh.github.io.git
+cd gentoo-zh.github.io
 
 # 初始化主题子模块
 git submodule update --init --recursive
@@ -226,13 +226,28 @@ git commit -m "更新 Blowfish 主题"
 
 ### 传统中文如何转换？
 
-可以使用 `opencc` 工具：
+本仓库提供 `sync_to_tw.sh` 脚本，封装了 OpenCC（`s2twp`）+ 针对本站术语的修正规则与已知误转的清理。
+
+**先装 OpenCC**：
 
 ```bash
-opencc -c s2twp -i index.zh-cn.md -o index.zh-tw.md
+# macOS
+brew install opencc
+
+# Gentoo
+emerge --ask app-i18n/opencc
+
+# Debian/Ubuntu
+sudo apt install opencc
 ```
 
-然后手动调整地域词汇差异。
+然后转换：
+
+```bash
+./sync_to_tw.sh content/posts/<slug>/index.zh-cn.md content/posts/<slug>/index.zh-tw.md
+```
+
+转换后建议人工检查台湾用语差异。
 
 ## 社区交流
 
@@ -240,7 +255,7 @@ opencc -c s2twp -i index.zh-cn.md -o index.zh-tw.md
 
 - **Telegram 群组**：[@gentoo_zh](https://t.me/gentoo_zh)
 - **Telegram 频道**：[@gentoocn](https://t.me/gentoocn)
-- **GitHub Issues**：<https://github.com/gentoo-zh/gentoo-zh.github.com/issues>
+- **GitHub Issues**：<https://github.com/gentoo-zh/gentoo-zh.github.io/issues>
 
 ## 许可协议
 

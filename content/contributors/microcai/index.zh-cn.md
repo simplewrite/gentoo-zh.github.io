@@ -1,6 +1,6 @@
 ---
 title: "microcai"
-tags: ['現任主要維護者']
+tags: ['现任主要维护者']
 externalUrl: "https://github.com/microcai"
 links:
   - name: "blog"

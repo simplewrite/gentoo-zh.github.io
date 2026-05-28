@@ -32,12 +32,12 @@ gentoo-zh overlay 的原始碼託管在 GitHub 上：
 
 > **重要提示**（更新時間：2025-10-07）
 >
-> 根據 [Gentoo 官方公告](https://www.gentoo.org/support/news-items/2025-10-07-cache-enabled-mirrors-removal.html)，Gentoo 已停止為第三方倉庫提供快取映象支援。從 2025-10-30 起，所有第三方倉庫（包括 gentoo-zh）的映象配置將從官方倉庫列表中移除。
+> 根據 [Gentoo 官方公告](https://www.gentoo.org/support/news-items/2025-10-07-cache-enabled-mirrors-removal.html)，Gentoo 已停止為第三方倉庫提供快取鏡像支援。從 2025-10-30 起，所有第三方倉庫（包括 gentoo-zh）的鏡像配置將從官方倉庫列表中移除。
 >
 > **這意味著什麼？**
 > - `eselect repository` 和 `layman` 等工具仍可正常使用
-> - 官方將不再提供快取映象，改為直接從上游源（GitHub）同步
-> - 官方倉庫（::gentoo、::guru、::kde、::science）不受影響，仍可使用映象
+> - 官方將不再提供快取鏡像，改為直接從上游源（GitHub）同步
+> - 官方倉庫（::gentoo、::guru、::kde、::science）不受影響，仍可使用鏡像
 >
 > **如果您之前已新增 gentoo-zh overlay，請更新同步 URI：**
 >
@@ -70,31 +70,31 @@ auto-sync = yes
 emerge --sync gentoo-zh
 ```
 
-## 映象加速
+## 鏡像加速
 
-### gentoo-zh distfiles 映象
+### gentoo-zh distfiles 鏡像
 
 提供 gentoo-zh overlay distfiles 快取，加速軟體套件下載。
 
 **源位址**：<https://distfiles.gentoocn.org/>
 
-**映象站點**：
+**鏡像站點**：
 - 重慶大學：<https://mirror.cqu.edu.cn/gentoo-zh>
 - 南京大學：<https://mirror.nju.edu.cn/gentoo-zh>
 
 **使用幫助**：<https://t.me/gentoocn/56>
 
-### gentoo-zh.git 映象
+### gentoo-zh.git 鏡像
 
-提供 gentoo-zh overlay 的 Git 倉庫映象，加速 overlay 同步。
+提供 gentoo-zh overlay 的 Git 倉庫鏡像，加速 overlay 同步。
 
 **源位址**：<https://github.com/microcai/gentoo-zh.git>
 
-**映象站點**：
+**鏡像站點**：
 - 重慶大學：<https://mirrors.cqu.edu.cn/git/gentoo-zh.git>
 - 南京大學：<https://mirror.nju.edu.cn/git/gentoo-zh.git>
 
-**配置範例**（使用映象加速同步）：
+**配置範例**（使用鏡像加速同步）：
 
 ```ini
 [gentoo-zh]

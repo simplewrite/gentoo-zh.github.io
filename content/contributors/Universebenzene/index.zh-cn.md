@@ -1,6 +1,6 @@
 ---
 title: "天苯"
-tags: ['Overlay 貢獻者']
+tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/Universebenzene"
 links:
   - name: "twitter"

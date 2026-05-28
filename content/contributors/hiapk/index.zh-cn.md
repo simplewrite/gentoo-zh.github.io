@@ -1,6 +1,6 @@
 ---
 title: "Tom Lau"
-tags: ['Overlay 貢獻者']
+tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/hiapk"
 links:
 weight: 9935

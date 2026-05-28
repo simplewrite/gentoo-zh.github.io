@@ -1,6 +1,6 @@
 ---
 title: "Ryan Tsien"
-tags: ['Overlay 貢獻者']
+tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/bekcpear"
 links:
   - name: "blog"

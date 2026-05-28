@@ -1,259 +1,228 @@
 #!/bin/bash
+#
+# Convert a zh-cn source file to zh-tw using OpenCC s2twp + targeted sed fixes.
+#
+# Notes on rule selection:
+#   - OpenCC s2twp already converts most simplified->traditional + Taiwan
+#     phrases (软件->軟體, 内存->記憶體, etc.). We do NOT duplicate those.
+#   - Only add rules for terms that OpenCC misses or converts wrong for
+#     this site's domain (Gentoo/Linux/Hugo).
+#   - Do NOT add a blanket s/包/套件/g — it breaks 包含/包括/打包/包装.
+#   - Do NOT add a blanket s/文件/檔案/g — OpenCC converts 文档->文件
+#     (documentation); we keep 文件 as documentation.
+#   - Cleanup pass at the end fixes known OpenCC phrase-dict artifacts.
 
-SOURCE_FILE=$1
-TARGET_FILE=$2
+set -euo pipefail
 
-# Add Homebrew path for macOS users
+SOURCE_FILE=${1:-}
+TARGET_FILE=${2:-}
+
 export PATH="/opt/homebrew/bin:$PATH"
 
 if [ -z "$SOURCE_FILE" ] || [ -z "$TARGET_FILE" ]; then
-    echo "Usage: $0 <source_file> <target_file>"
+    echo "Usage: $0 <source_file> <target_file>" >&2
     exit 1
 fi
 
-# Copy source to target using OpenCC
+if [ ! -f "$SOURCE_FILE" ]; then
+    echo "Error: source file '$SOURCE_FILE' not found" >&2
+    exit 1
+fi
+
+# Step 1: OpenCC base conversion (simplified -> traditional w/ Taiwan phrases)
 if command -v opencc &> /dev/null; then
     opencc -c s2twp -i "$SOURCE_FILE" -o "$TARGET_FILE"
 else
-    echo "Warning: opencc not found, falling back to cp. Conversion quality may be lower."
+    echo "Warning: opencc not found, falling back to cp." >&2
     cp "$SOURCE_FILE" "$TARGET_FILE"
 fi
 
-# =============================================================================
-# Basic Terms (Gentoo/Linux related)
-# =============================================================================
+# Step 2: Domain-specific replacements OpenCC may miss.
+# Keep this list short and word-specific. Multi-char phrases first to avoid
+# greedy single-char matches.
 
-sed -i '' 's/磁盘/磁碟/g' "$TARGET_FILE"
-sed -i '' 's/分区/分割槽/g' "$TARGET_FILE"
-sed -i '' 's/引导/引導/g' "$TARGET_FILE"
-sed -i '' 's/程序/程式/g' "$TARGET_FILE"
-sed -i '' 's/文件/檔案/g' "$TARGET_FILE"
-sed -i '' 's/默认/預設/g' "$TARGET_FILE"
-sed -i '' 's/支持/支援/g' "$TARGET_FILE"
-sed -i '' 's/软件/軟體/g' "$TARGET_FILE"
-sed -i '' 's/硬件/硬體/g' "$TARGET_FILE"
-sed -i '' 's/内存/記憶體/g' "$TARGET_FILE"
-sed -i '' 's/显卡/顯示卡/g' "$TARGET_FILE"
-sed -i '' 's/顯卡/顯示卡/g' "$TARGET_FILE"
-sed -i '' 's/社区/社群/g' "$TARGET_FILE"
-sed -i '' 's/链接/連結/g' "$TARGET_FILE"
-sed -i '' 's/计划/計畫/g' "$TARGET_FILE"
-sed -i '' 's/账户/帳戶/g' "$TARGET_FILE"
-sed -i '' 's/用户/使用者/g' "$TARGET_FILE"
-sed -i '' 's/登录/登入/g' "$TARGET_FILE"
-sed -i '' 's/注销/登出/g' "$TARGET_FILE"
-sed -i '' 's/环境/環境/g' "$TARGET_FILE"
-sed -i '' 's/设置/設定/g' "$TARGET_FILE"
-sed -i '' 's/优化/最佳化/g' "$TARGET_FILE"
-sed -i '' 's/镜像/鏡像/g' "$TARGET_FILE"
-sed -i '' 's/映象/映像/g' "$TARGET_FILE"
-sed -i '' 's/特别说明/特別說明/g' "$TARGET_FILE"
-sed -i '' 's/检查清单/檢查清單/g' "$TARGET_FILE"
-sed -i '' 's/重启后/重啟後/g' "$TARGET_FILE"
-sed -i '' 's/应用配置/應用配置/g' "$TARGET_FILE"
-sed -i '' 's/代码/程式碼/g' "$TARGET_FILE"
-sed -i '' 's/源码/原始碼/g' "$TARGET_FILE"
-sed -i '' 's/挂载/掛載/g' "$TARGET_FILE"
-sed -i '' 's/卸载/卸載/g' "$TARGET_FILE"
-sed -i '' 's/启动/啟動/g' "$TARGET_FILE"
-sed -i '' 's/重启/重啟/g' "$TARGET_FILE"
-sed -i '' 's/终端/終端機/g' "$TARGET_FILE"
-sed -i '' 's/命令/指令/g' "$TARGET_FILE"
-sed -i '' 's/查找/搜尋/g' "$TARGET_FILE"
-sed -i '' 's/信息/資訊/g' "$TARGET_FILE"
-sed -i '' 's/必须/必須/g' "$TARGET_FILE"
-sed -i '' 's/推荐/推薦/g' "$TARGET_FILE"
-sed -i '' 's/建议/建議/g' "$TARGET_FILE"
-sed -i '' 's/警告/警告/g' "$TARGET_FILE"
-sed -i '' 's/注意/注意/g' "$TARGET_FILE"
-sed -i '' 's/提示/提示/g' "$TARGET_FILE"
-sed -i '' 's/可参考/可參考/g' "$TARGET_FILE"
-sed -i '' 's/著称/著稱/g' "$TARGET_FILE"
-sed -i '' 's/进阶/進階/g' "$TARGET_FILE"
-sed -i '' 's/基础/基礎/g' "$TARGET_FILE"
-sed -i '' 's/有线/有線/g' "$TARGET_FILE"
-sed -i '' 's/无线/無線/g' "$TARGET_FILE"
-sed -i '' 's/文件系统/檔案系統/g' "$TARGET_FILE"
-sed -i '' 's/内核/核心/g' "$TARGET_FILE"
-sed -i '' 's/编译器/編譯器/g' "$TARGET_FILE"
-sed -i '' 's/安装/安裝/g' "$TARGET_FILE"
-sed -i '' 's/系统/系統/g' "$TARGET_FILE"
-sed -i '' 's/线程/執行緒/g' "$TARGET_FILE"
-sed -i '' 's/进程/行程/g' "$TARGET_FILE"
-sed -i '' 's/守护进程/守護程式/g' "$TARGET_FILE"
-sed -i '' 's/配置/配置/g' "$TARGET_FILE"
-sed -i '' 's/管理/管理/g' "$TARGET_FILE"
-sed -i '' 's/网络/網路/g' "$TARGET_FILE"
-sed -i '' 's/服务器/伺服器/g' "$TARGET_FILE"
-sed -i '' 's/博客/部落格/g' "$TARGET_FILE"
-sed -i '' 's/视频/影片/g' "$TARGET_FILE"
-sed -i '' 's/音频/音訊/g' "$TARGET_FILE"
-sed -i '' 's/鼠标/滑鼠/g' "$TARGET_FILE"
-sed -i '' 's/键盘/鍵盤/g' "$TARGET_FILE"
-sed -i '' 's/屏幕/螢幕/g' "$TARGET_FILE"
-sed -i '' 's/分辨率/解析度/g' "$TARGET_FILE"
-sed -i '' 's/接口/介面/g' "$TARGET_FILE"
-sed -i '' 's/通过/透過/g' "$TARGET_FILE"
-sed -i '' 's/确认/確認/g' "$TARGET_FILE"
-sed -i '' 's/修改/修改/g' "$TARGET_FILE"
-sed -i '' 's/编辑/編輯/g' "$TARGET_FILE"
-sed -i '' 's/创建/建立/g' "$TARGET_FILE"
-sed -i '' 's/删除/刪除/g' "$TARGET_FILE"
-sed -i '' 's/复制/複製/g' "$TARGET_FILE"
-sed -i '' 's/移动/移動/g' "$TARGET_FILE"
-sed -i '' 's/粘贴/貼上/g' "$TARGET_FILE"
-sed -i '' 's/保存/儲存/g' "$TARGET_FILE"
-sed -i '' 's/退出/退出/g' "$TARGET_FILE"
-sed -i '' 's/显示/顯示/g' "$TARGET_FILE"
-sed -i '' 's/隐藏/隱藏/g' "$TARGET_FILE"
-sed -i '' 's/开启/開啟/g' "$TARGET_FILE"
-sed -i '' 's/关闭/關閉/g' "$TARGET_FILE"
-sed -i '' 's/连接/連線/g' "$TARGET_FILE"
-sed -i '' 's/断开/中斷/g' "$TARGET_FILE"
-sed -i '' 's/下载/下載/g' "$TARGET_FILE"
-sed -i '' 's/上传/上傳/g' "$TARGET_FILE"
-sed -i '' 's/更新/更新/g' "$TARGET_FILE"
-sed -i '' 's/升级/升級/g' "$TARGET_FILE"
-sed -i '' 's/降级/降級/g' "$TARGET_FILE"
-sed -i '' 's/编译/編譯/g' "$TARGET_FILE"
-sed -i '' 's/构建/構建/g' "$TARGET_FILE"
-sed -i '' 's/部署/部署/g' "$TARGET_FILE"
-sed -i '' 's/发布/發布/g' "$TARGET_FILE"
-sed -i '' 's/版本/版本/g' "$TARGET_FILE"
-sed -i '' 's/依赖/依賴/g' "$TARGET_FILE"
-sed -i '' 's/仓库/倉庫/g' "$TARGET_FILE"
-sed -i '' 's/项目/專案/g' "$TARGET_FILE"
-sed -i '' 's/工具/工具/g' "$TARGET_FILE"
-sed -i '' 's/驱动/驅動/g' "$TARGET_FILE"
-sed -i '' 's/架构/架構/g' "$TARGET_FILE"
-sed -i '' 's/平台/平台/g' "$TARGET_FILE"
-sed -i '' 's/虚拟/虛擬/g' "$TARGET_FILE"
-sed -i '' 's/容器/容器/g' "$TARGET_FILE"
-sed -i '' 's/数据/資料/g' "$TARGET_FILE"
-sed -i '' 's/数据库/資料庫/g' "$TARGET_FILE"
-sed -i '' 's/生成/產生/g' "$TARGET_FILE"
-sed -i '' 's/缓存/快取/g' "$TARGET_FILE"
-sed -i '' 's/算法/演算法/g' "$TARGET_FILE"
-sed -i '' 's/参数/參數/g' "$TARGET_FILE"
-sed -i '' 's/变量/變數/g' "$TARGET_FILE"
-sed -i '' 's/函数/函式/g' "$TARGET_FILE"
-sed -i '' 's/模块/模組/g' "$TARGET_FILE"
-sed -i '' 's/组件/元件/g' "$TARGET_FILE"
-sed -i '' 's/库/函式庫/g' "$TARGET_FILE"
-sed -i '' 's/包/套件/g' "$TARGET_FILE"
-sed -i '' 's/教程/教學/g' "$TARGET_FILE"
-sed -i '' 's/示例/範例/g' "$TARGET_FILE"
-sed -i '' 's/目录/目錄/g' "$TARGET_FILE"
-sed -i '' 's/字体/字型/g' "$TARGET_FILE"
-sed -i '' 's/布局/佈局/g' "$TARGET_FILE"
-sed -i '' 's/主题/主題/g' "$TARGET_FILE"
-sed -i '' 's/界面/介面/g' "$TARGET_FILE"
-sed -i '' 's/体验/體驗/g' "$TARGET_FILE"
-sed -i '' 's/性能/效能/g' "$TARGET_FILE"
-sed -i '' 's/稳定/穩定/g' "$TARGET_FILE"
-sed -i '' 's/兼容/相容/g' "$TARGET_FILE"
-sed -i '' 's/维护/維護/g' "$TARGET_FILE"
-sed -i '' 's/监控/監控/g' "$TARGET_FILE"
-sed -i '' 's/日志/日誌/g' "$TARGET_FILE"
-sed -i '' 's/备份/備份/g' "$TARGET_FILE"
-sed -i '' 's/恢复/復原/g' "$TARGET_FILE"
-sed -i '' 's/故障/故障/g' "$TARGET_FILE"
-sed -i '' 's/错误/錯誤/g' "$TARGET_FILE"
-sed -i '' 's/调试/除錯/g' "$TARGET_FILE"
-sed -i '' 's/测试/測試/g' "$TARGET_FILE"
-sed -i '' 's/验证/驗證/g' "$TARGET_FILE"
-sed -i '' 's/加密/加密/g' "$TARGET_FILE"
-sed -i '' 's/解压/解壓/g' "$TARGET_FILE"
-sed -i '' 's/压缩/壓縮/g' "$TARGET_FILE"
-sed -i '' 's/传输/傳輸/g' "$TARGET_FILE"
-sed -i '' 's/同步/同步/g' "$TARGET_FILE"
-sed -i '' 's/设备/裝置/g' "$TARGET_FILE"
-sed -i '' 's/固件/韌體/g' "$TARGET_FILE"
-sed -i '' 's/端口/連接埠/g' "$TARGET_FILE"
-sed -i '' 's/插槽/插槽/g' "$TARGET_FILE"
-sed -i '' 's/网卡/網路卡/g' "$TARGET_FILE"
-sed -i '' 's/声卡/音效卡/g' "$TARGET_FILE"
-sed -i '' 's/硬盘/硬碟/g' "$TARGET_FILE"
-sed -i '' 's/固态硬盘/固態硬碟/g' "$TARGET_FILE"
-sed -i '' 's/U盘/隨身碟/g' "$TARGET_FILE"
-sed -i '' 's/电源/電源/g' "$TARGET_FILE"
-sed -i '' 's/电池/電池/g' "$TARGET_FILE"
-sed -i '' 's/主板/主機板/g' "$TARGET_FILE"
-sed -i '' 's/操作系统/作業系統/g' "$TARGET_FILE"
-sed -i '' 's/客户端/客戶端/g' "$TARGET_FILE"
-sed -i '' 's/播放器/播放器/g' "$TARGET_FILE"
-sed -i '' 's/编辑器/編輯器/g' "$TARGET_FILE"
-sed -i '' 's/调试器/除錯器/g' "$TARGET_FILE"
-sed -i '' 's/虚拟机/虛擬機/g' "$TARGET_FILE"
-sed -i '' 's/脚本/腳本/g' "$TARGET_FILE"
-sed -i '' 's/手册/手冊/g' "$TARGET_FILE"
-sed -i '' 's/指南/指南/g' "$TARGET_FILE"
-sed -i '' 's/文档/文件/g' "$TARGET_FILE"
-sed -i '' 's/制作/製作/g' "$TARGET_FILE"
-sed -i '' 's/标记/標記/g' "$TARGET_FILE"
-sed -i '' 's/可选/可選/g' "$TARGET_FILE"
-sed -i '' 's/简化/簡化/g' "$TARGET_FILE"
-sed -i '' 's/延伸阅读/延伸閱讀/g' "$TARGET_FILE"
-sed -i '' 's/结语/結語/g' "$TARGET_FILE"
-sed -i '' 's/中转/中轉/g' "$TARGET_FILE"
-sed -i '' 's/插件/外掛/g' "$TARGET_FILE"
-sed -i '' 's/注释/註釋/g' "$TARGET_FILE"
-sed -i '' 's/标签/標籤/g' "$TARGET_FILE"
-sed -i '' 's/属性/屬性/g' "$TARGET_FILE"
-sed -i '' 's/绑定/綁定/g' "$TARGET_FILE"
-sed -i '' 's/映射/對應/g' "$TARGET_FILE"
-sed -i '' 's/回车/換行/g' "$TARGET_FILE"
-sed -i '' 's/换行/換行/g' "$TARGET_FILE"
-sed -i '' 's/空白/空白/g' "$TARGET_FILE"
-sed -i '' 's/路径/路徑/g' "$TARGET_FILE"
-sed -i '' 's/权限/權限/g' "$TARGET_FILE"
-sed -i '' 's/所有者/擁有者/g' "$TARGET_FILE"
-sed -i '' 's/组/群組/g' "$TARGET_FILE"
-sed -i '' 's/用户组/使用者群組/g' "$TARGET_FILE"
-sed -i '' 's/根目录/根目錄/g' "$TARGET_FILE"
-sed -i '' 's/工作目录/工作目錄/g' "$TARGET_FILE"
-sed -i '' 's/临时/暫時/g' "$TARGET_FILE"
-sed -i '' 's/日志/日誌/g' "$TARGET_FILE"
-sed -i '' 's/进程/行程/g' "$TARGET_FILE"
-sed -i '' 's/信号/訊號/g' "$TARGET_FILE"
-sed -i '' 's/管道/管道/g' "$TARGET_FILE"
-sed -i '' 's/重定向/重新導向/g' "$TARGET_FILE"
-sed -i '' 's/环境变量/環境變數/g' "$TARGET_FILE"
-sed -i '' 's/返回值/回傳值/g' "$TARGET_FILE"
-sed -i '' 's/参数/引數/g' "$TARGET_FILE"
-sed -i '' 's/选项/選項/g' "$TARGET_FILE"
-sed -i '' 's/参数/參數/g' "$TARGET_FILE"
+sed -i '' \
+  -e 's/分区/分割/g' \
+  -e 's/挂载/掛載/g' \
+  -e 's/卸载/卸載/g' \
+  -e 's/编译/編譯/g' \
+  -e 's/源码/原始碼/g' \
+  -e 's/源代码/原始碼/g' \
+  -e 's/守护进程/守護程式/g' \
+  -e 's/进程/行程/g' \
+  -e 's/线程/執行緒/g' \
+  -e 's/插件/外掛/g' \
+  -e 's/脚本/指令碼/g' \
+  -e 's/链接/連結/g' \
+  -e 's/U盘/隨身碟/g' \
+  -e 's/优盘/隨身碟/g' \
+  -e 's/优化/最佳化/g' \
+  -e 's/视频/影片/g' \
+  -e 's/音频/音訊/g' \
+  -e 's/接口/介面/g' \
+  -e 's/界面/介面/g' \
+  -e 's/分辨率/解析度/g' \
+  -e 's/端口/連接埠/g' \
+  -e 's/服务器/伺服器/g' \
+  -e 's/客户端/客戶端/g' \
+  -e 's/虚拟机/虛擬機/g' \
+  -e 's/数据库/資料庫/g' \
+  -e 's/算法/演算法/g' \
+  -e 's/缓存/快取/g' \
+  -e 's/网络/網路/g' \
+  -e 's/网卡/網路卡/g' \
+  -e 's/声卡/音效卡/g' \
+  -e 's/键盘/鍵盤/g' \
+  -e 's/鼠标/滑鼠/g' \
+  -e 's/屏幕/螢幕/g' \
+  -e 's/硬盘/硬碟/g' \
+  -e 's/磁盘/磁碟/g' \
+  -e 's/操作系统/作業系統/g' \
+  -e 's/教程/教學/g' \
+  -e 's/示例/範例/g' \
+  -e 's/示範/範例/g' \
+  -e 's/调试器/除錯器/g' \
+  -e 's/调试/除錯/g' \
+  -e 's/中转/中轉/g' \
+  -e 's/性能/效能/g' \
+  -e 's/兼容/相容/g' \
+  -e 's/构建/構建/g' \
+  -e 's/依赖/依賴/g' \
+  -e 's/仓库/倉庫/g' \
+  -e 's/项目/專案/g' \
+  -e 's/账户/帳戶/g' \
+  -e 's/默认/預設/g' \
+  -e 's/计划/計畫/g' \
+  -e 's/博客/部落格/g' \
+  -e 's/字体/字型/g' \
+  -e 's/布局/佈局/g' \
+  -e 's/数据/資料/g' \
+  -e 's/信息/資訊/g' \
+  -e 's/信号/訊號/g' \
+  -e 's/重定向/重新導向/g' \
+  -e 's/环境变量/環境變數/g' \
+  -e 's/变量/變數/g' \
+  -e 's/函数/函式/g' \
+  -e 's/参数/參數/g' \
+  -e 's/选项/選項/g' \
+  -e 's/返回值/回傳值/g' \
+  -e 's/模块/模組/g' \
+  -e 's/组件/元件/g' \
+  -e 's/进阶/進階/g' \
+  -e 's/查找/搜尋/g' \
+  -e 's/命令/指令/g' \
+  -e 's/终端/終端機/g' \
+  -e 's/同步/同步/g' \
+  -e 's/固件/韌體/g' \
+  -e 's/电源/電源/g' \
+  -e 's/电池/電池/g' \
+  -e 's/主板/主機板/g' \
+  -e 's/设备/裝置/g' \
+  -e 's/路径/路徑/g' \
+  -e 's/权限/權限/g' \
+  -e 's/所有者/擁有者/g' \
+  -e 's/根目录/根目錄/g' \
+  -e 's/工作目录/工作目錄/g' \
+  -e 's/目录/目錄/g' \
+  -e 's/临时/暫時/g' \
+  -e 's/解压/解壓/g' \
+  -e 's/压缩/壓縮/g' \
+  -e 's/传输/傳輸/g' \
+  -e 's/启动/啟動/g' \
+  -e 's/重启/重啟/g' \
+  -e 's/登录/登入/g' \
+  -e 's/注销/登出/g' \
+  -e 's/连接/連線/g' \
+  -e 's/断开/中斷/g' \
+  -e 's/上传/上傳/g' \
+  -e 's/下载/下載/g' \
+  -e 's/创建/建立/g' \
+  -e 's/删除/刪除/g' \
+  -e 's/复制/複製/g' \
+  -e 's/粘贴/貼上/g' \
+  -e 's/保存/儲存/g' \
+  -e 's/隐藏/隱藏/g' \
+  -e 's/开启/開啟/g' \
+  -e 's/关闭/關閉/g' \
+  -e 's/编辑器/編輯器/g' \
+  -e 's/编辑/編輯/g' \
+  -e 's/编译器/編譯器/g' \
+  -e 's/手册/手冊/g' \
+  -e 's/制作/製作/g' \
+  -e 's/简化/簡化/g' \
+  -e 's/延伸阅读/延伸閱讀/g' \
+  -e 's/结语/結語/g' \
+  -e 's/可参考/可參考/g' \
+  -e 's/著称/著稱/g' \
+  -e 's/有线/有線/g' \
+  -e 's/无线/無線/g' \
+  -e 's/虚拟/虛擬/g' \
+  -e 's/架构/架構/g' \
+  -e 's/驱动/驅動/g' \
+  -e 's/通过/透過/g' \
+  -e 's/支持/支援/g' \
+  -e 's/软件/軟體/g' \
+  -e 's/硬件/硬體/g' \
+  -e 's/内存/記憶體/g' \
+  -e 's/内核/核心/g' \
+  -e 's/显卡/顯示卡/g' \
+  -e 's/顯卡/顯示卡/g' \
+  -e 's/社区/社群/g' \
+  -e 's/用户/使用者/g' \
+  -e 's/用户组/使用者群組/g' \
+  -e 's/文件系统/檔案系統/g' \
+  -e 's/环境/環境/g' \
+  -e 's/设置/設定/g' \
+  -e 's/系统/系統/g' \
+  -e 's/安装/安裝/g' \
+  -e 's/注释/註釋/g' \
+  -e 's/绑定/繫結/g' \
+  -e 's/映射/對應/g' \
+  "$TARGET_FILE"
 
-# =============================================================================
-# Mirror Source Corrections for Traditional Chinese (Taiwan)
-# =============================================================================
+# Step 3: Cleanup pass — fix OpenCC s2twp + sed phrase-dict artifacts.
+# These run AFTER all substitutions above to undo known over-conversions.
 
-# Fix ISO download links - use TWAREN mirror for Taiwan
-sed -i '' 's|https://mirrors\.bfsu\.edu\.cn/gentoo/releases/amd64/autobuilds/|http://ftp.twaren.net/Linux/Gentoo/releases/amd64/autobuilds/|g' "$TARGET_FILE"
+sed -i '' \
+  -e 's/使用者名稱稱/使用者名稱/g' \
+  -e 's/套件含/包含/g' \
+  -e 's/套件括/包括/g' \
+  -e 's/套件圍/包圍/g' \
+  -e 's/打套件/打包/g' \
+  -e 's/字地化/本地化/g' \
+  -e 's/檔案翻譯/文件翻譯/g' \
+  -e 's/中文檔案/中文文件/g' \
+  -e 's/Overlay 檔案/Overlay 文件/g' \
+  -e 's/映象/鏡像/g' \
+  -e 's/映像源/鏡像源/g' \
+  -e 's/映像列表/鏡像列表/g' \
+  -e 's/解除安裝/卸載/g' \
+  -e 's/軟體包/軟體套件/g' \
+  -e 's/安裝包/安裝套件/g' \
+  -e 's/包管理器/套件管理器/g' \
+  -e 's/包管理/套件管理/g' \
+  -e 's/包依賴/套件依賴/g' \
+  -e 's/包安裝/套件安裝/g' \
+  -e 's/包名/套件名/g' \
+  -e 's/包列表/套件列表/g' \
+  -e 's/包版本/套件版本/g' \
+  -e 's/包源/套件源/g' \
+  "$TARGET_FILE"
 
-# Fix Stage3 download links
-sed -i '' 's|links https://mirrors\.bfsu\.edu\.cn/gentoo/releases/amd64/autobuilds/\(.*\) #以 BFSU 鏡像站|links http://ftp.twaren.net/Linux/Gentoo/releases/amd64/autobuilds/\1 #以 TWAREN 鏡像站|g' "$TARGET_FILE"
-sed -i '' 's|links https://mirrors\.bfsu\.edu\.cn/gentoo/releases/amd64/autobuilds/\(.*\) #以 BFSU 映象站|links http://ftp.twaren.net/Linux/Gentoo/releases/amd64/autobuilds/\1 #以 TWAREN 映象站|g' "$TARGET_FILE"
+# Step 4: Mirror-source localization for Taiwan (TWAREN).
+# Only fires when the source file references the BFSU mirror.
 
-# Fix GENTOO_MIRRORS configuration
-sed -i '' 's|GENTOO_MIRRORS="https://mirrors\.bfsu\.edu\.cn/gentoo/"|GENTOO_MIRRORS="http://ftp.twaren.net/Linux/Gentoo/"|g' "$TARGET_FILE"
+sed -i '' \
+  -e 's|https://mirrors\.bfsu\.edu\.cn/gentoo/releases/amd64/autobuilds/|http://ftp.twaren.net/Linux/Gentoo/releases/amd64/autobuilds/|g' \
+  -e 's|GENTOO_MIRRORS="https://mirrors\.bfsu\.edu\.cn/gentoo/"|GENTOO_MIRRORS="http://ftp.twaren.net/Linux/Gentoo/"|g' \
+  -e 's|sync-uri = https://mirrors\.bfsu\.edu\.cn/git/gentoo-portage\.git|sync-uri = https://github.com/gentoo-mirror/gentoo.git|g' \
+  -e 's|以 BFSU 鏡像站|以 TWAREN 鏡像站|g' \
+  "$TARGET_FILE"
 
-# Fix echo command for GENTOO_MIRRORS
-sed -i '' "s|echo 'GENTOO_MIRRORS=\"https://mirrors\\.bfsu\\.edu\\.cn/gentoo/\"'|echo 'GENTOO_MIRRORS=\"http://ftp.twaren.net/Linux/Gentoo/\"'|g" "$TARGET_FILE"
+# Step 5: Strip /zh-tw suffix from Gentoo wiki links (no Taiwan locale exists)
+sed -i '' \
+  -e 's|wiki.gentoo.org/wiki/\([^)]*\)/zh-tw)|wiki.gentoo.org/wiki/\1)|g' \
+  -e 's|wiki.gentoo.org/wiki/\([^)]*\)/zh-tw#|wiki.gentoo.org/wiki/\1#|g' \
+  "$TARGET_FILE"
 
-# Fix mirror comments
-sed -i '' 's|#以 BFSU 鏡像站為例|#以 TWAREN 鏡像站為例|g' "$TARGET_FILE"
-sed -i '' 's|#以 BFSU 映象站為例|#以 TWAREN 映象站為例|g' "$TARGET_FILE"
-sed -i '' 's|以 BFSU 映象站為例|以 TWAREN 映象站為例|g' "$TARGET_FILE"
-sed -i '' 's|以 BFSU 鏡像站為例|以 TWAREN 鏡像站為例|g' "$TARGET_FILE"
-sed -i '' 's|下載 Minimal ISO（以 BFSU 映象站為例）|下載 Minimal ISO（以 TWAREN 映象站為例）|g' "$TARGET_FILE"
-sed -i '' 's|下載 Minimal ISO（以 BFSU 鏡像站為例）|下載 Minimal ISO（以 TWAREN 鏡像站為例）|g' "$TARGET_FILE"
-
-# Fix Portage git sync mirror for Taiwan - use TWAREN
-sed -i '' 's|sync-uri = https://mirrors\.bfsu\.edu\.cn/git/gentoo-portage\.git|sync-uri = https://ftp.twaren.net/git/Gentoo/gentoo-portage.git|g' "$TARGET_FILE"
-
-# Fix wiki links - zh-tw doesn't exist on Gentoo wiki, convert to English
-sed -i '' 's|wiki.gentoo.org/wiki/\([^)]*\)/zh-tw)|wiki.gentoo.org/wiki/\1)|g' "$TARGET_FILE"
-sed -i '' 's|wiki.gentoo.org/wiki/\([^)]*\)/zh-tw#|wiki.gentoo.org/wiki/\1#|g' "$TARGET_FILE"
-
-echo "All corrections applied successfully"
+echo "Converted: $SOURCE_FILE -> $TARGET_FILE"

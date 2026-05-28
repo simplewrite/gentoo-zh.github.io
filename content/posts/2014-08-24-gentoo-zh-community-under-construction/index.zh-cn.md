@@ -1,6 +1,6 @@
 ---
 title: "建设中的 Gentoo 中文社区"
-date: 2014-08-25
+date: 2014-08-24
 categories: ["announcement", "community"]
 authors: ["zhcj"]
 ---

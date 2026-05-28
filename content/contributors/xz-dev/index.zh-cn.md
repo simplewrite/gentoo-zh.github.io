@@ -1,6 +1,6 @@
 ---
 title: "xz-dev"
-tags: ['Overlay 貢獻者']
+tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/xz-dev"
 links:
   - name: "blog"

@@ -6,6 +6,8 @@
 blocklist:
   - Claude
   - charm
+  # 已刪除的 GitHub 帳號（歷史 commits 仍保留在 microcai/gentoo-zh git log）
+  - dearfl
 
 # 最小提交次數（默認值）
 min_commits: 10

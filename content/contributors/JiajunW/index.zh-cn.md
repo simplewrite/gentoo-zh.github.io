@@ -1,6 +1,6 @@
 ---
 title: "Jiajun Wang"
-tags: ['Overlay 貢獻者']
+tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/JiajunW"
 links:
 weight: 9873

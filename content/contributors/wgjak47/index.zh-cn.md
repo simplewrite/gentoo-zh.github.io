@@ -1,6 +1,6 @@
 ---
 title: "wgjak47"
-tags: ['Overlay 貢獻者']
+tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/wgjak47"
 weight: 9914
 showDate: false

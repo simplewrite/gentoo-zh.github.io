@@ -132,6 +132,9 @@ mirrorselect -i -o >> /etc/portage/make.conf
 
 # 日本镜像
 
-* 北陆尖端科学技术大学院大学（JAIST）
+* IIJ（Internet Initiative Japan）
   - Portage: 不提供
   - Distfiles: https://ftp.iij.ad.jp/pub/linux/gentoo/
+* JAIST（北陸先端科学技术大学院大学）
+  - Portage: rsync://rsync.jaist.ac.jp/pub/Linux/Gentoo/
+  - Distfiles: https://ftp.jaist.ac.jp/pub/Linux/Gentoo/

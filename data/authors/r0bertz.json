@@ -1,9 +1,12 @@
 {
   "name": "张乐",
-  "links": [
+  "bio": "Gentoo 中文文档翻译项目发起者",
+  "social": [
     {
-      "name": "github",
-      "url": "https://github.com/r0bertz"
+      "github": "https://github.com/r0bertz"
+    },
+    {
+      "globe": "http://zhangle.co"
     }
   ]
 }

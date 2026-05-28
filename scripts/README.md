@@ -10,7 +10,9 @@
 - 自動過濾屏蔽名單中的用戶
 - 自動提交變更到倉庫
 
-查看運行記錄：[GitHub Actions](https://github.com/Gentoo-zh/gentoo-zh.github.com/actions/workflows/update-contributors.yml)
+查看運行記錄：[GitHub Actions](https://github.com/Gentoo-zh/gentoo-zh.github.io/actions/workflows/update-contributors.yml)
+
+> **首次部署 / workflow 大改後**：合併到 master 後建議在 Actions 頁手動 `workflow_dispatch` 跑一次，確認 CI 端 `gh` + `GITHUB_TOKEN` 的行為與本地 dry-run 一致。
 
 ## 配置文件
 
