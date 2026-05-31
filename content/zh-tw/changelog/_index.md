@@ -11,6 +11,7 @@ slug: "changelog"
 
 ## 2026 年 5 月
 
+- 專案結構調整：把表現層（主題）抽成獨立的 Hextra 補丁包 [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme)，本倉庫只留內容與配置，更清爽、也便於跟隨上游 Hextra 更新
 - 首頁改版：重新梳理視覺主次（大標題做錨點、主操作更突出），主色統一為 Gentoo 品牌紫，「最新文章」改為優先展示技術內容
 - 貢獻指南重寫「為 gentoo-zh Overlay 貢獻」一節：依官方 Gentoo ebuild 倉庫規範梳理完整提交流程（EAPI、`metadata.xml`、thin Manifest、`~arch` 測試、`pkgdev`/`pkgcheck`、PR 與 CI），並補 nvchecker 版本跟進；區分 Overlay 貢獻（計入貢獻者牆）與網站貢獻，頁面排版改用原生 callout / 摺疊塊，頂欄新增「貢獻指南」入口
 - 下載站接入 mirror.gentoozh.org，替代已下線的 iso.gig-os.org；下載 / 鏡像列表 / Overlay 三頁重寫，Live ISO 登入憑據支援點選複製

@@ -83,9 +83,9 @@ $category/$package: add $new_version, drop $old_version
 
 ## 项目概况
 
-本网站使用 [Hugo](https://gohugo.io/) 静态网站生成器和 [Hextra](https://imfing.github.io/hextra/) 主题构建，托管在 GitHub Pages 上。主题通过 [Hugo Modules](https://gohugo.io/hugo-modules/) 引入（见 `go.mod`），不再使用 git submodule。
+本网站使用 [Hugo](https://gohugo.io/) 静态网站生成器构建，托管在 GitHub Pages 上。表现层（主题）是 [Hextra](https://imfing.github.io/hextra/) 再加上本站的补丁包 [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme)——后者通过 [Hugo Modules](https://gohugo.io/hugo-modules/) 引入并在 Hextra 之上叠加覆盖，依赖链为 **站点 → gentoozh-theme → Hextra**。所以本仓库只放内容与配置，模板/样式源码都在补丁包里。
 
-**项目仓库**：<https://github.com/Gentoo-zh/gentoo-zh.github.io>
+**项目仓库**：内容/配置 <https://github.com/Gentoo-zh/gentoo-zh.github.io>；主题补丁包 <https://github.com/Gentoo-zh/gentoozh-theme>
 
 ## 项目结构
 
@@ -115,16 +115,18 @@ $category/$package: add $new_version, drop $old_version
 
 ### 多语言支持
 
-- 界面翻译：`i18n/zh-cn.yaml`（简体）、`i18n/zh-tw.yaml`（传统）
+- 界面字串翻译（`i18n/zh-cn.yaml`、`i18n/zh-tw.yaml`）属于表现层，在 **gentoozh-theme 补丁包**里；本仓库只放正文内容
 - 默认语言为简体中文，位于站点根路径 `/`；传统中文位于 `/zh-tw/`
 - 简繁转换由仓库内的 `sync_to_tw.sh` 脚本完成（见下文）
 
 ### 主题与资源
 
-- 主题 Hextra 通过 Hugo Modules 引入，版本固定在 `go.mod`，不在仓库内保存主题源码
-- `layouts/` — 站点自定义模板（覆盖主题默认，如首页 `shortcodes/home-bento.html`、贡献者页等）
-- `assets/css/custom.css` — 在 Hextra 样式之上的站点样式覆盖
-- `static/` — 静态资源（`CNAME`、图片等）
+表现层拆成了独立的补丁包模块 **[gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme)**（在 Hextra 之上叠加，仍跟随上游更新），本仓库不再放模板/样式源码：
+
+- 模板（`layouts/`，含首页 `home-bento`、贡献者页等）、站点样式（`assets/css/custom.css`，Gentoo 品牌紫等）、界面字串（`i18n/`）都在 gentoozh-theme 里
+- 站点通过 `config/_default/hugo.toml` 的 `[[module.imports]]` 引入它，并在 `go.mod` pin 版本
+- `static/`（`CNAME`、favicon、logo、og 图等）仍在本仓库
+- **改模板 / 样式 → 去 [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme) 仓库；改内容 → 在本仓库**
 
 ## 环境准备
 
@@ -246,13 +248,21 @@ git push origin your-feature-branch
 
 ### 如何更新主题？
 
-主题是 Hugo Module，用 `hugo mod` 升级，不再操作 submodule：
+主题层是独立的 [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme) 补丁包模块，**升级 Hextra 在那个仓库里做**：
 
 ```bash
+# 在 gentoozh-theme 仓库
 hugo mod get -u github.com/imfing/hextra
 hugo mod tidy
-git add go.mod go.sum
-git commit -m "更新 Hextra 主题"
+git commit -am "bump hextra"
+git tag vX.Y.Z          # 打个新版本
+```
+
+然后回到**本站**仓库，把补丁包 pin 到新版本：
+
+```bash
+hugo mod get github.com/Gentoo-zh/gentoozh-theme@vX.Y.Z
+git commit -am "bump gentoozh-theme"
 ```
 
 ### 如何添加新的栏目页面？

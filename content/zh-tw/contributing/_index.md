@@ -83,9 +83,9 @@ $category/$package: add $new_version, drop $old_version
 
 ## 專案概況
 
-本網站使用 [Hugo](https://gohugo.io/) 靜態網站生成器和 [Hextra](https://imfing.github.io/hextra/) 主題構建，託管在 GitHub Pages 上。主題透過 [Hugo Modules](https://gohugo.io/hugo-modules/) 引入（見 `go.mod`），不再使用 git submodule。
+本網站使用 [Hugo](https://gohugo.io/) 靜態網站生成器構建，託管在 GitHub Pages 上。表現層（主題）是 [Hextra](https://imfing.github.io/hextra/) 再加上本站的補丁包 [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme)——後者透過 [Hugo Modules](https://gohugo.io/hugo-modules/) 引入並在 Hextra 之上疊加覆蓋，依賴鏈為 **站點 → gentoozh-theme → Hextra**。所以本倉庫只放內容與配置，模板/樣式原始碼都在補丁包裡。
 
-**專案倉庫**：<https://github.com/Gentoo-zh/gentoo-zh.github.io>
+**專案倉庫**：內容/配置 <https://github.com/Gentoo-zh/gentoo-zh.github.io>；主題補丁包 <https://github.com/Gentoo-zh/gentoozh-theme>
 
 ## 專案結構
 
@@ -115,16 +115,18 @@ $category/$package: add $new_version, drop $old_version
 
 ### 多語言支援
 
-- 介面翻譯：`i18n/zh-cn.yaml`（簡體）、`i18n/zh-tw.yaml`（傳統）
+- 介面字串翻譯（`i18n/zh-cn.yaml`、`i18n/zh-tw.yaml`）屬於表現層，在 **gentoozh-theme 補丁包**裡；本倉庫只放正文內容
 - 預設語言為簡體中文，位於站點根路徑 `/`；傳統中文位於 `/zh-tw/`
 - 簡繁轉換由倉庫內的 `sync_to_tw.sh` 指令碼完成（見下文）
 
 ### 主題與資源
 
-- 主題 Hextra 透過 Hugo Modules 引入，版本固定在 `go.mod`，不在倉庫內儲存主題原始碼
-- `layouts/` — 站點自定義模板（覆蓋主題預設，如首頁 `shortcodes/home-bento.html`、貢獻者頁等）
-- `assets/css/custom.css` — 在 Hextra 樣式之上的站點樣式覆蓋
-- `static/` — 靜態資源（`CNAME`、圖片等）
+表現層拆成了獨立的補丁包模組 **[gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme)**（在 Hextra 之上疊加，仍跟隨上游更新），本倉庫不再放模板/樣式原始碼：
+
+- 模板（`layouts/`，含首頁 `home-bento`、貢獻者頁等）、站點樣式（`assets/css/custom.css`，Gentoo 品牌紫等）、介面字串（`i18n/`）都在 gentoozh-theme 裡
+- 站點透過 `config/_default/hugo.toml` 的 `[[module.imports]]` 引入它，並在 `go.mod` pin 版本
+- `static/`（`CNAME`、favicon、logo、og 圖等）仍在本倉庫
+- **改模板 / 樣式 → 去 [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme) 倉庫；改內容 → 在本倉庫**
 
 ## 環境準備
 
@@ -246,13 +248,21 @@ git push origin your-feature-branch
 
 ### 如何更新主題？
 
-主題是 Hugo Module，用 `hugo mod` 升級，不再操作 submodule：
+主題層是獨立的 [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme) 補丁包模組，**升級 Hextra 在那個倉庫裡做**：
 
 ```bash
+# 在 gentoozh-theme 倉庫
 hugo mod get -u github.com/imfing/hextra
 hugo mod tidy
-git add go.mod go.sum
-git commit -m "更新 Hextra 主題"
+git commit -am "bump hextra"
+git tag vX.Y.Z          # 打個新版本
+```
+
+然後回到**本站**倉庫，把補丁包 pin 到新版本：
+
+```bash
+hugo mod get github.com/Gentoo-zh/gentoozh-theme@vX.Y.Z
+git commit -am "bump gentoozh-theme"
 ```
 
 ### 如何新增新的欄目頁面？
