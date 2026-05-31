@@ -104,7 +104,7 @@ curl https://alx.sh | sh
 ### 2.3 完成 Recovery 設定
 
 1. 等待 25 秒確保完全關機
-2. 按住電源鍵直到出現 “Loading startup options...”
+2. 按住電源鍵直到出現 "Loading startup options..."
 3. 釋放電源鍵
 4. 在卷列表中選擇 Gentoo
 5. 進入 macOS Recovery，輸入使用者密碼（FileVault）
@@ -706,7 +706,7 @@ update-m1n1
 
 - Telegram 群：[@gentoo_zh](https://t.me/gentoo_zh)
 - Telegram 頻道：[@gentoocn](https://t.me/gentoocn)
-- [GitHub](https://github.com/gentoo-zh)
+- [GitHub](https://github.com/Gentoo-zh)
 - [Gentoo Forums](https://forums.gentoo.org/)
 - IRC `#gentoo` / `#asahi` @ [Libera.Chat](https://libera.chat/)
 - [Asahi Linux Discord](https://discord.gg/asahi-linux)
