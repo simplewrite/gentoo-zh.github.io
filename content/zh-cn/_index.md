@@ -12,6 +12,6 @@ toc: false
   subtitle="中文 Gentoo 用户的聚集地——新手老手都在这儿，遇到坑一起折腾。"
   cta="开始使用 Overlay"
   ctaLink="/overlay/"
-  cta2="下载中文镜像"
+  cta2="下载 Live ISO"
   cta2Link="/download/#live-iso"
 >}}

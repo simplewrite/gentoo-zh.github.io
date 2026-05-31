@@ -1,0 +1,7 @@
+{{- /* 点击复制 chip：渲染一个内联 <code>，单击或按回车即复制其文本值。
+       用法：{{< copy "live" >}}
+       配套脚本在 _partials/custom/head-end.html，样式在 assets/css/custom.css。
+       无 JS 时退化为普通可读文本，文本浏览器 / 无脚本环境照样能看到值。 */ -}}
+{{- $v := .Get 0 -}}
+{{- $tw := eq .Page.Language.Lang "zh-tw" -}}
+<code class="copy-chip" data-copy="{{ $v }}" role="button" tabindex="0" title="{{ if $tw }}點擊複製{{ else }}点击复制{{ end }}">{{ $v }}</code>

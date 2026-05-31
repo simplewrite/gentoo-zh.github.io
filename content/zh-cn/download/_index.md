@@ -2,146 +2,78 @@
 title: "下载"
 ---
 
-想装 Gentoo，第一步是把安装介质弄到手——官方提供了多种可选的安装介质。下面先列官方下载源，再附一份国内的快速下载源（多为镜像站）：大陆直连官方站通常比较慢，能走镜像就尽量走。
+装 Gentoo 先把安装介质准备好。新手最省事的是中文社区的 Live ISO；想用官方介质的，从下面的镜像里就近选一个。
 
-## 中文社区定制：KDE 桌面 Live ISO {#live-iso}
+## 中文社区 Live ISO
 
-中文社区自己做的，每周自动构建，装完就能用：中文显示、中文输入法（fcitx5）和 flclash 网络工具都配好了。不想一上来就跟命令行死磕，可以从这个起步。
+中文社区定制的 KDE 桌面 Live ISO——中文显示、中文输入法（fcitx5）、flclash 网络工具的安装镜像，适合新手入门使用。
 
-- **下载站**：<https://iso.gig-os.org/>（国内可直接访问）
-- **项目仓库（备用）**：<https://github.com/Gig-OS/Live-ISO>
-- **登录凭据**：用户 `live` / 密码 `live` / Root 密码 `live`
-
-## 官方下载页面
-
-**Gentoo 官方下载页：** <https://www.gentoo.org/downloads/>
-
-官方提供了以下安装介质：
-- **Minimal Installation CD**：最小化安装光盘，适合有经验的用户
-- **LiveGUI**：带图形界面的 Live 系统，适合新用户
-- **Stage Archives**：Stage3 压缩包，Stage3 是一个预先编译好的最小化 Linux 用户空间环境，它内含了完整的编译工具链（GCC）与 Portage 包管理器，作为用户从源代码构建个性化 Gentoo 系统的标准起点
-## 架构选择
-
-Gentoo 支持多种 CPU 架构：
-- **amd64** - 64 位 x86 架构（最常用，支持 Intel 和 AMD 处理器）
-- **x86** - 32 位 x86 架构
-- **arm64** - 64 位 ARM 架构
-- **arm** - 32 位 ARM 架构
-- 其他架构请参考官方下载页
+- **下载站**：<https://mirror.gentoozh.org/>（海外服务器，1Gbps 不限流量；境内访问可能偏慢）
+- **备用仓库**：<https://github.com/Gig-OS/Live-ISO>
+- **登录凭据**：用户 {{< copy "live" >}} / 密码 {{< copy "live" >}} / Root {{< copy "live" >}}
 
 {{< callout type="info" >}}
-**Apple Silicon Mac 用户注意**
-
-本页面列出的标准镜像**不适用于 Apple Silicon Mac**。如果您使用 M1 / M2 系列 MacBook（M3 及以上目前驱动支持尚不完整），请参考：
-
-**[在 Apple Silicon Mac 上安装 Gentoo Linux](/posts/2025-10-02-gentoo-m-series-mac/)**
+**Apple Silicon Mac（M1 / M2）** 不适用下面的标准镜像，请看 [在 Apple Silicon Mac 上安装 Gentoo Linux](/posts/2025-10-02-gentoo-m-series-mac/)。
 {{< /callout >}}
 
-## 中国内陆镜像源
+## 镜像源
 
-以下镜像源提供 Gentoo 安装介质的快速下载（推荐中国内陆用户使用）：
+下面节点都已逐项实测可用，均提供 amd64 / x86 / arm64 等架构的安装介质。按地区就近选一般更快：
 
-### 清华大学开源镜像站
-- **下载地址：** <https://mirrors.tuna.tsinghua.edu.cn/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
-- 稳定快速，推荐使用
+| 镜像 | 地区 | 下载地址（releases/） |
+| --- | --- | --- |
+| 清华 TUNA | 华北·北京 | <https://mirrors.tuna.tsinghua.edu.cn/gentoo/releases/> |
+| 北外 BFSU | 华北·北京 | <https://mirrors.bfsu.edu.cn/gentoo/releases/> |
+| 中科大 USTC | 华东·合肥 | <https://mirrors.ustc.edu.cn/gentoo/releases/> |
+| 浙大 ZJU | 华东·杭州 | <https://mirrors.zju.edu.cn/gentoo/releases/> |
+| 南大 NJU | 华东·南京 | <https://mirrors.nju.edu.cn/gentoo/releases/> |
+| 山大 SDU | 华东·青岛 | <https://mirrors.sdu.edu.cn/gentoo/releases/> |
+| 华科 HUST | 华中·武汉 | <https://mirrors.hust.edu.cn/gentoo/releases/> |
+| 南科大 SUSTech | 华南·深圳 | <https://mirrors.sustech.edu.cn/gentoo/releases/> |
+| 哈工大 HIT | 东北·哈尔滨 | <https://mirrors.hit.edu.cn/gentoo/releases/> |
+| 兰大 LZU | 西北·兰州 | <https://mirror.lzu.edu.cn/gentoo/releases/> |
+| 阿里云 | 全国·CDN | <https://mirrors.aliyun.com/gentoo/releases/> |
+| 网易 163 | 全国·CDN | <https://mirrors.163.com/gentoo/releases/> |
+| CERNET | 全国·就近 | <https://mirrors.cernet.edu.cn/gentoo/releases/> |
+| CICKU | 香港 | <https://hk.mirrors.cicku.me/gentoo/releases/> |
+| PlanetUnix | 香港 | <https://hippocamp.cn.ext.planetunix.net/pub/gentoo/releases/> |
+| xTom | 香港 | <https://mirror.xtom.com.hk/gentoo/releases/> |
+| Rackspace | 香港 | <https://mirror.rackspace.com/gentoo/releases/> |
+| aditsu | 香港 | <http://gentoo.aditsu.net:8000/releases/>（HTTP） |
+| NCHC | 台湾 | <http://ftp.twaren.net/Linux/Gentoo/releases/> |
+| CICKU | 台湾 | <https://tw.mirrors.cicku.me/gentoo/releases/> |
+| Freedif | 新加坡 | <https://mirror.freedif.org/gentoo/releases/> |
+| CICKU | 新加坡 | <https://sg.mirrors.cicku.me/gentoo/releases/> |
+| PlanetUnix | 新加坡 | <https://enceladus.sg.ext.planetunix.net/pub/gentoo/releases/> |
 
-### 中国科学技术大学（USTC）
-- **下载地址：** <https://mirrors.ustc.edu.cn/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
-- 教育网和公网访问速度都很快
+{{% details title="官方介质与架构" %}}
 
-### 浙江大学
-- **下载地址：** <https://mirrors.zju.edu.cn/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
+**官方下载页**：<https://www.gentoo.org/downloads/>
 
-### 北京外国语大学
-- **下载地址：** <https://mirrors.bfsu.edu.cn/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
+- **Minimal Installation CD** — 最小化安装光盘，适合有经验的用户
+- **LiveGUI** — 带图形界面的 Live 系统，适合新用户
+- **Stage3** — 预先编译好的最小化用户空间，含完整编译工具链与 Portage，是从源码构建的标准起点
 
-### 网易开源镜像
-- **下载地址：** <https://mirrors.163.com/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
+架构：amd64（最常用）、x86、arm64、arm，其他见官方下载页。
 
-### 南京大学 eScience Center
-- **下载地址：** <https://mirrors.nju.edu.cn/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
+{{% /details %}}
 
-## 其他亚洲地区镜像
+{{% details title="下载哪些文件、怎么校验" %}}
 
-### 香港地区
+在镜像的 `releases/` 下选好架构（如 `amd64/`），然后：
 
-**CICKU 镜像**
-- **下载地址：** <https://hk.mirrors.cicku.me/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
+- **安装 ISO**：`autobuilds/current-install-amd64-minimal/` 里的 `install-amd64-minimal-*.iso` ＋ `.DIGESTS`；图形版取 `current-livegui-amd64/` 里的 `livegui-amd64-*.iso`
+- **Stage3**：`autobuilds/current-stage3-amd64-*/` 里的 `stage3-amd64-*.tar.xz` ＋ `.DIGESTS`
 
-**PlanetUnix Networks**
-- **下载地址：** <https://hippocamp.cn.ext.planetunix.net/pub/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
-
-### 台湾地区
-
-**国家高速网络与计算中心（NCHC）**
-- **下载地址：** <http://ftp.twaren.net/Linux/Gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
-
-**CICKU 台湾镜像**
-- **下载地址：** <https://tw.mirrors.cicku.me/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
-
-### 新加坡地区
-
-**Freedif**
-- **下载地址：** <https://mirror.freedif.org/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
-
-**CICKU 新加坡镜像**
-- **下载地址：** <https://sg.mirrors.cicku.me/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
-
-**PlanetUnix Networks**
-- **下载地址：** <https://enceladus.sg.ext.planetunix.net/pub/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
-
-### 日本地区
-
-**北陆尖端科学技术大学院大学（JAIST）**
-- **下载地址：** <https://ftp.iij.ad.jp/pub/linux/gentoo/releases/>
-- 支持架构：amd64, x86, arm64 等
-
-## 下载文件说明
-
-在镜像站的 `releases/` 目录下，选择您的架构（如 `amd64/`），然后选择：
-
-### 安装 ISO 镜像
-- 目录：`autobuilds/current-install-amd64-minimal/`
-  - `install-amd64-minimal-*.iso` - 最小化安装 ISO
-  - `install-amd64-minimal-*.iso.DIGESTS` - 校验文件
-
-- 目录：`autobuilds/current-livegui-amd64/`
-  - `livegui-amd64-*.iso` - 图形化 Live ISO
-
-### Stage3 压缩包
-- 目录：`autobuilds/current-stage3-amd64-*/`
-  - `stage3-amd64-*.tar.xz` - Stage3 压缩包
-  - `stage3-amd64-*.tar.xz.DIGESTS` - 校验文件
-
-**重要提示：** 下载后请验证文件完整性（使用 DIGESTS 文件）。
-
-## 验证下载文件
-
-下载完成后，建议验证文件的完整性：
+下载后用 DIGESTS 校验：
 
 ```bash
-# 计算 SHA512 校验和
-sha512sum install-amd64-minimal-*.iso
-
-# 与 DIGESTS 文件中的值对比
-cat install-amd64-minimal-*.iso.DIGESTS
+sha512sum install-amd64-minimal-*.iso          # 算 SHA512
+cat install-amd64-minimal-*.iso.DIGESTS        # 跟 DIGESTS 里的值对比
 ```
 
-## 安装指南
+{{% /details %}}
 
-下载安装介质后，请参考：
-- **Gentoo 官方手册：** <https://wiki.gentoo.org/wiki/Handbook:AMD64/zh-cn>
-- **中文社区文档：** 正在建设中
+## 下一步
+
+装好系统后给 Portage 换国内源（git / rsync / distfiles），见 **[镜像列表](/mirrorlist/)**；安装流程参考 **[Gentoo 官方手册（AMD64 · 中文）](https://wiki.gentoo.org/wiki/Handbook:AMD64/zh-cn)**。

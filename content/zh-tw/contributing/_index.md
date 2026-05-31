@@ -1,9 +1,85 @@
 ---
 title: "貢獻指南"
-description: "如何為 Gentoo 中文社群網站做出貢獻"
+description: "如何為 gentoo-zh Overlay 與 Gentoo 中文社群網站做出貢獻"
 ---
 
-歡迎來一起建設 Gentoo 中文社群網站！這篇指南會帶你瞭解網站的專案結構，以及想參與貢獻該從哪裡入手。
+歡迎參與 Gentoo 中文社群！貢獻分兩條線，入口和登上[貢獻者牆](/contributors/)的方式都不一樣，先看你想做哪種：
+
+- **為 gentoo-zh Overlay 貢獻**（軟體套件 / ebuild）——社群主線，也是[貢獻者牆](/contributors/)的來源（指令碼每月抓取 [microcai/gentoo-zh](https://github.com/microcai/gentoo-zh) 提交 5 次以上者）。詳見下方「為 gentoo-zh Overlay 貢獻」。
+- **為社群網站貢獻**（文章 / 翻譯 / 修正）——在 [gentoo-zh.github.io](https://github.com/Gentoo-zh/gentoo-zh.github.io) 倉庫，詳見本頁後半「為社群網站貢獻」。
+
+## 為 gentoo-zh Overlay 貢獻
+
+gentoo-zh 是一個 `masters = gentoo` 的 Gentoo overlay（疊加在官方 Portage 樹之上），收錄 450 多個包，原始碼在 [microcai/gentoo-zh](https://github.com/microcai/gentoo-zh)。新增或更新 ebuild、修 bug、跟進新版本，都透過 GitHub Pull Request 提交；發現問題也歡迎提 [issue](https://github.com/microcai/gentoo-zh/issues)。
+
+{{< callout type="info" >}}
+首頁[貢獻者牆](/contributors/)統計的就是這種貢獻——指令碼每月抓取本倉庫提交 5 次以上者。
+{{< /callout >}}
+
+### 準備
+
+```bash
+# 提交/QA 工具：pkgdev 生成提交資訊與 Manifest，pkgcheck 做檢查
+# （二者已取代舊的 repoman，是現行官方工具）
+emerge --ask dev-util/pkgdev   # 連帶裝上 pkgcheck
+```
+
+到 [GitHub](https://github.com/microcai/gentoo-zh) fork 倉庫、clone 你的 fork、新建分支；本地啟用 overlay 方便測試（見上文「新增 gentoo-zh」或 [Overlay 頁](/overlay/)）。
+
+### 提交一個 ebuild 的標準流程
+
+本倉庫遵循官方 Gentoo ebuild 倉庫規範，寫法權威參考是 [Devmanual](https://devmanual.gentoo.org/)：
+
+1. **放對位置**：`<category>/<package>/<package>-<version>.ebuild`，目錄與命名按官方分類。
+2. **寫 ebuild**：用本倉庫主流的 `EAPI=8` 與標準兩行版權頭（`# Copyright <年> Gentoo Authors` + GPL-2 宣告）；填好 `DESCRIPTION`、`HOMEPAGE`、`SRC_URI`、`LICENSE`、`SLOT`、依賴（`DEPEND`/`RDEPEND`/`BDEPEND`）、`IUSE` 等。
+3. **KEYWORDS 只用測試關鍵字**（`~amd64`、`~arm64` 等）——**本倉庫不收 stable 關鍵字**。
+4. **寫 `metadata.xml`**：每個包都要有，宣告維護者與各 USE 的用途說明（官方規範要求，`pkgcheck` 會查）。
+5. **生成 Manifest**：`pkgdev manifest`。本倉庫用 thin manifest（`thin-manifests = true`），只記 distfiles 校驗，ebuild 完整性交給 git。
+6. **本地測試構建**：`emerge` 或 `ebuild <檔案> install`，並在它 `KEYWORDS` 宣告的**每個架構上都實測**——沒測過就別宣告支援。
+7. **QA 自查**：`pkgcheck scan --commits --net`（PR 模板要求你勾選確認已在本地跑過；CI 也會另跑 `pkgcheck`）。
+8. **提交**：用 `pkgdev commit` 生成規範提交資訊（格式見下）；一個 PR 含單個貢獻的全部提交，ebuild 連它的 `Manifest` 一起提，別拆成兩個 PR。
+9. **開 PR**：CI 會自動 `emerge` 該包並跑 `pkgcheck`，按 PR 模板逐項勾選後才會合併。
+
+{{< callout type="warning" >}}
+**唯一規則：別弄壞別人的系統（DO NOT BREAK PEOPLE'S SYSTEM）。**
+{{< /callout >}}
+
+### 提交資訊規範
+
+推薦用 `pkgdev commit` 自動生成符合規範的提交資訊。
+
+{{% details title="提交資訊格式範例" %}}
+
+普通（非版本更新）改動：
+
+```text
+$category/$package: 一句話簡述
+
+多行說明改動的原因；若是修 bug 且 GitHub 上有對應 issue，把連結附在這裡。
+```
+
+版本更新（bump）：
+
+```text
+$category/$package: add $new_version, drop $old_version
+```
+
+{{% /details %}}
+
+### 跟進上游新版本（nvchecker）
+
+倉庫用 [nvchecker](https://github.com/lilydjwg/nvchecker) 每天自動比對各包的上游版本（配置在 `.github/workflows/overlay.toml`），有新版本就自動開/更新對應的 [GitHub issue](https://github.com/microcai/gentoo-zh/issues)——**不知道從哪下手，挑一個版本更新（bump）issue 來做最省心**。新增包時，記得也在 `overlay.toml` 中加一條 nvchecker 規則（寫明上游版本來源），讓它一併納入版本追蹤。
+
+### 官方規範與參考
+
+- [Gentoo Devmanual](https://devmanual.gentoo.org/)——寫 ebuild 的權威手冊（EAPI、變數、依賴、`metadata.xml` 等）
+- [Ebuild 倉庫格式](https://wiki.gentoo.org/wiki/Repository_format)與 [Overlay 專案](https://wiki.gentoo.org/wiki/Project:Overlays)
+- `pkgdev` / `pkgcheck`（`app-portage`）——現行的提交與 QA 工具
+- 本倉庫 [README](https://github.com/microcai/gentoo-zh#readme)（鐵規矩與提交規範原文）與[依賴關係表](https://github.com/microcai/gentoo-zh/blob/deps-table/relation.md)
+
+---
+
+以下是**為社群網站（文章 / 翻譯 / 文件）貢獻**的指南。
 
 ## 專案概況
 
@@ -76,7 +152,7 @@ hugo server -D
 # 訪問 http://localhost:1313 預覽
 ```
 
-## 如何貢獻
+## 如何為網站貢獻
 
 ### 1. 提交新文章
 

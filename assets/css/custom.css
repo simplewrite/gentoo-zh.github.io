@@ -1,10 +1,14 @@
 /* Gentoo-zh overrides on top of Hextra's compiled bundle. */
 
 :root {
-  --primary-hue: 252deg;
-  --primary-saturation: 27%;
-  --primary-lightness: 38%;
+  /* Gentoo 品牌紫（≈ 官方 #54487A 的色相），饱和度提到让它在 UI 上真的“读作紫色”，
+     而不是之前 27% 那种发灰的靛蓝。 */
+  --primary-hue: 255deg;
+  --primary-saturation: 44%;
+  --primary-lightness: 42%;
   --primary: hsl(var(--primary-hue) var(--primary-saturation) var(--primary-lightness));
+  /* 实心紫按钮的背景。浅色下＝--primary；暗色下单独压深一档，保证白字对比度（见 .dark）。 */
+  --primary-strong: var(--primary);
   --text-soft: #6b7280;
   --text-strong: #111827;
   --text-body: #374151;
@@ -14,8 +18,11 @@
   --card-bg: transparent;
 }
 .dark {
-  --primary-lightness: 64%;
-  --primary-saturation: 32%;
+  /* 暗色下提亮成柔和的薰衣草紫，在深底上仍清晰可辨为“紫”（用于链接/图标/文字） */
+  --primary-lightness: 70%;
+  --primary-saturation: 55%;
+  /* 但实心按钮背景要比上面深一档（中紫），否则薰衣草紫太浅、白字会糊 */
+  --primary-strong: hsl(var(--primary-hue) 50% 58%);
   --text-soft: #9ca3af;
   --text-strong: #f3f4f6;
   --text-body: #d1d5db;
@@ -70,11 +77,13 @@ a.bento-tile:hover { border-color: var(--primary); transform: translateY(-3px); 
 
 .bento-hero { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 1.1rem; padding: 2.25rem; }
 .bento-badge { font-size: 0.75rem; color: var(--text-soft); background: var(--chip-bg); border: 1px solid var(--border-soft); border-radius: 9999px; padding: 0.3rem 0.85rem; text-decoration: none; }
-.bento-title { font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
-.bento-subtitle { font-size: 1rem; color: var(--text-soft); line-height: 1.7; max-width: 34rem; }
+/* 标题改纯色（去掉原来的 bg-clip-text 渐变）：保持最大、最重的视觉锚点，品牌紫留给 CTA/强调，
+   避免标题与按钮都抢紫；也顺带去掉渐变裁切在打印/极老浏览器下的退化风险。 */
+.bento-title { font-size: clamp(2rem, 4vw, 3.25rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; color: var(--text-strong); }
+.bento-subtitle { font-size: clamp(1rem, 1.4vw, 1.125rem); color: var(--text-body); line-height: 1.7; max-width: 34rem; }
 .bento-cta-row { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; }
-.bento-cta { background: var(--primary); color: #fff; font-weight: 500; padding: 0.7rem 1.5rem; border-radius: 9999px; text-decoration: none; transition: opacity 0.15s ease; }
-.bento-cta:hover { opacity: 0.88; }
+.bento-cta { background: var(--primary-strong); color: #fff; font-weight: 500; padding: 0.7rem 1.5rem; border-radius: 9999px; text-decoration: none; transition: opacity 0.15s ease; }
+.bento-cta:hover { opacity: 0.95; transform: translateY(-1px); box-shadow: 0 8px 18px color-mix(in srgb, var(--primary) 22%, transparent); }
 .bento-cta-2 { padding: 0.7rem 1.5rem; border-radius: 9999px; border: 1px solid var(--border-soft); color: var(--text-strong); font-weight: 500; text-decoration: none; transition: border-color 0.15s ease, color 0.15s ease; }
 .bento-cta-2:hover { border-color: var(--primary); color: var(--primary); }
 
@@ -83,15 +92,18 @@ a.bento-tile:hover { border-color: var(--primary); transform: translateY(-3px); 
 .bento-entry-title { font-size: 1.0625rem; font-weight: 600; color: var(--text-strong); }
 .bento-entry-sub { font-size: 0.8125rem; color: var(--text-soft); line-height: 1.5; }
 
-.bento-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.1rem; }
-.bento-head-title { font-size: 1.25rem; font-weight: 700; color: var(--text-strong); }
+/* flex-wrap：窄屏（如贡献者段标题 + 两个操作胶囊）放不下时，操作整体换到下一行，
+   而不是把标题挤成竖排单字。gap 已同时提供换行后的行间距。 */
+.bento-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem 1rem; margin-bottom: 1.3rem; }
+.bento-head-title { min-width: 0; }
+.bento-head-title { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.01em; color: var(--text-strong); }
 .bento-head-more { display: inline-flex; align-items: center; gap: 0.3rem; flex: none; font-size: 0.8125rem; font-weight: 600; color: var(--primary); text-decoration: none; white-space: nowrap; padding: 0.34rem 0.85rem; border-radius: 9999px; background: color-mix(in srgb, var(--primary) 11%, transparent); transition: background-color 0.15s ease, color 0.15s ease; }
-.bento-head-more:hover { background: var(--primary); color: #fff; }
+.bento-head-more:hover { background: var(--primary-strong); color: #fff; }
 .bento-head-more-arrow { transition: transform 0.15s ease; }
 .bento-head-more:hover .bento-head-more-arrow { transform: translateX(3px); }
 .bento-head-actions { display: inline-flex; align-items: center; gap: 0.55rem; flex: none; }
 .bento-head-rss { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 9999px; color: var(--text-soft); background: var(--chip-bg); text-decoration: none; transition: color 0.15s ease, background-color 0.15s ease; }
-.bento-head-rss:hover { color: #fff; background: var(--primary); }
+.bento-head-rss:hover { color: #fff; background: var(--primary-strong); }
 
 .bento-articles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.875rem; }
 .bento-article { display: flex; flex-direction: column; gap: 0.5rem; padding: 1.1rem 1.15rem; border: 1px solid var(--border-soft); border-radius: 0.75rem; text-decoration: none; color: inherit; transition: border-color 0.15s ease, transform 0.15s ease; }
@@ -110,6 +122,29 @@ a.bento-tile:hover { border-color: var(--primary); transform: translateY(-3px); 
 .post-card-title { font-size: 1.15rem; font-weight: 700; color: var(--text-strong); line-height: 1.4; }
 .post-card-desc { font-size: 0.85rem; color: var(--text-soft); line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .post-card-more { font-size: 0.8rem; font-weight: 600; color: var(--primary); margin-top: 0.2rem; }
+
+/* 404 页（沿用站点主题与吉祥物，带点 Gentoo 梗） */
+.error-404 { display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center; min-height: 58vh; padding: 3rem 1.5rem 5rem; }
+.error-404-mascot { width: 88px; height: auto; opacity: 0.95; margin-bottom: 0.75rem; }
+.error-404-code { font-size: clamp(4rem, 13vw, 7rem); font-weight: 800; line-height: 1; letter-spacing: -0.04em; color: var(--primary); margin: 0; }
+.error-404-title { font-size: 1.6rem; font-weight: 700; color: var(--text-strong); margin: 0.4rem 0 0.85rem; }
+.error-404-desc { font-size: 0.95rem; color: var(--text-soft); line-height: 1.85; max-width: 32rem; margin: 0 0 1.9rem; }
+.error-404-desc code { font-size: 0.9em; padding: 0.1rem 0.4rem; border-radius: 0.35rem; background: var(--chip-bg); color: var(--primary); }
+.error-404-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: center; }
+
+/* 内容区表格：清爽行线式（无外框），明暗皆宜 */
+#content table { display: table; width: 100%; border-collapse: collapse; border: none; margin: 1.4rem 0; font-size: 0.9rem; line-height: 1.5; }
+#content table thead, #content table tbody, #content table tr { border: none; }
+#content th, #content td { padding: 0.62rem 0.95rem; text-align: left; border: none; border-bottom: 1px solid var(--border-soft); vertical-align: top; }
+#content thead th { color: var(--text-strong); font-weight: 600; white-space: nowrap; border-bottom: 2px solid var(--border-soft); }
+#content tbody td { color: var(--text-body); }
+#content tbody tr:last-child td { border-bottom: none; }
+#content tbody tr:hover td { background: var(--hover-bg); }
+#content table code { background: var(--chip-bg); color: var(--text-strong); border: none; padding: 0.08rem 0.4rem; border-radius: 0.3rem; }
+#content table a { color: var(--primary); text-decoration: none; }
+#content table a:hover { text-decoration: underline; }
+/* 没标题的空表头（如纯键值表）自动隐藏，避免顶部出现一条怪线 */
+#content thead:not(:has(th:not(:empty))) { display: none; }
 
 .bento-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.875rem; }
 .bento-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.9rem 1.05rem; border: 1px solid var(--border-soft); border-radius: 0.75rem; text-decoration: none; color: inherit; transition: border-color 0.15s ease, transform 0.15s ease; }
@@ -157,3 +192,10 @@ main.hextra-max-content-width { padding-top: 2rem; }
    (custom.css is unlayered, so it wins over Hextra's @layer utilities.) */
 #content p a[aria-label] { color: var(--primary); }
 #content p a[aria-label]:hover { opacity: 0.85; }
+
+/* 点击复制 chip（{{< copy >}} 短代码）：内联代码块，单击/回车复制其值并轻提示 */
+.copy-chip { cursor: pointer; user-select: none; }
+.copy-chip:hover { outline: 1px solid var(--primary); outline-offset: 1px; }
+.copy-chip:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+#copy-toast { position: fixed; left: 50%; bottom: 2rem; z-index: 60; transform: translateX(-50%) translateY(1rem); background: var(--primary-strong); color: #fff; font-size: 0.85rem; font-weight: 600; padding: 0.5rem 1.1rem; border-radius: 9999px; opacity: 0; pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease; }
+#copy-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }

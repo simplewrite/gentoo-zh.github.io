@@ -19,6 +19,12 @@
   pageRef = "/posts"
   weight = 40
 
+# 贡献指南升为顶栏一等公民（让「参与」醒目，不再埋进「更多▾」）
+[[main]]
+  name = "贡献指南"
+  pageRef = "/contributing"
+  weight = 50
+
 [[main]]
   name = "关于"
   pageRef = "/about"
@@ -35,12 +41,6 @@
   pageRef = "/contributors"
   parent = "more"
   weight = 1
-
-[[main]]
-  name = "贡献指南"
-  pageRef = "/contributing"
-  parent = "more"
-  weight = 2
 
 [[main]]
   name = "更新记录"

@@ -1,6 +1,6 @@
 ---
 title: "更新記錄"
-date: 2026-05-29
+date: 2026-05-31
 description: "Gentoo 中文社群網站更新記錄"
 slug: "changelog"
 ---
@@ -11,6 +11,10 @@ slug: "changelog"
 
 ## 2026 年 5 月
 
+- 首頁改版：重新梳理視覺主次（大標題做錨點、主操作更突出），主色統一為 Gentoo 品牌紫，「最新文章」改為優先展示技術內容
+- 貢獻指南重寫「為 gentoo-zh Overlay 貢獻」一節：依官方 Gentoo ebuild 倉庫規範梳理完整提交流程（EAPI、`metadata.xml`、thin Manifest、`~arch` 測試、`pkgdev`/`pkgcheck`、PR 與 CI），並補 nvchecker 版本跟進；區分 Overlay 貢獻（計入貢獻者牆）與網站貢獻，頁面排版改用原生 callout / 摺疊塊，頂欄新增「貢獻指南」入口
+- 下載站接入 mirror.gentoozh.org，替代已下線的 iso.gig-os.org；下載 / 鏡像列表 / Overlay 三頁重寫，Live ISO 登入憑據支援點選複製
+- 鏡像同步源說明：Gentoo 官方自 2025-10-30 起停止為第三方倉庫（含 gentoo-zh）提供快取鏡像，overlay 已改為直連 GitHub 上游同步；之前新增過的使用者需更新同步源，詳見[公告](/posts/2025-10-07-thirdparty-repo-mirror-removal/)
 - **網站主題從 Blowfish 遷移到 Hextra**（v0.12.3，基於 Hugo 0.162.1）：重做首頁 bento 佈局、整理頂欄導航、文章改用原生 `tags` 分類，新增首頁 RSS 訂閱按鈕與社交分享圖；詳見[遷移公告](/posts/2026-05-29-migrate-to-hextra/)
 - 下載頁突出「中文社群定製 KDE 桌面 Live ISO」，方便新手快速上手
 - 載入最佳化：貢獻者頭像按顯示尺寸自動縮放（首頁圖片體積大幅下降），動畫尊重「減少動態效果」偏好

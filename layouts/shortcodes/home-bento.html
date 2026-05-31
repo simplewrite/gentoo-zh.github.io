@@ -16,8 +16,8 @@
 {{- $cta2Link := .Get "cta2Link" -}}
 {{- $entries := slice
   (dict "icon" "book-open"          "title" (cond $isTw "安裝手冊" "安装手册")  "sub" "Gentoo 官方 Handbook" "link" "https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation/zh-cn")
-  (dict "icon" "download"           "title" (cond $isTw "下載" "下载")       "sub" (cond $isTw "介質 · Stage3 · 鏡像" "介质 · Stage3 · 镜像") "link" "download")
-  (dict "icon" "globe-alt"          "title" (cond $isTw "鏡像列表" "镜像列表") "sub" (cond $isTw "Portage 鏡像加速" "Portage 镜像加速") "link" "mirrorlist")
+  (dict "icon" "download"           "title" (cond $isTw "下載" "下载")       "sub" (cond $isTw "Live ISO · Stage3 · 安裝介質" "Live ISO · Stage3 · 安装介质") "link" "download")
+  (dict "icon" "globe-alt"          "title" (cond $isTw "鏡像列表" "镜像列表") "sub" (cond $isTw "Portage 同步加速" "Portage 同步加速") "link" "mirrorlist")
   (dict "icon" "information-circle"  "title" (cond $isTw "關於" "关于")       "sub" (cond $isTw "社群介紹與參與" "社区介绍与参与") "link" "about")
 -}}
 {{- $community := slice
@@ -30,7 +30,7 @@
 
   <section class="bento-tile bento-hero">
     {{- with $badge }}<a class="bento-badge" href="{{ $badgeLink }}"{{ if hasPrefix $badgeLink "http" }} target="_blank" rel="noreferrer"{{ end }}>{{ . }}</a>{{ end }}
-    <h1 class="bento-title hx:bg-clip-text hx:text-transparent hx:bg-gradient-to-r hx:from-gray-900 hx:to-gray-600 hx:dark:from-gray-100 hx:dark:to-gray-400">{{ $title }}</h1>
+    <h1 class="bento-title">{{ $title }}</h1>
     <p class="bento-subtitle">{{ $subtitle }}</p>
     <div class="bento-cta-row">
       {{- with $cta }}{{ $h := cond (hasPrefix $ctaLink "http") $ctaLink (relLangURL (strings.TrimPrefix "/" $ctaLink)) }}<a class="bento-cta" href="{{ $h }}"{{ if hasPrefix $ctaLink "http" }} target="_blank" rel="noreferrer"{{ end }}>{{ . }}</a>{{ end }}
@@ -59,7 +59,13 @@
     </div>
   </section>
 
-  {{- $posts := first 3 (where .Site.RegularPages "Section" "posts").ByDate.Reverse -}}
+  {{- /* 「最新文章」优先露出面向用户的技术内容：把站务/公告类（announcement/website 标签，
+         如网站迁移、镜像变更）排到后面，让教程类先上；再 union 回站务文兜底，
+         保证版块始终凑满 3 张卡、不会因过滤而变空（本站目前技术贴偏少）。
+         站务文在「全部文章」仍可达。教程一多，它们会自然占满前排。 */ -}}
+  {{- $recent := (where .Site.RegularPages "Section" "posts").ByDate.Reverse -}}
+  {{- $meta := where $recent "Params.tags" "intersect" (slice "announcement" "website") -}}
+  {{- $posts := first 3 (union (complement $meta $recent) $meta) -}}
   {{- if $posts }}
   <section class="bento-tile bento-full">
     <div class="bento-head">
@@ -89,7 +95,13 @@
   {{- $rowB := last 20 $shown -}}
   {{- if $shown }}
   <section class="bento-tile bento-full">
-    <div class="bento-head"><h2 class="bento-head-title">{{ cond $isTw "社群貢獻者" "社区贡献者" }}</h2><a class="bento-head-more" href="{{ relLangURL "contributors/" }}">{{ printf "查看全部 %d 位 " (len $contribs) }}<span class="bento-head-more-arrow">→</span></a></div>
+    <div class="bento-head">
+      <h2 class="bento-head-title">{{ cond $isTw "社群貢獻者" "社区贡献者" }}</h2>
+      <span class="bento-head-actions">
+        <a class="bento-head-more" href="{{ relLangURL "contributing/" }}">{{ cond $isTw "我也要參與 " "我也要参与 " }}<span class="bento-head-more-arrow">→</span></a>
+        <a class="bento-head-more" href="{{ relLangURL "contributors/" }}">{{ printf "查看全部 %d 位 " (len $contribs) }}<span class="bento-head-more-arrow">→</span></a>
+      </span>
+    </div>
     <div class="home-marquee">
       <div class="home-marquee-track">
         {{- range $i := seq 2 }}{{- $dup := ge $i 2 -}}{{- range $p := $rowA }}{{ partial "home-avatar.html" (dict "page" $p "dup" $dup) }}{{ end }}{{- end }}

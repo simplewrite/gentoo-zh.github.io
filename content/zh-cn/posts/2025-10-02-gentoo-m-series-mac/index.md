@@ -7,7 +7,7 @@ authors:
     image: /contributors/zakkaus/feature.webp
     link: https://github.com/zakkaus
 summary: "在 Apple Silicon Mac（M1/M2）上安装 Gentoo Linux 的完整流程，基于 Asahi Linux 官方支持。"
-description: "在 M1/M2 MacBook 上装 Gentoo 的完整流程，基于 Asahi Linux：Live USB、分区、内核到桌面都有。M3/M4 驱动还不齐，M5 官方暂时没列支持。"
+description: "在 M1/M2 MacBook 上装 Gentoo 的完整流程，基于 Asahi Linux：Live USB、分区、内核到桌面都有。"
 ---
 
 ![Gentoo on Apple Silicon Mac](gentoo-asahi-mac.webp)

@@ -2,139 +2,126 @@
 title: "镜像列表"
 ---
 
-Gentoo 的包管理体系由 Portage 树和 Distfiles 两部分组成：
+Gentoo 换源分两块：**Portage 树**（软件包的 ebuild 与元数据，推荐用 git 同步，也支持 rsync）和 **Distfiles**（软件包源码，走 HTTP，由 `make.conf` 的 `GENTOO_MIRRORS` 指定）。
 
-- **Portage 树**：包数据库，包含所有软件包的 ebuild 文件和元数据
-  - 传统通过 rsync 同步
-  - 现代推荐使用 Git 同步（速度更快，支持增量更新）
-- **Distfiles**：源代码下载文件，通过 HTTP/HTTPS 提供
+下面是各节点的**实测汇总表**，每个镜像支持什么一目了然；具体配置见下方折叠的教程。
 
-Gentoo 在全球有大量镜像。本页面列出亚洲地区对中国用户有速度优势的主要镜像。
+{{< callout type="info" >}}
+**推荐组合**：用 **git** 同步 Portage 树（增量更新、快又稳）＋ 就近的 **distfiles** 源。不确定填哪个，照表里离你近的地区选即可。
+{{< /callout >}}
 
-**官方完整镜像列表：**
-- Distfiles 镜像：<https://www.gentoo.org/downloads/mirrors/#CN>
-- rsync 镜像：<https://www.gentoo.org/support/rsync-mirrors/#CN>
+## 镜像总览
 
-**配置参考文档：**
-- 仓库配置：<https://wiki.gentoo.org/wiki//etc/portage/repos.conf/zh-cn>
-- Distfiles 镜像配置：<https://wiki.gentoo.org/wiki/GENTOO_MIRRORS/zh-cn>
+所有节点均逐项实测，✓ = 实测可用。`distfiles 地址`即 `GENTOO_MIRRORS` 要填的值；git / rsync 的具体同步地址见下方教程。
 
-## Portage 树同步方式
+| 镜像 | 地区 | distfiles 地址 | git | rsync |
+| --- | --- | --- | :-: | :-: |
+| 清华 TUNA | 华北·北京 | `https://mirrors.tuna.tsinghua.edu.cn/gentoo` | ✓ | ✓ |
+| 北外 BFSU | 华北·北京 | `https://mirrors.bfsu.edu.cn/gentoo` | ✓ | ✓ |
+| 中科大 USTC | 华东·合肥 | `https://mirrors.ustc.edu.cn/gentoo` | ✓ | ✓ |
+| 浙大 ZJU | 华东·杭州 | `https://mirrors.zju.edu.cn/gentoo` | ✓ | |
+| 南大 NJU | 华东·南京 | `https://mirrors.nju.edu.cn/gentoo` | ✓ | |
+| 山大 SDU | 华东·青岛 | `https://mirrors.sdu.edu.cn/gentoo` | ✓ | |
+| 华科 HUST | 华中·武汉 | `https://mirrors.hust.edu.cn/gentoo` | ✓ | |
+| 南科大 SUSTech | 华南·深圳 | `https://mirrors.sustech.edu.cn/gentoo` | | |
+| 哈工大 HIT | 东北·哈尔滨 | `https://mirrors.hit.edu.cn/gentoo` | | |
+| 兰大 LZU | 西北·兰州 | `https://mirror.lzu.edu.cn/gentoo` | | |
+| 阿里云 | 全国·CDN | `https://mirrors.aliyun.com/gentoo` | | |
+| 网易 163 | 全国·CDN | `https://mirrors.163.com/gentoo` | | |
+| CERNET | 全国·就近 | `https://mirrors.cernet.edu.cn/gentoo` | | |
+| CICKU | 香港 | `https://hk.mirrors.cicku.me/gentoo` | | |
+| PlanetUnix | 香港 | `https://hippocamp.cn.ext.planetunix.net/pub/gentoo` | | ✓ |
+| xTom | 香港 | `https://mirror.xtom.com.hk/gentoo` | | |
+| Rackspace | 香港 | `https://mirror.rackspace.com/gentoo` | | |
+| aditsu | 香港 | `http://gentoo.aditsu.net:8000`（HTTP） | | |
+| NCHC | 台湾 | `http://ftp.twaren.net/Linux/Gentoo` | | ✓ |
+| CICKU | 台湾 | `https://tw.mirrors.cicku.me/gentoo` | | |
+| Freedif | 新加坡 | `https://mirror.freedif.org/gentoo` | | |
+| CICKU | 新加坡 | `https://sg.mirrors.cicku.me/gentoo` | | |
+| PlanetUnix | 新加坡 | `https://enceladus.sg.ext.planetunix.net/pub/gentoo` | | |
 
-由于 rsync 是 CPU 与 IO 密集型操作，服务器负担较重且容易遭受 DoS 攻击，因此绝大多数镜像不再提供 rsync 服务。
-**所以更推荐用 Git 同步 Portage 树**，它有这些好处：
-- 增量更新，节省带宽
-- 走 HTTPS，不像 rsync 那样容易被防火墙拦或同步中途断流
-- 支持多种镜像源选择
+## 配置教程
 
-如果你无法找到合适的 rsync 镜像，或防火墙禁止 rsync，可以使用以下替代方案：
+{{% details title="① git 同步 Portage 树（推荐）" %}}
 
-1. **使用 emerge-webrsync**：Portage 会从 Distfiles 下载每日归档的 Portage 压缩包进行同步。
-2. **使用 Git 同步**：在 `/etc/portage/repos.conf/gentoo.conf` 中配置：
-   ```ini
-   [DEFAULT]
-   main-repo = gentoo
+**实测可用的 git 源：**
 
-   [gentoo]
-   location = /var/db/repos/gentoo
-   sync-type = git
-   sync-uri = https://mirrors.bfsu.edu.cn/git/gentoo-portage.git
-   auto-sync = yes
-   ```
+| 镜像 | 同步地址 |
+| --- | --- |
+| 清华 TUNA | `https://mirrors.tuna.tsinghua.edu.cn/git/gentoo-portage.git` |
+| 中科大 USTC | `https://mirrors.ustc.edu.cn/gentoo.git` |
+| 浙大 ZJU | `https://mirrors.zju.edu.cn/git/gentoo-portage.git` |
+| 南大 NJU | `https://mirrors.nju.edu.cn/git/gentoo-portage.git` |
+| 北外 BFSU | `https://mirrors.bfsu.edu.cn/git/gentoo-portage.git` |
+| 山大 SDU | `https://mirrors.sdu.edu.cn/git/gentoo-portage.git` |
+| 华科 HUST | `https://mirrors.hust.edu.cn/git/gentoo-portage.git` |
+| GitHub（国外） | `https://github.com/gentoo-mirror/gentoo.git` |
 
-   **可用的 Git 镜像源：**
-   - 北京外国语大学：`https://mirrors.bfsu.edu.cn/git/gentoo-portage.git`
-   - 清华大学：`https://mirrors.tuna.tsinghua.edu.cn/git/gentoo-portage.git`
-   - GitHub（国外）：`https://github.com/gentoo-mirror/gentoo.git`
+**第一次改用 git 同步**：编辑 `/etc/portage/repos.conf/gentoo.conf`：
 
-   配置后执行 `emerge --sync` 即可通过 Git 同步 Portage 树。
-
-## Distfiles 镜像配置
-
-配置 Distfiles 镜像可以加速软件包源代码的下载。有两种配置方式：
-
-### 方法一：使用 make.conf 配置
-
-在 `/etc/portage/make.conf` 文件中添加 `GENTOO_MIRRORS` 变量：
-
-```bash
-GENTOO_MIRRORS="https://mirrors.bfsu.edu.cn/gentoo/ https://mirrors.tuna.tsinghua.edu.cn/gentoo/ https://mirrors.ustc.edu.cn/gentoo/"
+```ini
+[gentoo]
+location = /var/db/repos/gentoo
+sync-type = git
+sync-uri = https://mirrors.bfsu.edu.cn/git/gentoo-portage.git
+auto-sync = yes
 ```
 
-建议配置多个镜像源，Portage 会按顺序尝试下载，提高成功率。
-
-### 方法二：使用 mirrorselect 工具
+删掉旧的 rsync 目录后再同步：
 
 ```bash
-# 安装 mirrorselect
-emerge --ask app-portage/mirrorselect
-
-# 自动选择最快的镜像（测试连接速度）
-mirrorselect -i -o >> /etc/portage/make.conf
-
-# 或手动从列表中选择
-mirrorselect -i -o >> /etc/portage/make.conf
+rm -rf /var/db/repos/gentoo
+emerge --sync
 ```
 
-# 中国大陆镜像
+**已经在用 git、只想换源**：改上面的 `sync-uri`，再到仓库目录把 git remote 一起指过去：
 
-* 清华大学开源镜像站
-  - Portage: 不提供
-  - Distfiles: https://mirrors.tuna.tsinghua.edu.cn/gentoo
-* 中国科学技术大学（USTC）
-  - Portage: rsync://rsync.mirrors.ustc.edu.cn/gentoo/
-  - Distfiles: https://mirrors.ustc.edu.cn/gentoo/
-* 浙江大学
-  - Portage: rsync://mirrors.zju.edu.cn/gentoo/
-  - Distfiles: https://mirrors.zju.edu.cn/gentoo/
-* 南京大学 eScience Center
-  - Portage: 不提供
-  - Distfiles: https://mirrors.nju.edu.cn/gentoo/
-* 兰州大学开源社区
-  - Portage: 不提供
-  - Distfiles: https://mirror.lzu.edu.cn/gentoo
-* 网易
-  - Portage: 不提供
-  - Distfiles: https://mirrors.163.com/gentoo/
-* 阿里云
-  - Portage: 不提供
-  - Distfiles: https://mirrors.aliyun.com/gentoo/
+```bash
+cd /var/db/repos/gentoo
+git remote set-url origin <新的 sync-uri>
+emerge --sync
+```
 
-# 香港镜像
+{{% /details %}}
 
-* CICKU
-  - Portage: 不提供
-  - Distfiles: https://hk.mirrors.cicku.me/gentoo/
-* PlanetUnix Networks
-  - Portage: rsync://hippocamp.cn.ext.planetunix.net/gentoo/
-  - Distfiles: https://hippocamp.cn.ext.planetunix.net/pub/gentoo/
+{{% details title="② rsync 同步 Portage 树" %}}
 
-# 台湾镜像
+{{< callout type="warning" >}}
+不少镜像只提供 git / distfiles，并不开 rsync。下面这些已实测能列出 `gentoo-portage` 模块，可放心使用。
+{{< /callout >}}
 
-* 国家高速网络与计算中心（NCHC）
-  - Portage: 不提供
-  - Distfiles: http://ftp.twaren.net/Linux/Gentoo/
-* CICKU
-  - Portage: 不提供
-  - Distfiles: https://tw.mirrors.cicku.me/gentoo/
+| 镜像 | 同步地址 |
+| --- | --- |
+| 清华 TUNA | `rsync://mirrors.tuna.tsinghua.edu.cn/gentoo-portage` |
+| 中科大 USTC | `rsync://rsync.mirrors.ustc.edu.cn/gentoo-portage` |
+| 北外 BFSU | `rsync://mirrors.bfsu.edu.cn/gentoo-portage` |
+| 台湾 NCHC | `rsync://ftp.twaren.net/gentoo-portage` |
+| 香港 PlanetUnix | `rsync://hippocamp.cn.ext.planetunix.net/gentoo-portage` |
 
-# 新加坡镜像
+编辑 `/etc/portage/repos.conf/gentoo.conf`，把 `sync-uri` 指向上面任一地址：
 
-* Freedif
-  - Portage: rsync://mirror.freedif.org/gentoo
-  - Distfiles: https://mirror.freedif.org/gentoo
-* CICKU
-  - Portage: 不提供
-  - Distfiles: https://sg.mirrors.cicku.me/gentoo/
-* PlanetUnix Networks
-  - Portage: rsync://enceladus.sg.ext.planetunix.net/gentoo/
-  - Distfiles: https://enceladus.sg.ext.planetunix.net/pub/gentoo/
+```ini
+[gentoo]
+location = /var/db/repos/gentoo
+sync-type = rsync
+sync-uri = rsync://mirrors.bfsu.edu.cn/gentoo-portage
+auto-sync = yes
+```
 
-# 日本镜像
+然后执行 `emerge --sync`。
 
-* IIJ（Internet Initiative Japan）
-  - Portage: 不提供
-  - Distfiles: https://ftp.iij.ad.jp/pub/linux/gentoo/
-* JAIST（北陸先端科学技术大学院大学）
-  - Portage: rsync://rsync.jaist.ac.jp/pub/Linux/Gentoo/
-  - Distfiles: https://ftp.jaist.ac.jp/pub/Linux/Gentoo/
+{{% /details %}}
+
+{{% details title="③ Distfiles 配置（GENTOO_MIRRORS）" %}}
+
+在 `/etc/portage/make.conf` 中填入总览表里的 `distfiles 地址`，可填多个（Portage 按顺序尝试，前面的优先）：
+
+```bash
+GENTOO_MIRRORS="https://mirrors.bfsu.edu.cn/gentoo https://mirrors.tuna.tsinghua.edu.cn/gentoo https://mirrors.ustc.edu.cn/gentoo"
+```
+
+配好 Portage 与 Distfiles 后，执行 `emerge --sync` 更新。
+
+{{% /details %}}
+
+官方完整列表见 [下载镜像](https://www.gentoo.org/downloads/mirrors/) 与 [rsync 镜像](https://www.gentoo.org/support/rsync-mirrors/)。社区 overlay 的换源见 [Overlay 页的「镜像加速」](/overlay/#镜像加速)。
