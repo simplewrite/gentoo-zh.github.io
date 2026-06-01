@@ -13,7 +13,7 @@ links:
     url: "https://stackoverflow.com/users/1879101/vitaly-zdanevich"
   - name: "reddit"
     url: "https://www.reddit.com/user/vitaly-zdanevich/"
-weight: 9953
+weight: 9952
 ---
 
-47 次提交
+48 次提交

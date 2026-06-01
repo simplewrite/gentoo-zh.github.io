@@ -7,7 +7,7 @@ links:
     url: "https://lingchao.xin"
   - name: "mastodon"
     url: "https://mastodon.social/@douglarek"
-weight: 9758
+weight: 9756
 ---
 
-242 次提交
+244 次提交

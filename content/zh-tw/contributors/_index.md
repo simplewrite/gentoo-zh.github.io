@@ -15,4 +15,4 @@ cascade:
 
 **說明**：本頁面展示 [gentoo-zh Overlay](https://github.com/microcai/gentoo-zh) 中提交 5 次以上的貢獻者，以及網站內容貢獻者。如需修改或刪除您的資訊，請聯絡 [admin@zakk.au](mailto:admin@zakk.au)。
 
-最後更新時間 2026年05月29日 04:45 UTC（每月自動更新）
+最後更新時間 2026年06月01日 02:56 UTC（每月自動更新）
