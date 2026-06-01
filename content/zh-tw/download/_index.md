@@ -11,6 +11,8 @@ title: "下載"
 - **下載站**：<https://mirror.gentoozh.org/>（海外伺服器，1Gbps 不限流量；境內訪問可能偏慢）
 - **備用倉庫**：<https://github.com/Gig-OS/Live-ISO>
 - **登入憑據**：使用者 {{< copy "live" >}} / 密碼 {{< copy "live" >}} / Root {{< copy "live" >}}
+- **硬體要求**：64 位 x86 CPU，需支援 AVX2（約 2013 年後的處理器）；更老的 CPU 無法啟動本鏡像。
+- **更新頻率**：每週自動重新編譯並上傳，始終是較新的系統快照；下載站只保留最近幾個版本，請以站上實際檔名（`gig-os-日期.iso`）為準。
 
 {{< callout type="info" >}}
 **Apple Silicon Mac（M1 / M2）** 不適用下面的標準鏡像，請看 [在 Apple Silicon Mac 上安裝 Gentoo Linux](/posts/2025-10-02-gentoo-m-series-mac/)。
