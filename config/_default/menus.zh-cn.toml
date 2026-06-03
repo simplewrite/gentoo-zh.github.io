@@ -37,10 +37,16 @@
   weight = 65
 
 [[main]]
+  name = "常见问题"
+  pageRef = "/faq"
+  parent = "more"
+  weight = 1
+
+[[main]]
   name = "贡献者"
   pageRef = "/contributors"
   parent = "more"
-  weight = 1
+  weight = 2
 
 [[main]]
   name = "更新记录"

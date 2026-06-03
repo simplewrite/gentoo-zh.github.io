@@ -1,5 +1,6 @@
 ---
 title: "苏业钦"
+description: 苏业钦 — Gentoo 中文社群 gentoo-zh 貢獻者
 tags: ['Overlay 貢獻者']
 externalUrl: "https://github.com/HougeLangley"
 links:

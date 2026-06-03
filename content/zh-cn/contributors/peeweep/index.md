@@ -1,5 +1,6 @@
 ---
 title: "jinqiang zhang"
+description: jinqiang zhang — Gentoo 中文社区 gentoo-zh 贡献者
 tags: ['现任主要维护者']
 externalUrl: "https://github.com/peeweep"
 links:

@@ -343,14 +343,20 @@ def update_commits_only(login, commits, dry_run=False):
     return updated
 
 
-def generate_frontmatter(login, name, links, weight, tag, commits):
+def generate_frontmatter(login, name, links, weight, tag, commits, lang='zh-cn'):
     """產生貢獻者頁的 frontmatter + 內容。
 
     用 yaml.safe_dump 序列化，確保不受信任的 GitHub 顯示名稱 / 連結
     （可能含 " : 換行 --- {{ }} 等）被正確轉義 —— 無法注入額外 frontmatter
-    參數、提前關閉 frontmatter 圍欄、或破壞站點建構。"""
+    參數、提前關閉 frontmatter 圍欄、或破壞站點建構。
+
+    description 給每頁一句穩定的 meta 描述（避免 Hextra 退而用正文「N 次提交」
+    當描述）；不含提交數，免得每月隨數字變動而抖。"""
+    site = 'Gentoo 中文社群' if lang == 'zh-tw' else 'Gentoo 中文社区'
+    role = '貢獻者' if lang == 'zh-tw' else '贡献者'
     fm = {
         'title': name,
+        'description': f'{name} — {site} gentoo-zh {role}',
         'tags': [tag],
         'externalUrl': f'https://github.com/{login}',
         'weight': weight,
@@ -429,7 +435,7 @@ def create_contributor_page(login, user_data, commits, dry_run=False):
                 except yaml.YAMLError:
                     pass
         atomic_write_text(file_path, generate_frontmatter(
-            login, name, links, weight, tag, commits))
+            login, name, links, weight, tag, commits, lang))
 
 
 def prune_dropped_contributors(kept_logins, dry_run=False):

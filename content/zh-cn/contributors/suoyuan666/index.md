@@ -1,5 +1,6 @@
 ---
 title: "Yuan Suo"
+description: Yuan Suo — Gentoo 中文社区 gentoo-zh 贡献者
 tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/suoyuan666"
 links:

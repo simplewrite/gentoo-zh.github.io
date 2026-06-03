@@ -79,18 +79,27 @@ GENTOO_MIRRORS="${GENTOO_MIRRORS} https://distfiles.gentoocn.org"
 ```
 
 {{< callout type="info" >}}
-- gentoo-zh 裡部分包需要啟用 `~amd64` 關鍵字，注重穩定性的話自行取捨。
-- 不想 mirror 某些 distfiles（版權等原因）時，在對應 ebuild 里加 `RESTRICT="mirror"`。
+不想 mirror 某些 distfiles（版權等原因）時，在對應 ebuild 里加 `RESTRICT="mirror"`。
 {{< /callout >}}
 
 ## 用 overlay 裡的包
 
-配置好後，gentoo-zh 裡的包就和官方源一樣，直接 emerge：
+gentoo-zh 的包**都是 `~arch`（測試）關鍵字、不收 stable**。已經在跑 `~amd64`（測試分支）的系統直接 `emerge` 即可；**穩定分支**的系統安裝前要先為這些包接受測試關鍵字。
+
+按需放行你要裝的包（推薦，只接受用到的）：
 
 ```bash
-emerge --ask <package-name>     # 安裝
-eix -RO gentoo-zh               # 看 overlay 提供了哪些包
+echo "app-foo/bar ~amd64" >> /etc/portage/package.accept_keywords/gentoo-zh
+emerge --ask app-foo/bar
 ```
+
+或放行整個 overlay（省事，但會一併引入更多測試包，自行取捨）：
+
+```bash
+echo "*/*::gentoo-zh ~amd64" >> /etc/portage/package.accept_keywords/gentoo-zh
+```
+
+看 overlay 提供了哪些包：`eix -RO gentoo-zh`。
 
 ## 參與貢獻
 

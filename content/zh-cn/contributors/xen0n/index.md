@@ -1,5 +1,6 @@
 ---
 title: "WÁNG Xuěruì"
+description: WÁNG Xuěruì — Gentoo 中文社区 gentoo-zh 贡献者
 tags: ['Overlay 贡献者']
 externalUrl: "https://github.com/xen0n"
 links:

@@ -1,5 +1,6 @@
 ---
 title: "Zakk"
+description: Zakk — Gentoo 中文社群 gentoo-zh 貢獻者
 tags: ['網站維護者']
 externalUrl: "https://github.com/Zakkaus"
 links:

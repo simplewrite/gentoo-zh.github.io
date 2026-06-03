@@ -1,5 +1,6 @@
 ---
 title: "qingfeng"
+description: qingfeng — Gentoo 中文社区 gentoo-zh 贡献者
 tags: ['社群创始人']
 externalUrl: "https://github.com/zhcj"
 links:
