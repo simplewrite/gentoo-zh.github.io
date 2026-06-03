@@ -4,6 +4,10 @@ title: "下载"
 
 装 Gentoo 先把安装介质准备好。新手最省事的是中文社区的 Live ISO；想用官方介质的，从下面的镜像里就近选一个。
 
+{{< callout type="info" >}}
+**Apple Silicon Mac（M1 / M2）** 不适用本页列出的标准 amd64 镜像，请看 [在 Apple Silicon Mac 上安装 Gentoo Linux](/posts/2025-10-02-gentoo-m-series-mac/)。
+{{< /callout >}}
+
 ## 中文社区 Live ISO
 
 中文社区定制的 **KDE Plasma 6 桌面 Live ISO**——开箱即中文、三语言可选（简 / 繁 / 英）、中文输入法（fcitx5 + rime）、桌面双击即可装机，适合新手入门。
@@ -17,6 +21,7 @@ title: "下载"
 {{% details title="这个 Live ISO 有什么（点开看更多）" %}}
 
 - **三语言开机** — GRUB 菜单选 简体 / 正體 / English，桌面、Firefox、输入法都跟着切。
+- **多种启动方式** — 除常规启动外，还有「拷贝到内存」（整盘载入内存后运行，U 盘可拔、跑得更快）与「安全显卡模式」兜底，均含三语言。
 - **中文输入法 fcitx5 + rime** — 默认朙月拼音；**右键托盘输入法图标 →「方案」** 可切换 注音 / 五笔86 / 仓颉 / 粤拼 等。
 - **开源 / 闭源显卡** — 默认 nouveau 即插即用；新卡（RTX 20/30/40/50）想要硬件加速选「闭源 NVIDIA」启动项，**需先在 BIOS 关闭 Secure Boot**（驱动未签名，否则加载不了）。点不亮的疑难卡用「安全显卡模式」兜底。
 - **一键装机** — 桌面双击「安装系统」图标，Calamares 图形安装器跟随所选语言；装好后自动清理 live 残留（开机自动登录等）。
@@ -25,10 +30,6 @@ title: "下载"
 完整功能与配置说明见 **[镜像站「使用说明」页](https://mirror.gentoozh.org/about.html)**。
 
 {{% /details %}}
-
-{{< callout type="info" >}}
-**Apple Silicon Mac（M1 / M2）** 不适用下面的标准镜像，请看 [在 Apple Silicon Mac 上安装 Gentoo Linux](/posts/2025-10-02-gentoo-m-series-mac/)。
-{{< /callout >}}
 
 ## 镜像源
 
