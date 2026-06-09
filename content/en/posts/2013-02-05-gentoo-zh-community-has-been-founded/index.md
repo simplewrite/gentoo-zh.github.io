@@ -1,0 +1,30 @@
+---
+title: "The Gentoo Chinese Community Is Founded"
+description: "The founding announcement of the Gentoo Chinese Community, take three: a look back at the 2004 and 2007 efforts, the relaunch led by 清风, and the push to bring mainland China's Gentoo resources and people together in one place."
+date: 2013-02-05
+tags: ["announcement", "community"]
+authors:
+  - name: 清风
+    image: /contributors/zhcj/feature.webp
+    link: https://github.com/zhcj
+---
+
+## Where the Gentoo Chinese Community Came From
+
+The Gentoo Chinese project is a technical community where enthusiasts in mainland China get together to talk about Gentoo Linux. This time around is the third try at building one.
+
+The first try, around 2004, was started and run by Gentoo fans over at LinuxSir. It did a lot to spread Gentoo in mainland China, but the project eventually shut down for one reason or another (see [1]).
+
+The second one started in 2007: a Gentoo Chinese docs translation project kicked off by Zhang Le. Its biggest win was translating the whole Gentoo Handbook into Chinese and getting it submitted upstream, which is the [official Gentoo Handbook in Chinese](https://wiki.gentoo.org/wiki/Handbook:Main_Page/zh-cn) you see today. That translation project is still running (see [2]).
+
+This new Gentoo Chinese project makes three. [清风](http://weibo.com/zhcj) handled most of the setup work, and we landed on "Gentoo Chinese Community" for the name. Plenty of Gentooers pitched in along the way.
+
+## What the Gentoo Chinese Community Aims For
+
+Pull together the scattered Gentoo resources around mainland China, get Gentoo users into one place to talk shop, help newcomers fix their problems, and give the veterans somewhere to trade tricks. Push up Gentoo's adoption in mainland China, and over the longer haul, raise the level of Linux skill in the region and give back to upstream Gentoo.
+
+## How the Gentoo Chinese Community Is Run
+
+* Main server setup and admin: [清风](http://weibo.com/zhcj), [比尔盖子](http://weibo.com/biergaizi)
+* Docs translation: we're sticking with Zhang Le's translation platform, and a big thanks to him for all he's done for Gentoo in Chinese!
+* Forum admin: 清风 (for now), now hiring...

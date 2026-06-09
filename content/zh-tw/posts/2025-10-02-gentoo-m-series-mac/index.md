@@ -211,7 +211,7 @@ wget "${BASE}/${STAGE3}"
 wget "${BASE}/${STAGE3}.asc"
 
 # 3. 取得 Gentoo Release Engineering 簽名公鑰（首次需要）
-gpg --keyserver hkps://keys.gentoo.org --recv-keys D99EAC7379A850BCE47DA5F29E6438C817072058
+gpg --keyserver hkps://keys.gentoo.org --recv-keys 13EBBDBEDE7A12775DFDB1BABB572E0E2D182910 D99EAC7379A850BCE47DA5F29E6438C817072058
 
 # 4. 驗證簽名（必須看到 "Good signature from ..."）
 gpg --verify "$(basename ${STAGE3}).asc" "$(basename ${STAGE3})"

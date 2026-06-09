@@ -9,6 +9,10 @@ slug: "changelog"
 
 ---
 
+## 2026 年 6 月
+
+- 公共页面新增英文（English）国际化：关于、下载、镜像列表、贡献指南等公共页面现在可在简体 / 繁体 / 英文之间切换，主要是方便用 gentoo-zh overlay 的海外用户。需要说明：**技术文章不一定都有英文**，目前只做了公共页面；英文部分借翻译软件协助生成、由至今能找到的最好最贵的模型 Claude Fable 5（ultracode）负责 review 和优化，难免有错漏，欢迎在 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 指正
+
 ## 2026 年 5 月
 
 - 项目结构调整：把表现层（主题）抽成独立的 Hextra 补丁包 [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme)，本仓库只留内容与配置，更清爽、也便于跟随上游 Hextra 更新

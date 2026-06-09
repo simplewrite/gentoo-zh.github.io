@@ -35,7 +35,7 @@ Hextra 基于 Tailwind CSS，为文档与博客而生：
 
 ## 对终端浏览器友好（TUI）
 
-应 [@gentoo_zh_offtopic](https://t.me/gentoo_zh_offtopic) 群里 lzamora70（聚菊）的提议，本站特意针对终端 / 文本浏览器做了一轮优化——毕竟是 Gentoo：
+应 [@gentoo_zh_offtopic](https://t.me/gentoo_zh_offtopic) 群里 lzamora70（因为lzamora70菊苣过于抽象，多次销号，所以名字不一定更新的上）的提议，本站特意针对终端 / 文本浏览器做了一轮优化——毕竟是 Gentoo：
 
 - 语义化的 HTML 结构与标题层级，在 [lynx](https://lynx.invisible-island.net/) / [w3m](https://w3m.sourceforge.net/) / links 等纯文本浏览器中排版清晰、链接可达；
 - 每页顶部都有「跳到正文」链接，可一键跳过导航直接阅读；
@@ -44,6 +44,10 @@ Hextra 基于 Tailwind CSS，为文档与博客而生：
 - 配合 Hextra 的「以 Markdown 查看 / 复制为 Markdown」页面菜单，方便用脚本或 LLM 直接取用页面原文。
 
 欢迎用 `lynx https://www.gentoo.org.cn/` 试试。
+
+## 补充：公共页面加了英文
+
+迁移之后，又给公共页面（关于、下载、镜像列表、贡献指南这些）补了英文国际化，方便用 gentoo-zh overlay 的海外用户——现在简 / 繁 / 英都能切。要说明的是：**技术文章不一定都有英文**，目前只做了公共页面；英文是借翻译软件协助生成、由至今能找到的最好最贵的模型 Claude Fable 5（ultracode）负责 review 和优化的，难免有错漏，欢迎在 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 指正。
 
 ## 反馈
 

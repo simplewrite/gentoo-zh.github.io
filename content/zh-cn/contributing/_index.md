@@ -24,7 +24,7 @@ gentoo-zh 是一个 `masters = gentoo` 的 Gentoo overlay（叠加在官方 Port
 emerge --ask dev-util/pkgdev   # 连带装上 pkgcheck
 ```
 
-到 [GitHub](https://github.com/microcai/gentoo-zh) fork 仓库、clone 你的 fork、新建分支；本地启用 overlay 方便测试（见上文「添加 gentoo-zh」或 [Overlay 页](/overlay/)）。
+到 [GitHub](https://github.com/microcai/gentoo-zh) fork 仓库、clone 你的 fork、新建分支；本地启用 overlay 方便测试（见 [Overlay 页](/overlay/)）。
 
 ### 提交一个 ebuild 的标准流程
 
@@ -74,7 +74,7 @@ $category/$package: add $new_version, drop $old_version
 
 - [Gentoo Devmanual](https://devmanual.gentoo.org/)——写 ebuild 的权威手册（EAPI、变量、依赖、`metadata.xml` 等）
 - [Ebuild 仓库格式](https://wiki.gentoo.org/wiki/Repository_format)与 [Overlay 项目](https://wiki.gentoo.org/wiki/Project:Overlays)
-- `pkgdev` / `pkgcheck`（`app-portage`）——现行的提交与 QA 工具
+- `pkgdev` / `pkgcheck`（`dev-util`）——现行的提交与 QA 工具
 - 本仓库 [README](https://github.com/microcai/gentoo-zh#readme)（铁规矩与提交规范原文）与[依赖关系表](https://github.com/microcai/gentoo-zh/blob/deps-table/relation.md)
 
 ---

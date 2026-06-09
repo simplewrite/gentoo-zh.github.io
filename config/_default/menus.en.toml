@@ -1,0 +1,79 @@
+# Top bar: primary items inline, secondary items collapsed under "More ▾".
+[[main]]
+  name = "Overlay"
+  pageRef = "/overlay"
+  weight = 10
+
+[[main]]
+  name = "Download"
+  pageRef = "/download"
+  weight = 20
+
+[[main]]
+  name = "Mirrors"
+  pageRef = "/mirrorlist"
+  weight = 30
+
+[[main]]
+  name = "Posts"
+  pageRef = "/posts"
+  weight = 40
+
+[[main]]
+  name = "Contributing"
+  pageRef = "/contributing"
+  weight = 50
+
+[[main]]
+  name = "About"
+  pageRef = "/about"
+  weight = 60
+
+# More ▾ (expand/collapse)
+[[main]]
+  name = "More"
+  identifier = "more"
+  weight = 65
+
+[[main]]
+  name = "FAQ"
+  pageRef = "/faq"
+  parent = "more"
+  weight = 1
+
+[[main]]
+  name = "Contributors"
+  pageRef = "/contributors"
+  parent = "more"
+  weight = 2
+
+[[main]]
+  name = "Changelog"
+  pageRef = "/changelog"
+  parent = "more"
+  weight = 3
+
+[[main]]
+  name = "Search"
+  weight = 70
+  [main.params]
+    type = "search"
+
+[[main]]
+  name = "GitHub"
+  weight = 80
+  url = "https://github.com/Gentoo-zh/gentoo-zh.github.io"
+  [main.params]
+    icon = "github"
+
+[[main]]
+  identifier = "lang-switch"
+  weight = 90
+  [main.params]
+    type = "language-switch"
+
+[[main]]
+  identifier = "theme-toggle"
+  weight = 100
+  [main.params]
+    type = "theme-toggle"

@@ -1,0 +1,75 @@
+---
+title: "About"
+---
+
+## Welcome to the Gentoo Chinese Community
+
+* A community that started with nothing
+* A community full of hope
+* A community that's waiting for you to join
+* We need you
+* No guru-level skills required
+* Just the enthusiasm to share and take part
+
+Come join us — the Gentoo Chinese Community
+
+* QQ study & chat group: 43047398
+* IRC on Libera Chat: [#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)
+* Telegram channel: [@gentoocn](https://t.me/gentoocn)
+* Telegram group: [@gentoo_zh](https://t.me/gentoo_zh)
+
+> **Group rules:**  
+> Chinese culture knows no borders, and no creed. We respect every member's religion, gender, and political leanings, but please keep the discussion focused on the tech itself.
+
+### Gentoo-zh OT group (off-topic chat)
+
+* Telegram: [@gentoo_zh_offtopic](https://t.me/gentoo_zh_offtopic)
+* IRC on Libera Chat: [#gentoo-zh-offtopic](ircs://irc.libera.chat:6697/#gentoo-zh-offtopic)
+* Matrix: [#gentoo_zh_offtopic:shabi.id](https://matrix.to/#/#gentoo_zh_offtopic:shabi.id)
+* OPs: [@gentoo_zh_ops](https://t.me/gentoo_zh_ops)
+
+More ways to connect are on the way!
+
+## What this site is for
+
+Pulling together all the related resources, bringing Gentoo users into one place to talk, giving newcomers a path to solving their problems and veterans a place to swap notes — all to lower the barrier to getting into Gentoo.
+
+## About the site's languages
+
+This site comes in Simplified Chinese and Traditional Chinese.
+
+We use the name "Traditional Chinese" because it emphasizes the heritage and history of the script, not region or politics:
+
+- **Zh = Zhonghua (中华)** — the shared cultural root of every Chinese speaker
+- **Pinyin uses Latin letters** — writing systems have always borrowed from one another; what matters is the heritage they carry
+- **Simplified and Traditional are both Chinese** — just a different written form of the same language and culture
+
+All Chinese users are welcome to contribute, whichever script you're used to.
+
+### English
+
+The public pages are also available in English, mainly for the gentoo-zh overlay's overseas users — the overlay has had plenty of users outside the Chinese-speaking world for a while now.
+
+One thing to be upfront about: **not everything is in English.** For now only the public pages — about, download, mirror list, contributing and the like — are internationalized; most of the technical articles are still Chinese-only. The English here was drafted with translation software and then reviewed and polished by Claude Fable 5 (ultracode) — the best and most expensive model we could find to date — so it may still read a little stiff in places or have the odd slip. Spot something off? Please open an issue or PR on [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) — corrections are very welcome.
+
+## How can I help build the community?
+
+1. Translation work
+2. Installation guides and sharing your own experience
+3. Lending a hand proactively
+4. Tracking down and correcting wrong info floating around online
+5. Anything else
+
+## What do I get out of it?
+
+1. The thanks of others
+2. Leveling up your own skills
+3. No material rewards, no money, no girls
+   - Well, swap dimensions and there might be — [Install Gentoo](http://knowyourmeme.com/memes/install-gentoo) is a 4chan in-joke.
+   ![Install Gentoo](/img/install-gentoo.gif)
+
+---
+
+## Copyright notice
+
+Logo from: [https://wiki.gentoo.org/wiki/Project:Artwork/Artwork#Genchu](https://wiki.gentoo.org/wiki/Project:Artwork/Artwork#Genchu)

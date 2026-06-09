@@ -46,6 +46,12 @@ title: "關於"
 
 歡迎所有中文使用者貢獻內容，無論你習慣哪種書寫方式。
 
+### 英文
+
+公共頁面也提供英文，主要是方便用 gentoo-zh overlay 的海外使用者——overlay 早就有不少中文圈外的人在跑。
+
+不過得說清楚：**文章不一定都有英文**。目前只在公共頁面（關於、下載、鏡像列表、貢獻指南這些）做了國際化，具體的技術文章大多還是中文。英文部分是借翻譯軟體協助生成、再由至今能找到的最好最貴的模型 Claude Fable 5（ultracode）負責 review 和最佳化的，難免有生硬或錯漏的地方——發現問題歡迎在 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 上指正或提 PR。
+
 ## 參與社群建設，我能做些什麼？
 
 1. 翻譯工作
@@ -60,7 +66,7 @@ title: "關於"
 2. 自己水平的提高
 3. 沒有物質或金錢上的獎勵，沒有妹子
    - 當然，換一個次元就有了，[Install Gentoo](http://knowyourmeme.com/memes/install-gentoo) 是個 4chan 的典故。
-   ![Install Gentoo](https://oss.aliyuncs.com/file-share/onii-chan-install-gentoo.gif)
+   ![Install Gentoo](/img/install-gentoo.gif)
 
 ---
 

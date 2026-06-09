@@ -30,13 +30,15 @@ from pathlib import Path
 CONTENT_DIRS = {
     'zh-cn': Path("content/zh-cn/contributors"),
     'zh-tw': Path("content/zh-tw/contributors"),
+    'en': Path("content/en/contributors"),
 }
 
 # 手動指定的特殊分組標籤（創始人 / 維護者等）。重新生成頁面時必須保留，
-# 不可被預設的 "Overlay 贡献者" 覆蓋。
+# 不可被預設的 "Overlay 贡献者" 覆蓋。en 版用對應英文標籤,同樣需保留。
 SPECIAL_TAGS = {
     '社区创始人', '社群创始人', '现任主要维护者', '网站维护者', '网站内容贡献者',
     '社區創始人', '社群創始人', '現任主要維護者', '網站維護者', '網站內容貢獻者',
+    'Community founder', 'Current maintainer', 'Site maintainer', 'Site content contributor',
 }
 
 CONFIG_FILE = Path(__file__).parent / "contributors-config.yaml"
@@ -204,24 +206,27 @@ def update_index_timestamp(dry_run=False):
     now_utc = datetime.now(timezone.utc)
     timestamp = now_utc.strftime("%Y年%m月%d日 %H:%M UTC")
 
+    timestamp_en = now_utc.strftime("%Y-%m-%d %H:%M UTC")
+
     updated = False
-    for lang in ('zh-cn', 'zh-tw'):
+    for lang in ('zh-cn', 'zh-tw', 'en'):
         file_path = CONTENT_DIRS[lang] / "_index.md"
         if not file_path.exists():
             print(f"  警告: {file_path} 不存在")
             continue
 
         content = file_path.read_text(encoding='utf-8')
-        if lang == 'zh-tw':
+        if lang == 'en':
+            label = f'Last updated {timestamp_en} (updated automatically every month)'
+            pattern = r'Last updated .*'
+        elif lang == 'zh-tw':
             label = f'最後更新時間 {timestamp}（每月自動更新）'
+            pattern = r'最[後后]更新[時时][間间].*'
         else:
             label = f'最后更新时间 {timestamp}（每月自动更新）'
+            pattern = r'最[後后]更新[時时][間间].*'
 
-        new_content, count = re.subn(
-            r'最[後后]更新[時时][間间].*',
-            label,
-            content,
-        )
+        new_content, count = re.subn(pattern, label, content)
         if count == 0:
             # 沒有時間戳行，附加到檔尾
             new_content = content.rstrip() + '\n\n' + label + '\n'
@@ -316,7 +321,7 @@ def update_commits_only(login, commits, dry_run=False):
     weight = 10000 - commits
 
     updated = False
-    for lang in ('zh-cn', 'zh-tw'):
+    for lang in ('zh-cn', 'zh-tw', 'en'):
         file_path = CONTENT_DIRS[lang] / login / "index.md"
         if not file_path.exists():
             continue
@@ -329,11 +334,10 @@ def update_commits_only(login, commits, dry_run=False):
             content,
             flags=re.MULTILINE,
         )
-        new_content = re.sub(
-            r'\d+ 次提交',
-            f'{commits} 次提交',
-            new_content,
-        )
+        if lang == 'en':
+            new_content = re.sub(r'\d+ commits', f'{commits} commits', new_content)
+        else:
+            new_content = re.sub(r'\d+ 次提交', f'{commits} 次提交', new_content)
 
         if new_content != content:
             if not dry_run:
@@ -352,8 +356,12 @@ def generate_frontmatter(login, name, links, weight, tag, commits, lang='zh-cn')
 
     description 給每頁一句穩定的 meta 描述（避免 Hextra 退而用正文「N 次提交」
     當描述）；不含提交數，免得每月隨數字變動而抖。"""
-    site = 'Gentoo 中文社群' if lang == 'zh-tw' else 'Gentoo 中文社区'
-    role = '貢獻者' if lang == 'zh-tw' else '贡献者'
+    if lang == 'en':
+        site, role = 'Gentoo Chinese Community', 'contributor'
+    elif lang == 'zh-tw':
+        site, role = 'Gentoo 中文社群', '貢獻者'
+    else:
+        site, role = 'Gentoo 中文社区', '贡献者'
     fm = {
         'title': name,
         'description': f'{name} — {site} gentoo-zh {role}',
@@ -365,7 +373,8 @@ def generate_frontmatter(login, name, links, weight, tag, commits, lang='zh-cn')
         fm['links'] = [{'name': l['name'], 'url': l['url']} for l in links]
     front = yaml.safe_dump(
         fm, allow_unicode=True, default_flow_style=False, sort_keys=False)
-    return f'---\n{front}---\n\n{commits} 次提交\n'
+    body = f'{commits} commits' if lang == 'en' else f'{commits} 次提交'
+    return f'---\n{front}---\n\n{body}\n'
 
 
 def create_contributor_page(login, user_data, commits, dry_run=False):
@@ -408,6 +417,7 @@ def create_contributor_page(login, user_data, commits, dry_run=False):
     weight = 10000 - commits
     tag_cn = "Overlay 贡献者"
     tag_tw = "Overlay 貢獻者"
+    tag_en = "Overlay contributor"
 
     if dry_run:
         print(f"  [DRY-RUN] 會建立/更新: {login} ({name})")
@@ -416,7 +426,7 @@ def create_contributor_page(login, user_data, commits, dry_run=False):
             print(f"    連結: {', '.join(l['name'] for l in links)}")
         return
 
-    for lang, default_tag in (('zh-cn', tag_cn), ('zh-tw', tag_tw)):
+    for lang, default_tag in (('zh-cn', tag_cn), ('zh-tw', tag_tw), ('en', tag_en)):
         contrib_dir = CONTENT_DIRS[lang] / login
         contrib_dir.mkdir(parents=True, exist_ok=True)
         file_path = contrib_dir / "index.md"

@@ -105,8 +105,8 @@ convert_one() {
     -e 's/插件/外掛/g' \
     -e 's/脚本/指令碼/g' \
     -e 's/链接/連結/g' \
-    -e 's/U盘/隨身碟/g' \
-    -e 's/优盘/隨身碟/g' \
+    -e 's/U *[盘盤]/隨身碟/g' \
+    -e 's/[优優][盘盤]/隨身碟/g' \
     -e 's/优化/最佳化/g' \
     -e 's/视频/影片/g' \
     -e 's/音频/音訊/g' \
@@ -270,12 +270,15 @@ convert_one() {
     "$TARGET_FILE"
 
   # Step 4b: Terminology localization for Taiwan readers.
-  # 简体的「国内」对台湾读者指的是台湾；繁体版改用「中国内陆」把所指说清楚。
-  # 先用占位符保护「國內外」（国内外）以免被误伤成「中國內陸外」。
+  # 简体的「国内 / 境内」对台湾读者指的是台湾；繁体版改用「中国内陆」把所指说清楚。
+  # 先用占位符保护「國內外 / 境內外」以免被误伤成「中國內陸外」。
   sed "${SEDI[@]}" \
     -e 's/國內外/GUONEIWAI_KEEP/g' \
     -e 's/國內/中國內陸/g' \
     -e 's/GUONEIWAI_KEEP/國內外/g' \
+    -e 's/境內外/JINGNEIWAI_KEEP/g' \
+    -e 's/境內/中國內陸/g' \
+    -e 's/JINGNEIWAI_KEEP/境內外/g' \
     "$TARGET_FILE"
 
   # Step 5: Strip /zh-tw suffix from Gentoo wiki links (no Taiwan locale exists)

@@ -15,3 +15,14 @@
   title = "Gentoo 中文社群"
   [zh-tw.params]
     description = "Gentoo 中文社群——中文 Gentoo 使用者的聚集地。維護 gentoo-zh overlay（中文輸入法、字型、本土軟體），做開箱即用的社群 Live ISO，搭中國內陸下載鏡像；裝機用機遇到坑，來這兒一起折騰。"
+
+[en]
+  label = "English"
+  locale = "en"
+  contentDir = "content/en"
+  weight = 3
+  title = "Gentoo Chinese Community"
+  [en.params]
+    description = "Gentoo Chinese Community — the home for Chinese-speaking Gentoo users. We maintain the gentoo-zh overlay (Chinese input methods, CJK fonts, and China-focused software), build a ready-to-use community Live ISO, and run download mirrors. The overlay has plenty of users outside China too, so the site is also available in English."
+    [en.params.search]
+      placeholder = "Search docs..."

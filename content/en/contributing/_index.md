@@ -1,0 +1,293 @@
+---
+title: "Contributing Guide"
+description: "How to contribute to the gentoo-zh overlay and the Gentoo Chinese Community website"
+---
+
+Welcome to the Gentoo Chinese Community! There are two tracks for contributing, each with its own entry point and its own way onto the [contributor wall](/contributors/). Pick whichever fits what you want to do:
+
+- **Contribute to the gentoo-zh overlay** (packages / ebuilds) — the main community track, and the source of the [contributor wall](/contributors/) (a script pulls everyone with 5+ commits to [microcai/gentoo-zh](https://github.com/microcai/gentoo-zh) every month). See "Contributing to the gentoo-zh overlay" below.
+- **Contribute to the community website** (articles / translations / fixes) — lives in the [gentoo-zh.github.io](https://github.com/Gentoo-zh/gentoo-zh.github.io) repo. See "Contributing to the community website" in the second half of this page.
+
+## Contributing to the gentoo-zh overlay
+
+gentoo-zh is a `masters = gentoo` Gentoo overlay (stacked on top of the official Portage tree) carrying 450+ packages, with its source at [microcai/gentoo-zh](https://github.com/microcai/gentoo-zh). Adding or updating ebuilds, fixing bugs, keeping up with new upstream releases — it all goes through GitHub Pull Requests. Found a problem? File an [issue](https://github.com/microcai/gentoo-zh/issues) too.
+
+{{< callout type="info" >}}
+The [contributor wall](/contributors/) on the homepage counts exactly this kind of contribution — a script pulls everyone with 5+ commits to this repo every month.
+{{< /callout >}}
+
+### Getting set up
+
+```bash
+# Commit/QA tooling: pkgdev generates commit messages and Manifests, pkgcheck does the checks
+# (these two have replaced the old repoman and are the current official tools)
+emerge --ask dev-util/pkgdev   # pulls in pkgcheck as well
+```
+
+Fork the repo on [GitHub](https://github.com/microcai/gentoo-zh), clone your fork, and create a branch. Enable the overlay locally so you can test against it (see the [Overlay page](/overlay/)).
+
+### Standard workflow for submitting an ebuild
+
+This repo follows the official Gentoo ebuild repository spec; the authoritative reference for how to write ebuilds is the [Devmanual](https://devmanual.gentoo.org/):
+
+1. **Put it in the right place**: `<category>/<package>/<package>-<version>.ebuild`, with the directory and naming following the official categories.
+2. **Write the ebuild**: use `EAPI=8` (the norm in this repo) and the standard two-line copyright header (`# Copyright <year> Gentoo Authors` + the GPL-2 notice); fill in `DESCRIPTION`, `HOMEPAGE`, `SRC_URI`, `LICENSE`, `SLOT`, dependencies (`DEPEND`/`RDEPEND`/`BDEPEND`), `IUSE`, and so on.
+3. **KEYWORDS: testing keywords only** (`~amd64`, `~arm64`, etc.) — **this repo does not accept stable keywords.**
+4. **Write `metadata.xml`**: every package needs one, declaring the maintainer and documenting what each USE flag does (required by the official spec, and `pkgcheck` will check for it).
+5. **Generate the Manifest**: `pkgdev manifest`. This repo uses thin manifests (`thin-manifests = true`), so the Manifest only records distfile checksums — ebuild integrity is left to git.
+6. **Test the build locally**: `emerge` or `ebuild <file> install`, and **actually test it on every architecture** listed in its `KEYWORDS` — don't claim support for something you haven't tested.
+7. **Run QA yourself**: `pkgcheck scan --commits --net` (the PR template asks you to confirm you've run it locally, and CI runs `pkgcheck` separately too).
+8. **Commit**: use `pkgdev commit` to generate a spec-compliant commit message (format below). One PR holds all the commits for a single contribution, and the ebuild goes in together with its `Manifest` — don't split them into two PRs.
+9. **Open the PR**: CI will automatically `emerge` the package and run `pkgcheck`. It gets merged only after every item in the PR template is checked off.
+
+{{< callout type="warning" >}}
+**The one rule: DO NOT BREAK PEOPLE'S SYSTEM.**
+{{< /callout >}}
+
+### Commit message conventions
+
+We recommend using `pkgdev commit` to auto-generate a spec-compliant commit message.
+
+{{% details title="Commit message format examples" %}}
+
+A regular (non-version-bump) change:
+
+```text
+$category/$package: one-line summary
+
+A multi-line explanation of why you made the change; if it's a bug fix and there's a
+corresponding issue on GitHub, link it here.
+```
+
+A version bump:
+
+```text
+$category/$package: add $new_version, drop $old_version
+```
+
+{{% /details %}}
+
+### Keeping up with upstream releases (nvchecker)
+
+The repo uses [nvchecker](https://github.com/lilydjwg/nvchecker) to check each package against its upstream version every day (configured in `.github/workflows/overlay.toml`). When a new release shows up, it automatically opens or updates a [GitHub issue](https://github.com/microcai/gentoo-zh/issues) for it — **if you don't know where to start, grabbing a version-bump issue is the easiest way in.** When you add a new package, add an nvchecker rule for it in `overlay.toml` too (spelling out where its upstream version comes from), so it gets tracked as well.
+
+### Official specs and references
+
+- [Gentoo Devmanual](https://devmanual.gentoo.org/) — the authoritative manual for writing ebuilds (EAPI, variables, dependencies, `metadata.xml`, etc.)
+- [Ebuild repository format](https://wiki.gentoo.org/wiki/Repository_format) and the [Overlays project](https://wiki.gentoo.org/wiki/Project:Overlays)
+- `pkgdev` / `pkgcheck` (`dev-util`) — the current commit and QA tools
+- This repo's [README](https://github.com/microcai/gentoo-zh#readme) (the hard rules and commit conventions in full) and the [dependency table](https://github.com/microcai/gentoo-zh/blob/deps-table/relation.md)
+
+---
+
+What follows is the guide for **contributing to the community website (articles / translations / docs).**
+
+## Project overview
+
+This site is built with the [Hugo](https://gohugo.io/) static site generator and hosted on GitHub Pages. The presentation layer (the theme) is [Hextra](https://imfing.github.io/hextra/) plus our own patch module [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme) — the latter is pulled in via [Hugo Modules](https://gohugo.io/hugo-modules/) and layers its overrides on top of Hextra, giving a dependency chain of **site → gentoozh-theme → Hextra**. So this repo holds only content and config; the template/style source lives in the patch module.
+
+**Project repositories**: content/config at <https://github.com/Gentoo-zh/gentoo-zh.github.io>; theme patch module at <https://github.com/Gentoo-zh/gentoozh-theme>
+
+## Project structure
+
+### How content is organized
+
+Content is stored in per-language directories: Simplified Chinese under `content/zh-cn/`, Traditional Chinese under `content/zh-tw/`. The two have identical directory structures:
+
+- `download/` — download pages (mirrors and installation media)
+- `overlay/` — gentoo-zh overlay docs
+- `mirrorlist/` — mirror lists (Portage tree and Distfiles config)
+- `about/` — about pages (project history, community channels, language notes)
+- `contributors/` — contributors page (**auto-updated, no manual editing needed**)
+- `contributing/` — contributing guide (this page)
+- `changelog/` — changelog
+- `posts/` — news articles and tutorials
+
+> The Simplified version of a given piece goes under `content/zh-cn/...` and the Traditional version under the matching `content/zh-tw/...`. The filenames are `index.md` / `_index.md` (the `index.zh-cn.md` language-suffix style is **no longer** used).
+
+### Configuration files
+
+The main config lives in `config/_default/`:
+
+- `hugo.toml` — main Hugo config (site info, taxonomies, Markdown rendering, output formats, etc.)
+- `languages.toml` — language config (both Simplified and Traditional, split into `[zh-cn]` / `[zh-tw]` within a single file)
+- `menus.zh-cn.toml` / `menus.zh-tw.toml` — navigation menus per language
+- `params.toml` — theme parameters (appearance, feature toggles)
+
+### Multilingual support
+
+- UI string translations (`i18n/zh-cn.yaml`, `i18n/zh-tw.yaml`) belong to the presentation layer and live in the **gentoozh-theme patch module**; this repo holds only the body content
+- The default language is Simplified Chinese, served from the site root `/`; Traditional Chinese is served from `/zh-tw/`
+- Simplified-to-Traditional conversion is handled by the repo's `sync_to_tw.sh` script (see below)
+
+### Theme and assets
+
+The presentation layer has been split out into a standalone patch-module, **[gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme)** (layered on top of Hextra, still tracking upstream updates), so this repo no longer holds template/style source:
+
+- Templates (`layouts/`, including the homepage `home-bento`, the contributors page, etc.), site styles (`assets/css/custom.css`, the Gentoo-brand purple, etc.), and UI strings (`i18n/`) all live in gentoozh-theme
+- The site pulls it in via `[[module.imports]]` in `config/_default/hugo.toml`, and pins the version in `go.mod`
+- `static/` (`CNAME`, favicon, logo, OG images, etc.) still lives in this repo
+- **Changing templates / styles → go to the [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme) repo; changing content → stay in this repo**
+
+## Setting up your environment
+
+You need the **Hugo extended** build, and since the theme is pulled in via Hugo Modules, you'll also need the **Go** toolchain.
+
+```bash
+# Gentoo
+emerge --ask www-apps/hugo dev-lang/go
+
+# macOS
+brew install hugo go
+```
+
+Fork and clone the repo (**no** `git submodule` needed — the module is fetched automatically at build time):
+
+```bash
+git clone https://github.com/your-username/gentoo-zh.github.io.git
+cd gentoo-zh.github.io
+```
+
+Preview locally:
+
+```bash
+hugo server -D
+# visit http://localhost:1313 to preview
+```
+
+## How to contribute to the website
+
+### 1. Submit a new article
+
+Under `content/zh-cn/posts/`, create a directory named `YYYY-MM-DD-article-name` and write the Simplified version `index.md`:
+
+```bash
+mkdir -p content/zh-cn/posts/2026-05-29-my-article
+$EDITOR content/zh-cn/posts/2026-05-29-my-article/index.md
+```
+
+Front matter example:
+
+```yaml
+---
+title: "Article Title"
+date: 2026-05-29
+tags: ["tutorial"]
+---
+
+Article body... (for author attribution, see section 3 below)
+```
+
+Optional tags (`tags`, shown as `#tag` in the article list and on the article page, linked to the `/tags/` aggregation page; the homepage article cards also show the first tag): `tutorial`, `news`, `announcement`, `website`.
+
+Once the Simplified version is done, generate the Traditional version with the script (see the next section) and put it at the matching `content/zh-tw/posts/.../index.md`.
+
+### 2. Simplified-to-Traditional conversion
+
+`sync_to_tw.sh` wraps OpenCC (`s2twp`) plus this site's terminology fixes and known-misconversion cleanups. It **takes two path arguments: "source file → target file"**:
+
+```bash
+# install OpenCC first
+emerge --ask app-i18n/opencc   # Gentoo
+brew install opencc            # macOS
+sudo apt install opencc        # Debian/Ubuntu
+
+# Simplified → Traditional
+./sync_to_tw.sh \
+  content/zh-cn/posts/2026-05-29-my-article/index.md \
+  content/zh-tw/posts/2026-05-29-my-article/index.md
+```
+
+After converting, check by hand for Taiwanese-usage differences.
+
+### 3. Article attribution and avatars
+
+In the article's front matter, list the author(s) under `authors` in "mapping" form, and Hextra will show the avatar + name + link in the byline:
+
+```yaml
+authors:
+  - name: Your Name
+    image: /contributors/<your-id>/feature.webp
+    link: https://github.com/yourname
+```
+
+`image` can point to the avatar on your contributors page; omit `image` and only the name is shown.
+
+### 4. Improving existing content / technical improvements
+
+Typos, outdated info, usage tips, missing Traditional Chinese translations — spot any and fix them on the spot. Improvements on the technical side — templates, styles, performance, features — are welcome too.
+
+> **The contributor lists (`content/*/contributors/`) are maintained automatically by a script.** It pulls everyone with 5+ commits to the [gentoo-zh overlay](https://github.com/microcai/gentoo-zh), shows their commit counts, sorts by commit volume, and updates monthly (`scripts/update-contributors.py` + GitHub Actions). **Do not edit that directory by hand**; the homepage contributor showcase updates along with it automatically.
+
+## Submitting a Pull Request
+
+```bash
+git checkout -b your-feature-branch
+git add .
+git commit -m "describe your changes"
+git push origin your-feature-branch
+# then create a Pull Request on GitHub
+```
+
+## Writing conventions
+
+### Markdown formatting
+
+- Use standard Markdown syntax
+- Label code blocks with the language (e.g. ` ```bash `)
+- Place images inside the article directory and use relative paths
+- Use Markdown formatting for links
+
+### Chinese typography
+
+- Leave one space between Chinese and Latin text
+- Use full-width Chinese punctuation
+- Use half-width characters for numbers and Latin text
+- Keep proper nouns in their original form (e.g. Gentoo, Hugo, Hextra, Portage)
+
+## FAQ
+
+### How do I update the theme?
+
+The theme layer is a standalone [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme) patch module, so **the Hextra upgrade happens in that repo**:
+
+```bash
+# in the gentoozh-theme repo
+hugo mod get -u github.com/imfing/hextra
+hugo mod tidy
+git commit -am "bump hextra"
+git tag vX.Y.Z          # tag a new release
+```
+
+Then come back to **this** site's repo and pin the patch module to the new version:
+
+```bash
+hugo mod get github.com/Gentoo-zh/gentoozh-theme@vX.Y.Z
+git commit -am "bump gentoozh-theme"
+```
+
+### How do I add a new section page?
+
+Create `_index.md` under `content/zh-cn/<section>/`, generate `content/zh-tw/<section>/_index.md` with the script, and if you want it in the top navigation, add a `[[main]]` entry to both `config/_default/menus.zh-cn.toml` and `menus.zh-tw.toml`.
+
+### What if the Simplified and Traditional content gets out of sync?
+
+Treat the Simplified version as the source: re-run `sync_to_tw.sh` (usage above) to regenerate and overwrite the Traditional version, then proofread by hand. Don't keep two copies of the body text by hand, or they'll drift apart.
+
+## Community
+
+Run into a problem, or have a suggestion?
+
+- **Telegram channel**: [@gentoocn](https://t.me/gentoocn)
+- **Telegram group**: [@gentoo_zh](https://t.me/gentoo_zh)
+- **GitHub Issues**: <https://github.com/Gentoo-zh/gentoo-zh.github.io/issues>
+
+For more channels (IRC / Matrix / casual chat groups, etc.), see the [about page](/about/).
+
+## License
+
+Content on this site is licensed under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) unless stated otherwise. Code contributions follow the project's MIT license.
+
+---
+
+Fixing a typo, adding a line of translation, sending a PR — it all counts. The Gentoo Chinese Community was built up exactly this way, one bit at a time.

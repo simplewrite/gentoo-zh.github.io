@@ -1,0 +1,20 @@
+---
+title: "Xiangzhe"
+description: Xiangzhe — Gentoo Chinese Community gentoo-zh contributor
+tags: ['Overlay contributor']
+externalUrl: "https://github.com/xz-dev"
+links:
+  - name: "blog"
+    url: "https://xzos.net"
+  - name: "generic"
+    url: "https://ko-fi.com/xzdev/goal?g=0"
+  - name: "generic"
+    url: "https://afdian.com/a/inkflaw"
+  - name: "generic"
+    url: "https://gitlab.com/xz-dev"
+  - name: "generic"
+    url: "https://codeberg.org/xz-dev"
+weight: 9874
+---
+
+126 commits
