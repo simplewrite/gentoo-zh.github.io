@@ -30,19 +30,115 @@ emerge --ask dev-util/pkgdev   # 连带装上 pkgcheck
 
 本仓库遵循官方 Gentoo ebuild 仓库规范，写法权威参考是 [Devmanual](https://devmanual.gentoo.org/)：
 
-1. **放对位置**：`<category>/<package>/<package>-<version>.ebuild`，目录与命名按官方分类。
-2. **写 ebuild**：用本仓库主流的 `EAPI=8` 与标准两行版权头（`# Copyright <年> Gentoo Authors` + GPL-2 声明）；填好 `DESCRIPTION`、`HOMEPAGE`、`SRC_URI`、`LICENSE`、`SLOT`、依赖（`DEPEND`/`RDEPEND`/`BDEPEND`）、`IUSE` 等。
-3. **KEYWORDS 只用测试关键字**（`~amd64`、`~arm64` 等）——**本仓库不收 stable 关键字**。
-4. **写 `metadata.xml`**：每个包都要有，声明维护者与各 USE 的用途说明（官方规范要求，`pkgcheck` 会查）。
-5. **生成 Manifest**：`pkgdev manifest`。本仓库用 thin manifest（`thin-manifests = true`），只记 distfiles 校验，ebuild 完整性交给 git。
-6. **本地测试构建**：`emerge` 或 `ebuild <文件> install`，并在它 `KEYWORDS` 声明的**每个架构上都实测**——没测过就别声明支持。
-7. **QA 自查**：`pkgcheck scan --commits --net`（PR 模板要求你勾选确认已在本地跑过；CI 也会另跑 `pkgcheck`）。
-8. **提交**：用 `pkgdev commit` 生成规范提交信息（格式见下）；一个 PR 含单个贡献的全部提交，ebuild 连它的 `Manifest` 一起提，别拆成两个 PR。
-9. **开 PR**：CI 会自动 `emerge` 该包并跑 `pkgcheck`，按 PR 模板逐项勾选后才会合并。
+1. **放对位置**：`<category>/<package>/<package>-<version>.ebuild`。`category` 取官方分类（继承自 `::gentoo` 的 `profiles/categories`，如 `app-misc`、`dev-libs`、`net-im`），目录名、文件名、版本号按官方命名规则。
+2. **写 ebuild**：用现行的 **`EAPI=9`**（EAPI=8 是上一代，树里老包多数还是 8，但新包请直接上 9；与 8 的差异见下方折叠）。标准两行版权头用范围式年份，与官方树一致：`# Copyright 1999-2026 Gentoo Authors` + GPL-2 声明。填好 `DESCRIPTION`、`HOMEPAGE`、`SRC_URI`、`LICENSE`、`SLOT`、`IUSE`，并按用途分清依赖：`DEPEND`（编译期头文件 / 库）、`RDEPEND`（运行期）、`BDEPEND`（在**构建主机**上跑的工具，如 pkgconfig、gettext）、`IDEPEND`（仅安装阶段 `pkg_*` 用到的工具）。
+3. **KEYWORDS 只用测试关键字**（`~amd64`、`~arm64` 等）——**本仓库不收 stable 关键字**；只支持特定架构的包用 `-* ~amd64` 这种写法排除其余。
+4. **写 `metadata.xml`**：每个包都要有，声明维护者，并给每个**局部 USE 标志**写用途说明（全局标志已在中央 `use.desc` 描述、无需重复；官方规范要求，`pkgcheck` 会查）。
+5. **生成 Manifest**：`pkgdev manifest`。本仓库用 thin manifest（`thin-manifests = true`），`Manifest` 只记 distfile 校验（BLAKE2B/SHA512），ebuild 完整性交给 git。
+6. **本地测试构建**：`ebuild <文件> clean install` 或 `emerge`，并在它 `KEYWORDS` 声明的**每个架构上都实测**——没测过就别声明支持。
+7. **QA 自查**：`pkgcheck scan --commits --net`（`--commits` 只查你这几个提交改动的内容，`--net` 允许联网检查如 `SRC_URI` 是否还能下；CI 也会另跑 `pkgcheck`）。
+8. **提交**：用 `pkgdev commit` 生成规范提交信息（格式见下），ebuild、`metadata.xml`、`Manifest` 一起提；一个贡献的全部提交放进**同一个 PR**，别拆成两个。
+9. **开 PR 并盯 CI**：CI 会自动 `emerge` 该包并跑 `pkgcheck`——到 PR 的 **Checks**（或你 fork 的 **Actions**）看状态，红了按日志修；PR 模板里有一个必勾项——确认你已在本地跑过 `pkgcheck scan --commits --net`。全绿 + 勾选齐才会合并。
+
+{{% details title="完整范例:app-misc/foo（ebuild + metadata.xml）" %}}
+
+`app-misc/foo/foo-1.2.3.ebuild`：
+
+```bash
+# Copyright 1999-2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=9
+
+inherit toolchain-funcs
+
+DESCRIPTION="示例：一个打印问候语的小工具（教学用）"
+HOMEPAGE="https://github.com/gentoo-zh/foo"
+SRC_URI="https://github.com/gentoo-zh/foo/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+
+LICENSE="MIT"
+SLOT="0"
+KEYWORDS="~amd64 ~arm64"
+IUSE="examples nls"
+
+RDEPEND="
+	sys-libs/zlib
+	nls? ( virtual/libintl )
+"
+DEPEND="${RDEPEND}"
+BDEPEND="
+	virtual/pkgconfig
+	nls? ( sys-devel/gettext )
+"
+
+src_compile() {
+	# 普通 Makefile（无 ./configure）；autotools 包通常在 src_configure 用 econf，其余用默认实现。
+	emake CC="$(tc-getCC)" PREFIX="${EPREFIX}/usr" NLS="$(usex nls 1 0)"
+}
+
+src_install() {
+	emake CC="$(tc-getCC)" PREFIX="${EPREFIX}/usr" DESTDIR="${D}" install
+	einstalldocs
+
+	if use examples; then
+		docinto examples
+		dodoc -r examples/.
+	fi
+}
+```
+
+`app-misc/foo/metadata.xml`（`nls` 是全局标志不必写，`examples` 是局部标志必须写说明）：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>you@example.com</email>
+		<name>你的名字</name>
+	</maintainer>
+	<use>
+		<flag name="examples">安装示例文件到文档目录</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">gentoo-zh/foo</remote-id>
+		<bugs-to>https://github.com/gentoo-zh/foo/issues</bugs-to>
+	</upstream>
+</pkgmetadata>
+```
+
+写好这两个文件后，在包目录里把整条流程跑完：
+
+```bash
+cd app-misc/foo
+pkgdev manifest                          # ① 生成 Manifest(下载 distfile + 记 BLAKE2B/SHA512)
+ebuild foo-1.2.3.ebuild clean install    # ② 本地构建测试;或 emerge -av app-misc/foo。每个 KEYWORDS 架构都要测
+pkgcheck scan --commits --net            # ③ QA 自查,清掉所有 error / warning
+pkgdev commit                            # ④ 生成规范提交信息(ebuild + metadata.xml + Manifest 一起提)
+git push                                 # ⑤ 推到你的 fork,再到 GitHub 开 PR
+```
+
+⑥ 开 PR 后**盯 CI 状态**：到 PR 页面的 **Checks**（或你 fork 的 **Actions** 标签）看 `emerge-on-pr` 与 `pkgcheck` 两条流水线——红了就点进日志按提示修，`git push --force-with-lease` 更新分支会自动重跑；**全绿 + PR 模板勾选齐**才会合并。
+
+{{% /details %}}
+
+{{% details title="EAPI 9 相对 8 的变化(从 8 过来看这个)" %}}
+
+- **`assert` 被移除** → 用 **`pipestatus`**（检查上一条管道里**每个**命令的退出码：`foo | bar; pipestatus || die`）。
+- **`domo` 被移除** → 用 `insinto` + `newins`。
+- 新增 **`ver_replacing`**（拿版本和 `REPLACING_VERSIONS` 比，适合在 `pkg_postinst` 里按升级路径给提示）、**`edo`**（先打印再执行一条命令，失败即 die，省去手写 `echo` + `|| die`）。
+- **一批变量不再导出到环境**：`ROOT`、`EROOT`、`SYSROOT`、`BROOT`、`USE`、`FILESDIR`、`DISTDIR`、`WORKDIR`、`S` 等现在只是 ebuild 内可用的 shell 变量，不再 export 给子进程（只有 `TMPDIR`、`HOME` 仍导出）。若你调用的外部程序靠环境变量读这些，要自己 `export`。
+- bash 升到 5.3；合并 `D` 到 `ROOT` 时绝对符号链接按原样合并。
+
+完整清单见 [Devmanual 的 EAPI 差异表](https://devmanual.gentoo.org/ebuild-writing/eapi/)。
+
+{{% /details %}}
 
 {{< callout type="warning" >}}
 **唯一规则：别弄坏别人的系统（DO NOT BREAK PEOPLE'S SYSTEM）。**
 {{< /callout >}}
+
+*本节（提交 ebuild 流程）经 Chris🦈 Su（脆脆）审阅、补充，特此致谢。*
 
 ### 提交信息规范
 
@@ -70,12 +166,45 @@ $category/$package: add $new_version, drop $old_version
 
 仓库用 [nvchecker](https://github.com/lilydjwg/nvchecker) 每天自动比对各包的上游版本（配置在 `.github/workflows/overlay.toml`），有新版本就自动开/更新对应的 [GitHub issue](https://github.com/microcai/gentoo-zh/issues)——**不知道从哪下手，挑一个版本更新（bump）issue 来做最省心**。新增包时，记得也在 `overlay.toml` 中加一条 nvchecker 规则（写明上游版本来源），让它一并纳入版本追踪。
 
+### git 配置、签名与 rebase
+
+PR 的细节以官方文档为准（见下方「官方规范与参考」）；这里是几条最常用的：
+
+- **身份**：先配好真实姓名与邮箱，提交署名都用它：
+
+  ```bash
+  git config user.name  "Your Name"
+  git config user.email "you@example.com"
+  ```
+
+- **GPG 签名（可选）**：本 overlay **不强制**签名（`layout.conf` 写明无签名政策，现有提交也多未签名），但官方主树要求每个提交都 OpenPGP 签名（见 [Gentoo git 工作流](https://wiki.gentoo.org/wiki/Gentoo_git_workflow)，密钥政策见 [GLEP 63](https://www.gentoo.org/glep/glep-0063.html)），愿意遵循是好习惯。按 [Gentoo 的 GnuPG 密钥指南](https://wiki.gentoo.org/wiki/Project:Infrastructure/Generating_GLEP_63_based_OpenPGP_keys)生成密钥后启用：
+
+  ```bash
+  git config user.signingkey <你的密钥ID>
+  git config commit.gpgsign true
+  ```
+
+  官方惯例（[GLEP 76](https://www.gentoo.org/glep/glep-0076.html)）还要求提交带 `Signed-off-by`（开发者原创声明）；`pkgdev commit` 会自动加，手写 `git commit` 用 `-s`。
+
+- **rebase 保持历史干净**：开 / 更新 PR 前先把分支 rebase 到最新 master，别用 merge 提交搅乱历史；把零碎的修补提交合进对应的逻辑提交：
+
+  ```bash
+  git pull --rebase origin master   # 跟上游对齐
+  git rebase -i origin/master       # 整理 / 合并自己的提交
+  git push --force-with-lease        # 更新已开的 PR 分支
+  ```
+
+  `--force-with-lease` 只用于**你自己 fork 上的 PR 分支**（rebase 后更新 PR 的常规操作）；**切勿**对共享的上游 master 重写历史或 force——官方规定 master 只允许快进推送。一个贡献的全部提交放进同一个 PR（README 铁规矩），别拆成两个。
+
 ### 官方规范与参考
+
+写法与流程一律**以官方文档为准**，本页只是导引：
 
 - [Gentoo Devmanual](https://devmanual.gentoo.org/)——写 ebuild 的权威手册（EAPI、变量、依赖、`metadata.xml` 等）
 - [Ebuild 仓库格式](https://wiki.gentoo.org/wiki/Repository_format)与 [Overlay 项目](https://wiki.gentoo.org/wiki/Project:Overlays)
+- [Gentoo git 工作流](https://wiki.gentoo.org/wiki/Gentoo_git_workflow)、[GLEP 76](https://www.gentoo.org/glep/glep-0076.html)（版权与 `Signed-off-by`）、[GLEP 63](https://www.gentoo.org/glep/glep-0063.html)（OpenPGP 密钥）
 - `pkgdev` / `pkgcheck`（`dev-util`）——现行的提交与 QA 工具
-- 本仓库 [README](https://github.com/microcai/gentoo-zh#readme)（铁规矩与提交规范原文）与[依赖关系表](https://github.com/microcai/gentoo-zh/blob/deps-table/relation.md)
+- 本仓库 [README](https://github.com/microcai/gentoo-zh#readme) 与[依赖关系表](https://github.com/microcai/gentoo-zh/blob/deps-table/relation.md)
 
 ---
 
@@ -130,15 +259,18 @@ $category/$package: add $new_version, drop $old_version
 
 ## 环境准备
 
-需要 **Hugo extended** 版本；因为主题通过 Hugo Modules 引入，还需要 **Go** 工具链。
+主题用 SCSS（经 Hugo Modules 引入），所以必须用 **Hugo extended**——即 `www-apps/hugo` 的 **`extended` USE**（提供 SASS/SCSS 支持；该 USE 默认开启，但请确认你没把它关掉）。另需 **Go** 工具链拉取主题模块。
 
 ```bash
-# Gentoo
+# Gentoo：确保 hugo 带 extended USE（Hextra 的 SCSS 必需）
+echo "www-apps/hugo extended" >> /etc/portage/package.use/hugo
 emerge --ask www-apps/hugo dev-lang/go
 
-# macOS
+# macOS（Homebrew 的 hugo 已是 extended 版）
 brew install hugo go
 ```
+
+> 注：Hugo 内置的 SCSS 转译器（LibSass）自 v0.153.0 起已弃用、未来会移除；届时需改用外部 [Dart Sass](https://gohugo.io/functions/css/sass/)（与 edition 无关、标准版也能用）。目前 extended 的内置转译器仍可用。
 
 Fork 并 clone 仓库（**无需** `git submodule`，模块会在构建时自动拉取）：
 
@@ -158,14 +290,14 @@ hugo server -D
 
 ### 1. 提交新文章
 
-在 `content/zh-cn/posts/` 下按 `YYYY-MM-DD-article-name` 建立目录，写简体版 `index.md`：
+文章用 [page bundle](https://gohugo.io/content-management/page-bundles/) 形式（一篇一个目录、正文是 `index.md`，方便随文放图）。默认语言是简体中文，直接用 `hugo new` 脚手架即可（会自动建到默认语言的 `content/zh-cn/` 下）：
 
 ```bash
-mkdir -p content/zh-cn/posts/2026-05-29-my-article
-$EDITOR content/zh-cn/posts/2026-05-29-my-article/index.md
+hugo new posts/2026-05-29-my-article/index.md
+# 生成 content/zh-cn/posts/2026-05-29-my-article/index.md
 ```
 
-front matter 示例：
+`hugo new` 按 `archetypes/default.md` 生成的 front matter 带 `draft: true`，写好后记得**去掉 `draft`**（否则正式构建不会收录），并补上 `tags`、`authors`（见第 3 节）。最终 front matter 示例：
 
 ```yaml
 ---

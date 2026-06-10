@@ -30,19 +30,116 @@ Fork the repo on [GitHub](https://github.com/microcai/gentoo-zh), clone your for
 
 This repo follows the official Gentoo ebuild repository spec; the authoritative reference for how to write ebuilds is the [Devmanual](https://devmanual.gentoo.org/):
 
-1. **Put it in the right place**: `<category>/<package>/<package>-<version>.ebuild`, with the directory and naming following the official categories.
-2. **Write the ebuild**: use `EAPI=8` (the norm in this repo) and the standard two-line copyright header (`# Copyright <year> Gentoo Authors` + the GPL-2 notice); fill in `DESCRIPTION`, `HOMEPAGE`, `SRC_URI`, `LICENSE`, `SLOT`, dependencies (`DEPEND`/`RDEPEND`/`BDEPEND`), `IUSE`, and so on.
-3. **KEYWORDS: testing keywords only** (`~amd64`, `~arm64`, etc.) — **this repo does not accept stable keywords.**
-4. **Write `metadata.xml`**: every package needs one, declaring the maintainer and documenting what each USE flag does (required by the official spec, and `pkgcheck` will check for it).
-5. **Generate the Manifest**: `pkgdev manifest`. This repo uses thin manifests (`thin-manifests = true`), so the Manifest only records distfile checksums — ebuild integrity is left to git.
-6. **Test the build locally**: `emerge` or `ebuild <file> install`, and **actually test it on every architecture** listed in its `KEYWORDS` — don't claim support for something you haven't tested.
-7. **Run QA yourself**: `pkgcheck scan --commits --net` (the PR template asks you to confirm you've run it locally, and CI runs `pkgcheck` separately too).
-8. **Commit**: use `pkgdev commit` to generate a spec-compliant commit message (format below). One PR holds all the commits for a single contribution, and the ebuild goes in together with its `Manifest` — don't split them into two PRs.
-9. **Open the PR**: CI will automatically `emerge` the package and run `pkgcheck`. It gets merged only after every item in the PR template is checked off.
+1. **Put it in the right place**: `<category>/<package>/<package>-<version>.ebuild`. `category` must be one of the official categories (inherited from `::gentoo`'s `profiles/categories`, e.g. `app-misc`, `dev-libs`, `net-im`); directory name, file name and version all follow the official naming rules.
+2. **Write the ebuild**: use the current **`EAPI=9`** (EAPI 8 is the previous generation — most older packages in the tree are still on 8, but new packages should go straight to 9; the differences from 8 are in the collapsible below). The standard two-line copyright header uses the year-range form, matching the official tree: `# Copyright 1999-2026 Gentoo Authors` + the GPL-2 notice. Fill in `DESCRIPTION`, `HOMEPAGE`, `SRC_URI`, `LICENSE`, `SLOT`, `IUSE`, and split dependencies by role: `DEPEND` (headers/libraries needed at build time), `RDEPEND` (runtime), `BDEPEND` (tools that run on the **build host**, e.g. pkgconfig, gettext), `IDEPEND` (tools used only during the install phase in `pkg_*`).
+3. **KEYWORDS: testing keywords only** (`~amd64`, `~arm64`, etc.) — **this repo does not accept stable keywords**; a package that only works on specific arches uses a form like `-* ~amd64` to exclude the rest.
+4. **Write `metadata.xml`**: every package needs one, declaring the maintainer and documenting every **local USE flag** (global flags are already described centrally in `use.desc`, so don't repeat them; required by the official spec, and `pkgcheck` will check for it).
+5. **Generate the Manifest**: `pkgdev manifest`. This repo uses thin manifests (`thin-manifests = true`), so the `Manifest` records only distfile checksums (BLAKE2B/SHA512) — ebuild integrity is left to git.
+6. **Test the build locally**: `ebuild <file> clean install` or `emerge`, and **actually test it on every architecture** listed in its `KEYWORDS` — don't claim support for something you haven't tested.
+7. **Run QA yourself**: `pkgcheck scan --commits --net` (`--commits` checks only what your commits changed; `--net` allows networked checks such as whether `SRC_URI` still downloads; CI runs `pkgcheck` separately too).
+8. **Commit**: use `pkgdev commit` to generate a spec-compliant commit message (format below), committing the ebuild, `metadata.xml` and `Manifest` together. Put all the commits for a single contribution in the **same PR** — don't split them.
+9. **Open the PR and watch CI**: CI will automatically `emerge` the package and run `pkgcheck` — check the status on the PR's **Checks** tab (or your fork's **Actions**) and fix anything that goes red. The PR template has one box to tick — confirming you ran `pkgcheck scan --commits --net` locally. It merges only once everything is green and the box is ticked.
+
+{{% details title="Full example: app-misc/foo (ebuild + metadata.xml)" %}}
+
+`app-misc/foo/foo-1.2.3.ebuild`:
+
+```bash
+# Copyright 1999-2026 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+EAPI=9
+
+inherit toolchain-funcs
+
+DESCRIPTION="Example: a tiny tool that prints a greeting (for teaching)"
+HOMEPAGE="https://github.com/gentoo-zh/foo"
+SRC_URI="https://github.com/gentoo-zh/foo/archive/refs/tags/v${PV}.tar.gz -> ${P}.tar.gz"
+
+LICENSE="MIT"
+SLOT="0"
+KEYWORDS="~amd64 ~arm64"
+IUSE="examples nls"
+
+RDEPEND="
+	sys-libs/zlib
+	nls? ( virtual/libintl )
+"
+DEPEND="${RDEPEND}"
+BDEPEND="
+	virtual/pkgconfig
+	nls? ( sys-devel/gettext )
+"
+
+src_compile() {
+	# Plain Makefile (no ./configure); an autotools package would usually call
+	# econf in src_configure and rely on the default src_compile / src_install.
+	emake CC="$(tc-getCC)" PREFIX="${EPREFIX}/usr" NLS="$(usex nls 1 0)"
+}
+
+src_install() {
+	emake CC="$(tc-getCC)" PREFIX="${EPREFIX}/usr" DESTDIR="${D}" install
+	einstalldocs
+
+	if use examples; then
+		docinto examples
+		dodoc -r examples/.
+	fi
+}
+```
+
+`app-misc/foo/metadata.xml` (`nls` is a global flag so it needs no entry; `examples` is a local flag and must be described):
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>you@example.com</email>
+		<name>Your Name</name>
+	</maintainer>
+	<use>
+		<flag name="examples">Install example files into the documentation directory</flag>
+	</use>
+	<upstream>
+		<remote-id type="github">gentoo-zh/foo</remote-id>
+		<bugs-to>https://github.com/gentoo-zh/foo/issues</bugs-to>
+	</upstream>
+</pkgmetadata>
+```
+
+Once both files are written, run the whole flow from inside the package directory:
+
+```bash
+cd app-misc/foo
+pkgdev manifest                          # 1. generate the Manifest (download distfile + record BLAKE2B/SHA512)
+ebuild foo-1.2.3.ebuild clean install    # 2. build-test locally; or emerge -av app-misc/foo. Test on every KEYWORDS arch
+pkgcheck scan --commits --net            # 3. QA — clear every error / warning
+pkgdev commit                            # 4. generate the spec-compliant commit (ebuild + metadata.xml + Manifest together)
+git push                                 # 5. push to your fork, then open a PR on GitHub
+```
+
+6. After opening the PR, **watch the CI**: on the PR's **Checks** tab (or your fork's **Actions** tab) look at the `emerge-on-pr` and `pkgcheck` pipelines — if one goes red, open the log and fix as directed, then `git push --force-with-lease` to update the branch (it re-runs automatically); it merges only once everything is **green and the PR template box is ticked**.
+
+{{% /details %}}
+
+{{% details title="What changed in EAPI 9 vs 8 (read this if you're coming from 8)" %}}
+
+- **`assert` was removed** → use **`pipestatus`** (it checks the exit status of **every** command in the last pipeline: `foo | bar; pipestatus || die`).
+- **`domo` was removed** → use `insinto` + `newins`.
+- New: **`ver_replacing`** (compares a version against `REPLACING_VERSIONS`, handy in `pkg_postinst` for upgrade-path-specific messages) and **`edo`** (print a command and then run it, dying on failure — saves writing `echo` + `|| die`).
+- **A batch of variables are no longer exported to the environment**: `ROOT`, `EROOT`, `SYSROOT`, `BROOT`, `USE`, `FILESDIR`, `DISTDIR`, `WORKDIR`, `S` and others are now plain shell variables usable inside the ebuild but not exported to child processes (only `TMPDIR` and `HOME` stay exported). If an external program you call reads these from the environment, `export` them yourself.
+- Bash is now 5.3; when merging `D` to `ROOT`, absolute symlinks are merged as-is.
+
+The full list is in the [Devmanual's EAPI differences table](https://devmanual.gentoo.org/ebuild-writing/eapi/).
+
+{{% /details %}}
 
 {{< callout type="warning" >}}
 **The one rule: DO NOT BREAK PEOPLE'S SYSTEM.**
 {{< /callout >}}
+
+*This section (the ebuild submission flow) was reviewed and expanded by Chris🦈 Su (脆脆) — thank you.*
 
 ### Commit message conventions
 
@@ -71,12 +168,45 @@ $category/$package: add $new_version, drop $old_version
 
 The repo uses [nvchecker](https://github.com/lilydjwg/nvchecker) to check each package against its upstream version every day (configured in `.github/workflows/overlay.toml`). When a new release shows up, it automatically opens or updates a [GitHub issue](https://github.com/microcai/gentoo-zh/issues) for it — **if you don't know where to start, grabbing a version-bump issue is the easiest way in.** When you add a new package, add an nvchecker rule for it in `overlay.toml` too (spelling out where its upstream version comes from), so it gets tracked as well.
 
+### git config, signing and rebase
+
+The details of a PR are governed by the official docs (see "Official specs and references" below); here are the ones you'll use most:
+
+- **Identity**: set your real name and email first — your commit attribution uses them:
+
+  ```bash
+  git config user.name  "Your Name"
+  git config user.email "you@example.com"
+  ```
+
+- **GPG signing (optional)**: this overlay does **not** require signing (`layout.conf` states there's no signing policy, and existing commits are mostly unsigned), but the official tree requires every commit to be OpenPGP-signed (see the [Gentoo git workflow](https://wiki.gentoo.org/wiki/Gentoo_git_workflow); the key policy is [GLEP 63](https://www.gentoo.org/glep/glep-0063.html)), and it's good practice. Generate a key per [Gentoo's GnuPG guide](https://wiki.gentoo.org/wiki/Project:Infrastructure/Generating_GLEP_63_based_OpenPGP_keys), then enable it:
+
+  ```bash
+  git config user.signingkey <your-key-id>
+  git config commit.gpgsign true
+  ```
+
+  Official convention ([GLEP 76](https://www.gentoo.org/glep/glep-0076.html)) also wants a `Signed-off-by` line (developer certificate of origin) on each commit; `pkgdev commit` adds it automatically, or pass `-s` to a manual `git commit`.
+
+- **Rebase to keep history clean**: before opening or updating a PR, rebase your branch onto the latest master — don't tangle history with merge commits — and squash stray fixup commits into the logical commit they belong to:
+
+  ```bash
+  git pull --rebase origin master   # sync with upstream
+  git rebase -i origin/master       # tidy up / squash your own commits
+  git push --force-with-lease        # update an already-opened PR branch
+  ```
+
+  `--force-with-lease` is only for **your own fork's PR branch** (the normal way to update a PR after rebasing); **never** rewrite history or force-push the shared upstream master — the official policy allows only fast-forward pushes to master. Put all the commits of one contribution in the same PR (the README's hard rule) — don't split them.
+
 ### Official specs and references
+
+The how-to is **governed by the official docs**; this page is just a pointer:
 
 - [Gentoo Devmanual](https://devmanual.gentoo.org/) — the authoritative manual for writing ebuilds (EAPI, variables, dependencies, `metadata.xml`, etc.)
 - [Ebuild repository format](https://wiki.gentoo.org/wiki/Repository_format) and the [Overlays project](https://wiki.gentoo.org/wiki/Project:Overlays)
+- [Gentoo git workflow](https://wiki.gentoo.org/wiki/Gentoo_git_workflow), [GLEP 76](https://www.gentoo.org/glep/glep-0076.html) (copyright and `Signed-off-by`), [GLEP 63](https://www.gentoo.org/glep/glep-0063.html) (OpenPGP keys)
 - `pkgdev` / `pkgcheck` (`dev-util`) — the current commit and QA tools
-- This repo's [README](https://github.com/microcai/gentoo-zh#readme) (the hard rules and commit conventions in full) and the [dependency table](https://github.com/microcai/gentoo-zh/blob/deps-table/relation.md)
+- This repo's [README](https://github.com/microcai/gentoo-zh#readme) and the [dependency table](https://github.com/microcai/gentoo-zh/blob/deps-table/relation.md)
 
 ---
 
@@ -131,15 +261,18 @@ The presentation layer has been split out into a standalone patch-module, **[gen
 
 ## Setting up your environment
 
-You need the **Hugo extended** build, and since the theme is pulled in via Hugo Modules, you'll also need the **Go** toolchain.
+The theme uses SCSS (pulled in via Hugo Modules), so you need the **Hugo extended** build — i.e. the **`extended` USE** on `www-apps/hugo` (it provides SASS/SCSS support; the USE is on by default, but make sure you haven't turned it off). You also need the **Go** toolchain to fetch the theme module.
 
 ```bash
-# Gentoo
+# Gentoo: make sure hugo is built with the extended USE (required for Hextra's SCSS)
+echo "www-apps/hugo extended" >> /etc/portage/package.use/hugo
 emerge --ask www-apps/hugo dev-lang/go
 
-# macOS
+# macOS (Homebrew's hugo is already the extended build)
 brew install hugo go
 ```
+
+> Note: Hugo's embedded SCSS transpiler (LibSass) was deprecated in v0.153.0 and will be removed in a future release; at that point you'll need the external [Dart Sass](https://gohugo.io/functions/css/sass/) (which works with the standard edition too, independent of the build). For now the extended build's embedded transpiler still works.
 
 Fork and clone the repo (**no** `git submodule` needed — the module is fetched automatically at build time):
 
@@ -159,14 +292,14 @@ hugo server -D
 
 ### 1. Submit a new article
 
-Under `content/zh-cn/posts/`, create a directory named `YYYY-MM-DD-article-name` and write the Simplified version `index.md`:
+Articles use the [page bundle](https://gohugo.io/content-management/page-bundles/) form (one directory per article, body in `index.md`, so images sit next to the text). The default language is Simplified Chinese, so just scaffold it with `hugo new` (it lands under the default language's `content/zh-cn/`):
 
 ```bash
-mkdir -p content/zh-cn/posts/2026-05-29-my-article
-$EDITOR content/zh-cn/posts/2026-05-29-my-article/index.md
+hugo new posts/2026-05-29-my-article/index.md
+# creates content/zh-cn/posts/2026-05-29-my-article/index.md
 ```
 
-Front matter example:
+The front matter that `hugo new` generates from `archetypes/default.md` carries `draft: true`, so once you're done, **drop `draft`** (otherwise the production build won't include it) and add `tags` and `authors` (see section 3). The final front matter looks like:
 
 ```yaml
 ---
