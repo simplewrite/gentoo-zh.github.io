@@ -12,7 +12,7 @@ By now gentoo-zh carries over 450 packages, roughly in these categories:
 - **Keeping up with new releases**: for packages the official repos have nobody looking after, we keep shipping new versions over here
 - **Bug fixes**: when a developer hits a bug, the fix gets pushed straight back into the repo
 
-There's one hard rule we live by—"don't break other people's systems." Every ebuild has to be tested on the architectures it supports before it lands in the overlay.
+One rule: don't break people's systems. Every ebuild gets tested on the arches it supports before it goes in.
 
 ## Adding gentoo-zh
 
