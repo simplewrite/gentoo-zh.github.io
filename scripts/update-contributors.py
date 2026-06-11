@@ -33,13 +33,48 @@ CONTENT_DIRS = {
     'en': Path("content/en/contributors"),
 }
 
-# 手動指定的特殊分組標籤（創始人 / 維護者等）。重新生成頁面時必須保留，
-# 不可被預設的 "Overlay 贡献者" 覆蓋。en 版用對應英文標籤,同樣需保留。
-SPECIAL_TAGS = {
-    '社区创始人', '社群创始人', '现任主要维护者', '网站维护者', '网站内容贡献者',
-    '社區創始人', '社群創始人', '現任主要維護者', '網站維護者', '網站內容貢獻者',
-    'Community founder', 'Current maintainer', 'Site maintainer', 'Site content contributor',
+# 手動指定的特殊分組標籤（創始人 / 維護者等）的【單一事實來源】。重新生成頁面時必須保留，
+# 不可被預設的 "Overlay 贡献者" 覆蓋；每種語言用該語言的標籤。
+#
+# 注意：這裡的標籤字串與主題 gentoozh-theme 的 layouts/contributors/list.html 分組判斷【必須一致】，
+# 兩處改動要同步（list.html 用這些字串把貢獻者歸入創始人 / 維護者 / 貢獻者各組）。
+#
+# 結構：role -> { 語言: 規範標籤 }。ROLE_ALIASES 收錄同義異寫（同角色、同語言的別字），
+# 保留時不會被改寫掉，但跨語言的標籤會被歸一到該頁語言的規範標籤（見 canonical_tag）。
+ROLE_TAGS = {
+    'founder':        {'zh-cn': '社群创始人',   'zh-tw': '社群創始人',   'en': 'Community founder'},
+    'overlay_maint':  {'zh-cn': '现任主要维护者', 'zh-tw': '現任主要維護者', 'en': 'Current maintainer'},
+    'site_maint':     {'zh-cn': '网站维护者',    'zh-tw': '網站維護者',    'en': 'Site maintainer'},
+    'site_content':   {'zh-cn': '网站内容贡献者', 'zh-tw': '網站內容貢獻者', 'en': 'Site content contributor'},
 }
+# 同角色、同語言的別字（保留為當前頁面的合法寫法，不被歸一改寫）。值為 (role, lang)。
+ROLE_ALIASES = {
+    '社区创始人': ('founder', 'zh-cn'),
+    '社區創始人': ('founder', 'zh-tw'),
+}
+
+# tag 字串 -> (role, lang)。涵蓋規範標籤 + 別字。
+TAG_TO_ROLE_LANG = {}
+for _role, _m in ROLE_TAGS.items():
+    for _lang, _tag in _m.items():
+        TAG_TO_ROLE_LANG[_tag] = (_role, _lang)
+TAG_TO_ROLE_LANG.update(ROLE_ALIASES)
+
+# 所有被識別為「特殊分組標籤」的字串集合（由上面派生，避免重複維護）。
+SPECIAL_TAGS = set(TAG_TO_ROLE_LANG)
+
+
+def canonical_tag(existing_tag, lang):
+    """把既有的特殊標籤歸一到【目標語言】的規範標籤。
+
+    - 既有標籤本就屬於目標語言（含同語言別字，如 zh-cn 的「社区创始人」）→ 原樣保留。
+    - 既有標籤屬於別的語言（如 en 頁誤帶了「现任主要维护者」）→ 換成目標語言的規範標籤。
+    自愈：任何「標籤串了語言」的頁面，下次跑腳本即被修正為該頁語言的正確標籤。
+    """
+    role, tag_lang = TAG_TO_ROLE_LANG[existing_tag]
+    if tag_lang == lang:
+        return existing_tag
+    return ROLE_TAGS[role][lang]
 
 CONFIG_FILE = Path(__file__).parent / "contributors-config.yaml"
 
@@ -441,7 +476,8 @@ def create_contributor_page(login, user_data, commits, dry_run=False):
                 try:
                     existing_tags = (yaml.safe_load(fm_match.group(1)) or {}).get('tags') or []
                     if existing_tags and existing_tags[0] in SPECIAL_TAGS:
-                        tag = existing_tags[0]
+                        # 保留特殊角色，但歸一到該頁語言的規範標籤（修正串語言的舊資料）
+                        tag = canonical_tag(existing_tags[0], lang)
                 except yaml.YAMLError:
                     pass
         atomic_write_text(file_path, generate_frontmatter(
