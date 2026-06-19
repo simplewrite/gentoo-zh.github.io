@@ -17,6 +17,7 @@ title: "關於"
 * IRC on Libera Chat：[#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)
 * Telegram 頻道：[@gentoocn](https://t.me/gentoocn)
 * Telegram 群組：[@gentoo_zh](https://t.me/gentoo_zh)
+* Matrix：[#gentoo-zh:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh:matrix.gentoozh.org)
 
 > **群組規則提示：**  
 > 中華文化不分國界，更不分信仰。我們尊重每一位成員的宗教、性別、政治傾向，但請將討論聚焦於技術本身。

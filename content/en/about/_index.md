@@ -17,6 +17,7 @@ Come join us — the Gentoo Chinese Community
 * IRC on Libera Chat: [#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)
 * Telegram channel: [@gentoocn](https://t.me/gentoocn)
 * Telegram group: [@gentoo_zh](https://t.me/gentoo_zh)
+* Matrix: [#gentoo-zh:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh:matrix.gentoozh.org)
 
 > **Group rules:**  
 > Chinese culture knows no borders, and no creed. We respect every member's religion, gender, and political leanings, but please keep the discussion focused on the tech itself.
