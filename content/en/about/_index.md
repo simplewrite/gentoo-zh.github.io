@@ -22,6 +22,13 @@ Come join us — the Gentoo Chinese Community
 > **Group rules:**  
 > Chinese culture knows no borders, and no creed. We respect every member's religion, gender, and political leanings, but please keep the discussion focused on the tech itself.
 
+### Bug & news feed
+
+Auto-pushes new Gentoo Bugzilla bugs and official news, with live Matrix relay (join with any Matrix account):
+
+* Chinese: Telegram [@GentoozhBug](https://t.me/GentoozhBug) · Matrix [#gentoo-zh-bug:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh-bug:matrix.gentoozh.org)
+* English: Telegram [@GentooBug](https://t.me/GentooBug) · Matrix [#gentoo-bug:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-bug:matrix.gentoozh.org)
+
 ### Gentoo-zh OT group (off-topic chat)
 
 * Telegram: [@gentoo_zh_offtopic](https://t.me/gentoo_zh_offtopic)

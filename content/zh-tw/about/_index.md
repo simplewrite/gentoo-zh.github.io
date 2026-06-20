@@ -22,6 +22,13 @@ title: "關於"
 > **群組規則提示：**  
 > 中華文化不分國界，更不分信仰。我們尊重每一位成員的宗教、性別、政治傾向，但請將討論聚焦於技術本身。
 
+### Bug & 新聞播報
+
+自動推送 Gentoo Bugzilla 新 bug 與官方新聞，支援 Matrix 即時轉發（可用任意 Matrix 帳號加入）：
+
+* 中文：Telegram [@GentoozhBug](https://t.me/GentoozhBug) · Matrix [#gentoo-zh-bug:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh-bug:matrix.gentoozh.org)
+* English：Telegram [@GentooBug](https://t.me/GentooBug) · Matrix [#gentoo-bug:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-bug:matrix.gentoozh.org)
+
 ### Gentoo-zh OT 群（Off-Topic 閒聊群）
 
 * Telegram: [@gentoo_zh_offtopic](https://t.me/gentoo_zh_offtopic)
