@@ -13,11 +13,13 @@ title: "关于"
 
 快来加入我们吧！Gentoo 中文
 
-* 学习交流QQ群：43047398
-* IRC on Libera Chat：[#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)
-* Telegram 频道：[@gentoocn](https://t.me/gentoocn)
-* Telegram 群组：[@gentoo_zh](https://t.me/gentoo_zh)
-* Matrix：[#gentoo-zh:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh:matrix.gentoozh.org)
+加入**主群**后，下面其它群全部免去验证：
+
+* **主群**：Telegram [@gentoo_zh](https://t.me/gentoo_zh) · Matrix [#gentoo-zh:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh:matrix.gentoozh.org) · IRC [#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)
+* **主频道（公告）**：Telegram [@gentoocn](https://t.me/gentoocn) · Matrix [#gentoocn:matrix.gentoozh.org](https://matrix.to/#/%23gentoocn:matrix.gentoozh.org)
+* **闲聊（OT）**：Telegram [@talk_something](https://t.me/talk_something) · Matrix [#talk_something:matrix.gentoozh.org](https://matrix.to/#/%23talk_something:matrix.gentoozh.org) · IRC [#gentoo-zh-offtopic](ircs://irc.libera.chat:6697/#gentoo-zh-offtopic)
+* **申诉 / 争议**：Telegram [@gentoo_zh_ops](https://t.me/gentoo_zh_ops) · Matrix [#gentoo_zh_ops:matrix.gentoozh.org](https://matrix.to/#/%23gentoo_zh_ops:matrix.gentoozh.org)
+* 学习交流 QQ 群：43047398
 
 > **群组规则提示：**  
 > 中华文化不分国界，更不分信仰。我们尊重每一位成员的宗教、性别、政治倾向，但请将讨论聚焦于技术本身。
@@ -29,13 +31,9 @@ title: "关于"
 * 中文：Telegram [@GentoozhBug](https://t.me/GentoozhBug) · Matrix [#gentoo-zh-bug:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh-bug:matrix.gentoozh.org)
 * English：Telegram [@GentooBug](https://t.me/GentooBug) · Matrix [#gentoo-bug:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-bug:matrix.gentoozh.org)
 
-### Gentoo-zh OT 群（Off-Topic 闲聊群）
+### 一次加入全部
 
-* Telegram: [@talk_something](https://t.me/talk_something)
-* Matrix: [#talk_something:matrix.gentoozh.org](https://matrix.to/#/#talk_something:matrix.gentoozh.org)
-* OPs: [@gentoo_zh_ops](https://t.me/gentoo_zh_ops)
-
-更多交流方式正在完善中！
+上面所有 Matrix 频道/群组都收在一个 Space，加它即可一并加入：[#gentoo:matrix.gentoozh.org](https://matrix.to/#/%23gentoo:matrix.gentoozh.org)
 
 ## 本社区网站目标
 

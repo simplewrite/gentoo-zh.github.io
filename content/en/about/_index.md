@@ -13,11 +13,13 @@ title: "About"
 
 Come join us — the Gentoo Chinese Community
 
+Join the **main group** and every group below skips verification:
+
+* **Main group**: Telegram [@gentoo_zh](https://t.me/gentoo_zh) · Matrix [#gentoo-zh:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh:matrix.gentoozh.org) · IRC [#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)
+* **Main channel (announcements)**: Telegram [@gentoocn](https://t.me/gentoocn) · Matrix [#gentoocn:matrix.gentoozh.org](https://matrix.to/#/%23gentoocn:matrix.gentoozh.org)
+* **Off-topic chat**: Telegram [@talk_something](https://t.me/talk_something) · Matrix [#talk_something:matrix.gentoozh.org](https://matrix.to/#/%23talk_something:matrix.gentoozh.org) · IRC [#gentoo-zh-offtopic](ircs://irc.libera.chat:6697/#gentoo-zh-offtopic)
+* **Appeals / disputes**: Telegram [@gentoo_zh_ops](https://t.me/gentoo_zh_ops) · Matrix [#gentoo_zh_ops:matrix.gentoozh.org](https://matrix.to/#/%23gentoo_zh_ops:matrix.gentoozh.org)
 * QQ study & chat group: 43047398
-* IRC on Libera Chat: [#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)
-* Telegram channel: [@gentoocn](https://t.me/gentoocn)
-* Telegram group: [@gentoo_zh](https://t.me/gentoo_zh)
-* Matrix: [#gentoo-zh:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh:matrix.gentoozh.org)
 
 > **Group rules:**  
 > Chinese culture knows no borders, and no creed. We respect every member's religion, gender, and political leanings, but please keep the discussion focused on the tech itself.
@@ -29,13 +31,9 @@ Auto-pushes new Gentoo Bugzilla bugs and official news, with live Matrix relay (
 * Chinese: Telegram [@GentoozhBug](https://t.me/GentoozhBug) · Matrix [#gentoo-zh-bug:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh-bug:matrix.gentoozh.org)
 * English: Telegram [@GentooBug](https://t.me/GentooBug) · Matrix [#gentoo-bug:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-bug:matrix.gentoozh.org)
 
-### Gentoo-zh OT group (off-topic chat)
+### Join everything at once
 
-* Telegram: [@talk_something](https://t.me/talk_something)
-* Matrix: [#talk_something:matrix.gentoozh.org](https://matrix.to/#/#talk_something:matrix.gentoozh.org)
-* OPs: [@gentoo_zh_ops](https://t.me/gentoo_zh_ops)
-
-More ways to connect are on the way!
+All the Matrix rooms above live in a single Space — join it to get them all: [#gentoo:matrix.gentoozh.org](https://matrix.to/#/%23gentoo:matrix.gentoozh.org)
 
 ## What this site is for
 
