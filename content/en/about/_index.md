@@ -31,9 +31,8 @@ Auto-pushes new Gentoo Bugzilla bugs and official news, with live Matrix relay (
 
 ### Gentoo-zh OT group (off-topic chat)
 
-* Telegram: [@gentoo_zh_offtopic](https://t.me/gentoo_zh_offtopic)
-* IRC on Libera Chat: [#gentoo-zh-offtopic](ircs://irc.libera.chat:6697/#gentoo-zh-offtopic)
-* Matrix: [#gentoo_zh_offtopic:shabi.id](https://matrix.to/#/#gentoo_zh_offtopic:shabi.id)
+* Telegram: [@talk_something](https://t.me/talk_something)
+* Matrix: [#talk_something:matrix.gentoozh.org](https://matrix.to/#/#talk_something:matrix.gentoozh.org)
 * OPs: [@gentoo_zh_ops](https://t.me/gentoo_zh_ops)
 
 More ways to connect are on the way!

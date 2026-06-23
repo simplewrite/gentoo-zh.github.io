@@ -35,7 +35,7 @@ Hextra is built on Tailwind CSS and made for docs and blogs:
 
 ## Friendly to Terminal Browsers (TUI)
 
-lzamora70 suggested this in the [@gentoo_zh_offtopic](https://t.me/gentoo_zh_offtopic) group — a bit of a wild card who's nuked and remade their account more than once, so that handle may already be out of date — so we did a pass to make the site work well in terminal / text browsers. It is Gentoo, after all:
+lzamora70 suggested this in the [@talk_something](https://t.me/talk_something) group — a bit of a wild card who's nuked and remade their account more than once, so that handle may already be out of date — so we did a pass to make the site work well in terminal / text browsers. It is Gentoo, after all:
 
 - Semantic HTML and a clean heading hierarchy, so the layout stays readable and links stay reachable in plain-text browsers like [lynx](https://lynx.invisible-island.net/) / [w3m](https://w3m.sourceforge.net/) / links;
 - Every page has a "skip to content" link at the top, so you can jump past the nav and start reading right away;
