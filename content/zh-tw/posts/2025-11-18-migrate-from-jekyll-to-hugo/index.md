@@ -1,6 +1,6 @@
 ---
 title: "網站從 Jekyll 遷移至 Hugo"
-description: "2025 年接手維護後，把站點從 Jekyll 搬到了 Hugo——構建更快、部署更省心。這篇記一下為什麼換、遷了哪些東西。"
+description: "2025 年接手維護後，把網站從 Jekyll 搬到了 Hugo——建置更快、部署更省事。這篇記一下為什麼換、遷了哪些東西。"
 date: 2025-11-18
 tags: ["announcement"]
 authors:
@@ -9,11 +9,11 @@ authors:
     link: https://github.com/zakkaus
 ---
 
-經創始人 [@biergaizi](https://github.com/biergaizi) 授權，[@Zakkaus](https://github.com/zakkaus) 於 2025 年接手本站日常維護，並將站點從 Jekyll 遷移到 Hugo。
+經創始人 [@biergaizi](https://github.com/biergaizi) 授權，[@Zakkaus](https://github.com/zakkaus) 於 2025 年接手本站日常維護，並將網站從 Jekyll 遷移到 Hugo。
 
 ## 為什麼換 Hugo
 
-Jekyll 依賴 Ruby 環境，構建較慢，主題生態也不如以往活躍。Hugo 是單一 Go 二進位制，構建速度快、部署簡單，原生支援多語言。主題選用 [Blowfish](https://blowfish.page/)。
+Jekyll 依賴 Ruby 環境，建置較慢，主題生態也不如以往活躍。Hugo 是單一 Go 二進位制，建置速度快、部署簡單，原生支援多語言。主題選用 [Blowfish](https://blowfish.page/)。
 
 ## 遷移內容
 

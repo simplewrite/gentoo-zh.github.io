@@ -11,20 +11,20 @@ slug: "changelog"
 
 ## 2026 年 6 月
 
-- 新增轉載文章 **[Gentoo Linux with ZFS](/posts/2026-06-18-gentoo-linux-with-zfs/)**（原作者 [Locez](https://github.com/locez)，經授權按 CC BY-NC-SA 4.0 轉載）：在雙 NVMe 鏡像上安裝 ZFS 根 + ZFS 原生加密的實錄；本站補充了 SLOG 配置勘誤、分割槽要點，以及各安裝步驟對應的官方中文手冊連結
-- Live ISO 圖形安裝器支援 **ZFS 根檔案系統**：可把 ZFS 裝成根，勾選加密即 ZFS 原生加密（aes-256-gcm）、由 ZFSBootMenu 引導（btrfs / ext4 / xfs / ZFS 均可在分割槽頁選）。[下載頁](/download/#live-iso)與[使用說明](https://mirror.gentoozh.org/about.html)已補充說明
+- 新增轉載文章 **[Gentoo Linux with ZFS](/posts/2026-06-18-gentoo-linux-with-zfs/)**（原作者 [Locez](https://github.com/locez)，經授權按 CC BY-NC-SA 4.0 轉載）：在雙 NVMe 鏡像上安裝 ZFS 根 + ZFS 原生加密的實錄；本站補充了 SLOG 配置勘誤、分割區要點，以及各安裝步驟對應的官方中文手冊連結
+- Live ISO 圖形安裝器支援 **ZFS 根檔案系統**：可把 ZFS 裝成根，勾選加密即 ZFS 原生加密（aes-256-gcm）、由 ZFSBootMenu 引導（btrfs / ext4 / xfs / ZFS 均可在分割區頁選）。[下載頁](/download/#live-iso)與[使用說明](https://mirror.gentoozh.org/about.html)已補充說明
 - 下載站上雲：Live ISO 下載遷到 **Cloudflare R2**（[r2.gentoozh.org](https://r2.gentoozh.org/)，零出口流量、全球邊緣），落地頁 [mirror.gentoozh.org](https://mirror.gentoozh.org/) 改成 **Cloudflare Worker**（邊緣即時讀 R2，列出最新鏡像 + 全部歷史版本）；測速改用 [Cloudflare 官方測速](https://speed.cloudflare.com/)；自建的美國下載 / 測速伺服器隨之下線
 - 公共頁面新增英文（English）國際化：關於、下載、鏡像列表、貢獻指南等公共頁面現在可在簡體 / 繁體 / 英文之間切換，主要是方便用 gentoo-zh overlay 的海外使用者。需要說明：**技術文章不一定都有英文**，目前只做了公共頁面；英文部分借翻譯軟體協助生成、由至今能找到的最好最貴的模型 Claude Fable 5（ultracode）負責 review 和最佳化，難免有錯漏，歡迎在 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 指正
 
 ## 2026 年 5 月
 
-- 專案結構調整：把表現層（主題）抽成獨立的 Hextra 補丁包 [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme)，本倉庫只留內容與配置，更清爽、也便於跟隨上游 Hextra 更新
+- 專案結構調整：把表現層（主題）抽成獨立的 Hextra 修補包 [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme)，本倉庫只留內容與配置，更清爽、也便於跟隨上游 Hextra 更新
 - 首頁改版：重新梳理視覺主次（大標題做錨點、主操作更突出），主色統一為 Gentoo 品牌紫，「最新文章」改為優先展示技術內容
 - 貢獻指南重寫「為 gentoo-zh Overlay 貢獻」一節：依官方 Gentoo ebuild 倉庫規範梳理完整提交流程（EAPI、`metadata.xml`、thin Manifest、`~arch` 測試、`pkgdev`/`pkgcheck`、PR 與 CI），並補 nvchecker 版本跟進；區分 Overlay 貢獻（計入貢獻者牆）與網站貢獻，頁面排版改用原生 callout / 摺疊塊，頂欄新增「貢獻指南」入口
 - 下載站接入 mirror.gentoozh.org，替代已下線的 iso.gig-os.org；下載 / 鏡像列表 / Overlay 三頁重寫，Live ISO 登入憑據支援點選複製
 - 鏡像同步源說明：Gentoo 官方自 2025-10-30 起停止為第三方倉庫（含 gentoo-zh）提供快取鏡像，overlay 已改為直連 GitHub 上游同步；之前新增過的使用者需更新同步源，詳見[公告](/posts/2025-10-07-thirdparty-repo-mirror-removal/)
-- **網站主題從 Blowfish 遷移到 Hextra**（v0.12.3，基於 Hugo 0.162.1）：重做首頁 bento 佈局、整理頂欄導航、文章改用原生 `tags` 分類，新增首頁 RSS 訂閱按鈕與社交分享圖；詳見[遷移公告](/posts/2026-05-29-migrate-to-hextra/)
-- 下載頁突出「中文社群定製 KDE 桌面 Live ISO」，方便新手快速上手
+- **網站主題從 Blowfish 遷移到 Hextra**（v0.12.3，基於 Hugo 0.162.1）：重做首頁 bento 佈局、整理頂欄導覽、文章改用原生 `tags` 分類，新增首頁 RSS 訂閱按鈕與社交分享圖；詳見[遷移公告](/posts/2026-05-29-migrate-to-hextra/)
+- 下載頁突出「中文社群客製 KDE 桌面 Live ISO」，方便新手快速上手
 - 載入最佳化：貢獻者頭像按顯示尺寸自動縮放（首頁圖片體積大幅下降），動畫尊重「減少動態效果」偏好
 - 貢獻者自動更新改為每月一次，並在更新時清理已下線貢獻者與舊頭像，控制倉庫體積
 - 全站清理與貢獻者自動更新指令碼的穩定性強化
@@ -42,7 +42,7 @@ slug: "changelog"
 
 ## 2025 年 11 月
 
-- 站點從 Jekyll 遷移到 Hugo，上線新版
+- 網站從 Jekyll 遷移到 Hugo，上線新版
 - 新增貢獻者列表與個人介紹頁
 - 完善 SEO 元標籤、結構化資料與暗色模式
 - 更新 Telegram 群規、下載頁憑證與社群頻道資訊（IRC 遷至 Libera Chat）

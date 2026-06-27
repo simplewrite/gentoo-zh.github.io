@@ -13,10 +13,11 @@ title: "關於"
 
 快來加入我們吧！Gentoo 中文
 
-加入**主群**後，下面其它群全部免去驗證：
+加入**主群**後，下面其他群全部免去驗證：
 
 * **主群**：Telegram [@gentoo_zh](https://t.me/gentoo_zh) · Matrix [#gentoo-zh:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh:matrix.gentoozh.org) · IRC [#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)
 * **主頻道（公告）**：Telegram [@gentoocn](https://t.me/gentoocn) · Matrix [#gentoocn:matrix.gentoozh.org](https://matrix.to/#/%23gentoocn:matrix.gentoozh.org)
+* **正體中文頻道（TC）**：Telegram [@gentootw](https://t.me/gentootw) · Matrix [#gentootw:matrix.gentoozh.org](https://matrix.to/#/%23gentootw:matrix.gentoozh.org)
 * **閒聊（OT）**：Telegram [@talk_something](https://t.me/talk_something) · Matrix [#talk_something:matrix.gentoozh.org](https://matrix.to/#/%23talk_something:matrix.gentoozh.org) · IRC [#gentoo-zh-offtopic](ircs://irc.libera.chat:6697/#gentoo-zh-offtopic)
 * **申訴 / 爭議**：Telegram [@gentoo_zh_ops](https://t.me/gentoo_zh_ops) · Matrix [#gentoo_zh_ops:matrix.gentoozh.org](https://matrix.to/#/%23gentoo_zh_ops:matrix.gentoozh.org)
 * 學習交流 QQ 群：43047398
@@ -41,15 +42,9 @@ title: "關於"
 
 ## 關於網站語言
 
-本網站提供簡體中文和傳統中文（Traditional Chinese）兩種版本。
+本網站提供簡體中文和正體中文（Traditional Chinese）兩種版本，正體版由簡體經 OpenCC 自動轉換生成。
 
-我們選擇「傳統中文」這個稱呼，因為它強調的是文字的傳承和歷史，而非地域或政治：
-
-- **Zh = Zhonghua（中華）** — 這是所有華語使用者共同的文化根源
-- **拼音用拉丁字母** — 文字系統本來就可以互相借鑑，重要的是傳承的內涵
-- **簡體和傳統都是中文** — 只是書寫形式不同，表達的是同一種語言和文化
-
-歡迎所有中文使用者貢獻內容，無論你習慣哪種書寫方式。
+簡體和正體只是書寫形式不同，都是同一種語言和文化。歡迎所有中文使用者貢獻內容，無論你習慣哪種書寫方式。
 
 ### 英文
 
@@ -75,6 +70,6 @@ title: "關於"
 
 ---
 
-## 版權宣告
+## 版權聲明
 
 Logo 來自: [https://wiki.gentoo.org/wiki/Project:Artwork/Artwork#Genchu](https://wiki.gentoo.org/wiki/Project:Artwork/Artwork#Genchu)

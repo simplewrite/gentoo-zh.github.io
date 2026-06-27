@@ -17,6 +17,7 @@ Join the **main group** and every group below skips verification:
 
 * **Main group**: Telegram [@gentoo_zh](https://t.me/gentoo_zh) · Matrix [#gentoo-zh:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh:matrix.gentoozh.org) · IRC [#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)
 * **Main channel (announcements)**: Telegram [@gentoocn](https://t.me/gentoocn) · Matrix [#gentoocn:matrix.gentoozh.org](https://matrix.to/#/%23gentoocn:matrix.gentoozh.org)
+* **Traditional Chinese channel (TC)**: Telegram [@gentootw](https://t.me/gentootw) · Matrix [#gentootw:matrix.gentoozh.org](https://matrix.to/#/%23gentootw:matrix.gentoozh.org)
 * **Off-topic chat**: Telegram [@talk_something](https://t.me/talk_something) · Matrix [#talk_something:matrix.gentoozh.org](https://matrix.to/#/%23talk_something:matrix.gentoozh.org) · IRC [#gentoo-zh-offtopic](ircs://irc.libera.chat:6697/#gentoo-zh-offtopic)
 * **Appeals / disputes**: Telegram [@gentoo_zh_ops](https://t.me/gentoo_zh_ops) · Matrix [#gentoo_zh_ops:matrix.gentoozh.org](https://matrix.to/#/%23gentoo_zh_ops:matrix.gentoozh.org)
 * QQ study & chat group: 43047398
@@ -41,15 +42,9 @@ Pulling together all the related resources, bringing Gentoo users into one place
 
 ## About the site's languages
 
-This site comes in Simplified Chinese and Traditional Chinese.
+This site comes in Simplified Chinese and Traditional Chinese; the Traditional version is generated from the Simplified source via OpenCC.
 
-We use the name "Traditional Chinese" because it emphasizes the heritage and history of the script, not region or politics:
-
-- **Zh = Zhonghua (中华)** — the shared cultural root of every Chinese speaker
-- **Pinyin uses Latin letters** — writing systems have always borrowed from one another; what matters is the heritage they carry
-- **Simplified and Traditional are both Chinese** — just a different written form of the same language and culture
-
-All Chinese users are welcome to contribute, whichever script you're used to.
+Simplified and Traditional are just different written forms of the same language and culture. All Chinese users are welcome to contribute, whichever script you're used to.
 
 ### English
 

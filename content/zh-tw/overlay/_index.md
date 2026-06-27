@@ -6,11 +6,11 @@ Overlay 是官方 Portage 樹之外的軟體來源——疊加上去，就能裝
 
 到現在 gentoo-zh 收錄了 450 多個軟體套件，大致這麼幾類：
 
-- **中文 / CJK**：fcitx 輸入法和一大堆外掛、碼錶（rime、chinese-addons 等），搜狗 / 萌娘 / zhwiki 拼音詞庫，中文字型，以及一些軟體的 CJK 補丁
+- **中文 / CJK**：fcitx 輸入法和一大堆外掛、碼表（rime、chinese-addons 等），搜狗 / 萌娘 / zhwiki 拼音詞庫，中文字型，以及一些軟體的 CJK 修補
 - **網路、開發工具等官方源裡還沒有的**：畢竟是 gentoo 使用者，誰手裡沒幾個自己維護的包
-- **打好補丁的桌面 / 效能向核心**：cachyos-sources、xanmod、liquorix 這些
+- **打好修補的桌面 / 效能向核心**：cachyos-sources、xanmod、liquorix 這些
 - **跟進新版本**：官方源暫時沒人管的包，這邊接著出新版
-- **錯誤修復**：開發者踩到 bug，解決後第一時間把補丁推回源裡
+- **錯誤修復**：開發者踩到 bug，解決後第一時間把修補推回源裡
 
 規矩就一條：別弄壞別人的系統。每個 ebuild 進源前都得在它支援的架構上測過。
 
@@ -79,7 +79,7 @@ GENTOO_MIRRORS="${GENTOO_MIRRORS} https://distfiles.gentoocn.org"
 ```
 
 {{< callout type="info" >}}
-不想 mirror 某些 distfiles（版權等原因）時，在對應 ebuild 里加 `RESTRICT="mirror"`。
+不想 mirror 某些 distfiles（版權等原因）時，在對應 ebuild 裡加 `RESTRICT="mirror"`。
 {{< /callout >}}
 
 ## 用 overlay 裡的包

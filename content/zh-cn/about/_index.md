@@ -17,6 +17,7 @@ title: "关于"
 
 * **主群**：Telegram [@gentoo_zh](https://t.me/gentoo_zh) · Matrix [#gentoo-zh:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh:matrix.gentoozh.org) · IRC [#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)
 * **主频道（公告）**：Telegram [@gentoocn](https://t.me/gentoocn) · Matrix [#gentoocn:matrix.gentoozh.org](https://matrix.to/#/%23gentoocn:matrix.gentoozh.org)
+* **正体中文频道（TC）**：Telegram [@gentootw](https://t.me/gentootw) · Matrix [#gentootw:matrix.gentoozh.org](https://matrix.to/#/%23gentootw:matrix.gentoozh.org)
 * **闲聊（OT）**：Telegram [@talk_something](https://t.me/talk_something) · Matrix [#talk_something:matrix.gentoozh.org](https://matrix.to/#/%23talk_something:matrix.gentoozh.org) · IRC [#gentoo-zh-offtopic](ircs://irc.libera.chat:6697/#gentoo-zh-offtopic)
 * **申诉 / 争议**：Telegram [@gentoo_zh_ops](https://t.me/gentoo_zh_ops) · Matrix [#gentoo_zh_ops:matrix.gentoozh.org](https://matrix.to/#/%23gentoo_zh_ops:matrix.gentoozh.org)
 * 学习交流 QQ 群：43047398
@@ -41,15 +42,9 @@ title: "关于"
 
 ## 关于网站语言
 
-本网站提供简体中文和传统中文（Traditional Chinese）两种版本。
+本网站提供简体中文和正体中文（Traditional Chinese）两种版本，正体版由简体经 OpenCC 自动转换生成。
 
-我们选择「传统中文」这个称呼，因为它强调的是文字的传承和历史，而非地域或政治：
-
-- **Zh = Zhonghua（中华）** — 这是所有华语使用者共同的文化根源
-- **拼音用拉丁字母** — 文字系统本来就可以互相借鉴，重要的是传承的内涵
-- **简体和传统都是中文** — 只是书写形式不同，表达的是同一种语言和文化
-
-欢迎所有中文使用者贡献内容，无论你习惯哪种书写方式。
+简体和正体只是书写形式不同，都是同一种语言和文化。欢迎所有中文使用者贡献内容，无论你习惯哪种书写方式。
 
 ### 英文
 
