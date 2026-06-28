@@ -46,6 +46,7 @@ ROLE_TAGS = {
     'overlay_maint':  {'zh-cn': '现任主要维护者', 'zh-tw': '現任主要維護者', 'en': 'Current maintainer'},
     'site_maint':     {'zh-cn': '网站维护者',    'zh-tw': '網站維護者',    'en': 'Site maintainer'},
     'site_content':   {'zh-cn': '网站内容贡献者', 'zh-tw': '網站內容貢獻者', 'en': 'Site content contributor'},
+    'liveos_dev':     {'zh-cn': 'LiveOS 开发者', 'zh-tw': 'LiveOS 開發者', 'en': 'LiveOS developer'},
 }
 # 同角色、同語言的別字（保留為當前頁面的合法寫法，不被歸一改寫）。值為 (role, lang)。
 ROLE_ALIASES = {

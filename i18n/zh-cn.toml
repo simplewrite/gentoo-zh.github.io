@@ -1,0 +1,5 @@
+[contrib_liveos_dev]
+other = "LiveOS 开发者"
+
+[contrib_web_admin]
+other = "网站与桥接服务器维护者"

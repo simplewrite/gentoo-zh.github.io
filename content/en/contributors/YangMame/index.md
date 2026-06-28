@@ -1,7 +1,7 @@
 ---
 title: "Mame"
-description: Mame — Gentoo Chinese Community gentoo-zh contributor
-tags: ['Overlay contributor']
+description: Mame — Gentoo Chinese Community LiveOS developer
+tags: ['LiveOS developer']
 externalUrl: "https://github.com/YangMame"
 links:
   - name: "blog"
@@ -11,4 +11,4 @@ links:
 weight: 9977
 ---
 
-23 commits
+LiveOS developer

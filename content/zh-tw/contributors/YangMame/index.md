@@ -1,7 +1,7 @@
 ---
 title: "Mame"
-description: Mame — Gentoo 中文社群 gentoo-zh 貢獻者
-tags: ['Overlay 貢獻者']
+description: Mame — Gentoo 中文社群 LiveOS 開發者
+tags: ['LiveOS 開發者']
 externalUrl: "https://github.com/YangMame"
 links:
   - name: "blog"
@@ -11,4 +11,4 @@ links:
 weight: 9977
 ---
 
-23 次提交
+LiveOS 開發者

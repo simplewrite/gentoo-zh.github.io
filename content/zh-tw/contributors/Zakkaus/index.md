@@ -1,6 +1,6 @@
 ---
 title: "Zakk"
-description: Zakk — Gentoo 中文社群 gentoo-zh 貢獻者
+description: Zakk — Gentoo 中文社群 網站與Matrix伺服器維護者
 tags: ['網站維護者']
 externalUrl: "https://github.com/Zakkaus"
 links:
@@ -9,4 +9,4 @@ links:
 weight: 9896
 ---
 
-104 次提交
+網站與Matrix伺服器維護者

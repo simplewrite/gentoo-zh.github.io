@@ -1,6 +1,6 @@
 ---
 title: "Zakk"
-description: Zakk — Gentoo Chinese Community gentoo-zh contributor
+description: Zakk — Gentoo Chinese Community site & Matrix server maintainer
 tags: ['Site maintainer']
 externalUrl: "https://github.com/Zakkaus"
 links:
@@ -9,4 +9,4 @@ links:
 weight: 9896
 ---
 
-104 commits
+Site & Matrix server maintainer
