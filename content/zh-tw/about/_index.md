@@ -21,6 +21,7 @@ title: "關於"
 * **閒聊（OT）**：Telegram [@talk_something](https://t.me/talk_something) · Matrix [#talk_something:matrix.gentoozh.org](https://matrix.to/#/%23talk_something:matrix.gentoozh.org) · IRC [#gentoo-zh-offtopic](ircs://irc.libera.chat:6697/#gentoo-zh-offtopic)
 * **申訴 / 爭議**：Telegram [@gentoo_zh_ops](https://t.me/gentoo_zh_ops) · Matrix [#gentoo_zh_ops:matrix.gentoozh.org](https://matrix.to/#/%23gentoo_zh_ops:matrix.gentoozh.org)
 * 學習交流 QQ 群：43047398
+* Gentoo 中文社區 QQ 群：160294591
 
 > **群組規則提示：**  
 > 中華文化不分國界，更不分信仰。我們尊重每一位成員的宗教、性別、政治傾向，但請將討論聚焦於技術本身。
