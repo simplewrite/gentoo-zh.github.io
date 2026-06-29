@@ -20,7 +20,7 @@ Join the **main group** and every group below skips verification:
 * **Traditional Chinese channel (TC)**: Telegram [@gentootw](https://t.me/gentootw) · Matrix [#gentootw:matrix.gentoozh.org](https://matrix.to/#/%23gentootw:matrix.gentoozh.org)
 * **Off-topic chat**: Telegram [@talk_something](https://t.me/talk_something) · Matrix [#talk_something:matrix.gentoozh.org](https://matrix.to/#/%23talk_something:matrix.gentoozh.org) · IRC [#gentoo-zh-offtopic](ircs://irc.libera.chat:6697/#gentoo-zh-offtopic)
 * **Appeals / disputes**: Telegram [@gentoo_zh_ops](https://t.me/gentoo_zh_ops) · Matrix [#gentoo_zh_ops:matrix.gentoozh.org](https://matrix.to/#/%23gentoo_zh_ops:matrix.gentoozh.org)
-* QQ study & chat group: 43047398
+* QQ study & chat group: 43047398 (old group, may be inactive)
 * Gentoo Chinese community QQ group: 160294591
 
 > **Group rules:**  

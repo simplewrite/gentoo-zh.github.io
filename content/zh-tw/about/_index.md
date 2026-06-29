@@ -20,7 +20,7 @@ title: "關於"
 * **正體中文頻道（TC）**：Telegram [@gentootw](https://t.me/gentootw) · Matrix [#gentootw:matrix.gentoozh.org](https://matrix.to/#/%23gentootw:matrix.gentoozh.org)
 * **閒聊（OT）**：Telegram [@talk_something](https://t.me/talk_something) · Matrix [#talk_something:matrix.gentoozh.org](https://matrix.to/#/%23talk_something:matrix.gentoozh.org) · IRC [#gentoo-zh-offtopic](ircs://irc.libera.chat:6697/#gentoo-zh-offtopic)
 * **申訴 / 爭議**：Telegram [@gentoo_zh_ops](https://t.me/gentoo_zh_ops) · Matrix [#gentoo_zh_ops:matrix.gentoozh.org](https://matrix.to/#/%23gentoo_zh_ops:matrix.gentoozh.org)
-* 學習交流 QQ 群：43047398
+* 學習交流 QQ 群：43047398（舊群，可能不活躍）
 * Gentoo 中文社區 QQ 群：160294591
 
 > **群組規則提示：**  
