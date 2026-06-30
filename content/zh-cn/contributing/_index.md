@@ -7,6 +7,7 @@ description: "如何为 gentoo-zh Overlay 与 Gentoo 中文社区网站做出贡
 
 - **为 gentoo-zh Overlay 贡献**（软件包 / ebuild）——社区主线，也是[贡献者墙](/contributors/)的来源（脚本每月抓取 [microcai/gentoo-zh](https://github.com/microcai/gentoo-zh) 提交 5 次以上者）。详见下方「为 gentoo-zh Overlay 贡献」。
 - **为社区网站贡献**（文章 / 翻译 / 修正）——在 [gentoo-zh.github.io](https://github.com/Gentoo-zh/gentoo-zh.github.io) 仓库，详见本页后半「为社区网站贡献」。
+- **为官方 Gentoo Wiki 翻译**（中文译者）——见[如何参与 Gentoo Wiki 的翻译工作](/posts/2026-06-30-gentoo-wiki-translation/)。
 
 ## 为 gentoo-zh Overlay 贡献
 

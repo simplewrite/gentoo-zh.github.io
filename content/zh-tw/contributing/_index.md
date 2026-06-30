@@ -7,6 +7,7 @@ description: "如何為 gentoo-zh Overlay 與 Gentoo 中文社群網站做出貢
 
 - **為 gentoo-zh Overlay 貢獻**（軟體套件 / ebuild）——社群主線，也是[貢獻者牆](/contributors/)的來源（指令碼每月抓取 [microcai/gentoo-zh](https://github.com/microcai/gentoo-zh) 提交 5 次以上者）。詳見下方「為 gentoo-zh Overlay 貢獻」。
 - **為社群網站貢獻**（文章 / 翻譯 / 修正）——在 [gentoo-zh.github.io](https://github.com/Gentoo-zh/gentoo-zh.github.io) 倉庫，詳見本頁後半「為社群網站貢獻」。
+- **為官方 Gentoo Wiki 翻譯**（中文譯者）——見[如何參與 Gentoo Wiki 的翻譯工作](/posts/2026-06-30-gentoo-wiki-translation/)。
 
 ## 為 gentoo-zh Overlay 貢獻
 
