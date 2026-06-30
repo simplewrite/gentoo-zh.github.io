@@ -7,6 +7,9 @@ authors:
   - name: Zakk
     image: /contributors/zakkaus/feature.webp
     link: https://github.com/zakkaus
+  - name: Clover（审校）
+    image: /contributors/simplewrite/feature.webp
+    link: https://github.com/simpleWrite
 ---
 
 JFrog 安全研究团队于 2026 年 6 月 25 日公开了 Linux 内核本地提权利用 **DirtyClone**。它利用 [CVE-2026-43503](https://cveawg.mitre.org/api/cve/CVE-2026-43503) 中 socket buffer（skb）共享分片标志传递不完整的问题，可将原本只读的文件页缓存变成内核中的写入目标。该漏洞的 CVSS v3.1 评分为 8.8。

@@ -7,6 +7,9 @@ authors:
   - name: Zakk
     image: /contributors/zakkaus/feature.webp
     link: https://github.com/zakkaus
+  - name: Clover（审校）
+    image: /contributors/simplewrite/feature.webp
+    link: https://github.com/simpleWrite
 ---
 
 2026 年 3 月至 6 月，研究人员陆续报告或公开了多组能够修改 Linux 文件页缓存的本地提权漏洞。Copy Fail、DirtyFrag、Fragnesia 和 DirtyClone 经常被放在一起讨论，因为它们都能把只读文件映射成内核中的写入目标，但它们不是同一个漏洞，也不共享完全相同的触发条件。

@@ -82,7 +82,7 @@ authors:
 2. 不要一次進行大量的改動；
 3. 進行頁面重排前應進行討論。
 
-這三條是中文 wiki 約定俗成的編輯規則，整理自 [ArchLinux 中文 Wiki · 三個基本原則](https://wiki.archlinuxcn.org/wiki/Project:%E8%B4%A1%E7%8C%AE#%E4%B8%89%E4%B8%AA%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99)。
+這三條是中文 wiki 約定俗成的編輯規則，整理自 [Arch Linux 中文 Wiki · 三個基本原則](https://wiki.archlinuxcn.org/wiki/Project:%E8%B4%A1%E7%8C%AE#%E4%B8%89%E4%B8%AA%E5%9F%BA%E6%9C%AC%E5%8E%9F%E5%88%99)。
 
 ### 中文排版
 
@@ -99,7 +99,7 @@ authors:
 - 翻譯時，正文的英文常見標點等需要換為中文標點；
 - 當半形符號 `/` 表示“或者”之意時，與前後的字元之間均不加空格。
 
-以上排版規則為中文 wiki 約定俗成，整理自 [ArchLinux 中文 Wiki · 風格](https://wiki.archlinuxcn.org/wiki/Help:%E9%A3%8E%E6%A0%BC)。
+以上排版規則為中文 wiki 約定俗成，整理自 [Arch Linux 中文 Wiki · 風格](https://wiki.archlinuxcn.org/wiki/Help:%E9%A3%8E%E6%A0%BC)。
 
 ## 關於 AI 翻譯
 
