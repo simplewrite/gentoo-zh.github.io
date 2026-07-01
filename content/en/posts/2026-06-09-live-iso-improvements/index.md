@@ -38,7 +38,7 @@ The build pipeline, [Zakkaus/gentoozh-liveiso-infra](https://github.com/Zakkaus/
 
 ## Website
 
-The website, [www.gentoo.org.cn](https://www.gentoo.org.cn/) (source: [gentoo-zh.github.io](https://github.com/Gentoo-zh/gentoo-zh.github.io)), migrated from Blowfish to Hextra — lighter, faster, and friendlier to docs and text browsers (details in the [migration post](/posts/2026-05-29-migrate-to-hextra/)). The presentation layer was split out into a standalone Hextra patch package, [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme), which also rounded out SEO, the footer, and accessibility. The download page was wired up to the download site, with notes on the Live ISO's features and hardware requirements, plus a new FAQ page. This round also added **English** to the public pages, so you can switch between Simplified / Traditional / English.
+The website, [gentoozh.org](https://gentoozh.org/) (source: [gentoo-zh.github.io](https://github.com/Gentoo-zh/gentoo-zh.github.io)), migrated from Blowfish to Hextra — lighter, faster, and friendlier to docs and text browsers (details in the [migration post](/posts/2026-05-29-migrate-to-hextra/)). The presentation layer was split out into a standalone Hextra patch package, [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme), which also rounded out SEO, the footer, and accessibility. The download page was wired up to the download site, with notes on the Live ISO's features and hardware requirements, plus a new FAQ page. This round also added **English** to the public pages, so you can switch between Simplified / Traditional / English.
 
 ## Download site
 

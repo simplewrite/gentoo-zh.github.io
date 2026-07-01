@@ -43,7 +43,7 @@ Hextra 基于 Tailwind CSS，为文档与博客而生：
 - 贡献者头像墙与文章作者署名在文本模式下每人只列一次；
 - 配合 Hextra 的「以 Markdown 查看 / 复制为 Markdown」页面菜单，方便用脚本或 LLM 直接取用页面原文。
 
-欢迎用 `lynx https://www.gentoo.org.cn/` 试试。
+欢迎用 `lynx https://gentoozh.org/` 试试。
 
 ## 补充：公共页面加了英文
 

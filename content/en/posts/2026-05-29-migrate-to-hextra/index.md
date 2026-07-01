@@ -43,7 +43,7 @@ lzamora70 suggested this in the [@talk_something](https://t.me/talk_something) g
 - In text mode, the contributor avatar wall and article bylines list each person only once;
 - Pair that with Hextra's "View as Markdown / Copy as Markdown" page menu and it's easy to grab a page's raw text with a script or an LLM.
 
-Try it with `lynx https://www.gentoo.org.cn/`.
+Try it with `lynx https://gentoozh.org/`.
 
 ## Update: English on the public pages
 

@@ -1,6 +1,6 @@
 # Gentoo 中文社区
 
-[Gentoo 中文社区](https://www.gentoo.org.cn/) 官方网站，基于 [Hugo](https://gohugo.io/) 静态网站生成器与 [Hextra](https://imfing.github.io/hextra/) 主题构建，部署在 GitHub Pages 上。
+[Gentoo 中文社区](https://gentoozh.org/) 官方网站，基于 [Hugo](https://gohugo.io/) 静态网站生成器与 [Hextra](https://imfing.github.io/hextra/) 主题构建，部署在 GitHub Pages 上。
 
 ## 特性
 
@@ -72,7 +72,7 @@ hugo --gc --minify
 
 ## 贡献
 
-欢迎投稿与改进，详见站点的[贡献指南](https://www.gentoo.org.cn/contributing/)（`content/zh-cn/contributing/`）。
+欢迎投稿与改进，详见站点的[贡献指南](https://gentoozh.org/contributing/)（`content/zh-cn/contributing/`）。
 
 ## 更新主题
 

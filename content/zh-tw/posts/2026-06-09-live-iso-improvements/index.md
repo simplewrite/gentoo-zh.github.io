@@ -38,7 +38,7 @@ Live ISO 建置所需的包來自 [Gentoo-zh/gig](https://github.com/Gentoo-zh/g
 
 ## 官網
 
-官網 [www.gentoo.org.cn](https://www.gentoo.org.cn/)（原始碼 [gentoo-zh.github.io](https://github.com/Gentoo-zh/gentoo-zh.github.io)）從 Blowfish 遷移到了 Hextra——更輕、更快、對文件和文字瀏覽器更友好（細節見[遷移那篇](/posts/2026-05-29-migrate-to-hextra/)）。表現層抽成了獨立的 Hextra 修補包 [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme)，補全了 SEO、頁尾與無障礙。下載頁也接入了下載站、補了 Live ISO 的功能說明和硬體要求，並新增了 FAQ 頁。這次還給公共頁面加了**英文國際化**，簡 / 繁 / 英可切。
+官網 [gentoozh.org](https://gentoozh.org/)（原始碼 [gentoo-zh.github.io](https://github.com/Gentoo-zh/gentoo-zh.github.io)）從 Blowfish 遷移到了 Hextra——更輕、更快、對文件和文字瀏覽器更友好（細節見[遷移那篇](/posts/2026-05-29-migrate-to-hextra/)）。表現層抽成了獨立的 Hextra 修補包 [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme)，補全了 SEO、頁尾與無障礙。下載頁也接入了下載站、補了 Live ISO 的功能說明和硬體要求，並新增了 FAQ 頁。這次還給公共頁面加了**英文國際化**，簡 / 繁 / 英可切。
 
 ## 下載站
 
