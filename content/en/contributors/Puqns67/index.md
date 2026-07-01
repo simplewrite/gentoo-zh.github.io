@@ -3,7 +3,7 @@ title: "Puqns67"
 description: Puqns67 — Gentoo Chinese Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/Puqns67"
-weight: 9738
+weight: 9728
 ---
 
-262 commits
+272 commits

@@ -3,7 +3,7 @@ title: "irort"
 description: irort — Gentoo Chinese Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/irort"
-weight: 9806
+weight: 9800
 ---
 
-194 commits
+200 commits

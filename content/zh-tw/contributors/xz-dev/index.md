@@ -14,7 +14,7 @@ links:
     url: "https://gitlab.com/xz-dev"
   - name: "generic"
     url: "https://codeberg.org/xz-dev"
-weight: 9874
+weight: 9859
 ---
 
-126 次提交
+141 次提交

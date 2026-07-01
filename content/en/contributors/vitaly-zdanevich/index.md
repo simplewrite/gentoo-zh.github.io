@@ -14,7 +14,7 @@ links:
     url: "https://stackoverflow.com/users/1879101/vitaly-zdanevich"
   - name: "reddit"
     url: "https://www.reddit.com/user/vitaly-zdanevich/"
-weight: 9952
+weight: 9944
 ---
 
-48 commits
+56 commits

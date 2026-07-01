@@ -3,7 +3,7 @@ title: "Keeyou Hu"
 description: Keeyou Hu — Gentoo Chinese Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/hukeyue"
-weight: 9987
+weight: 9986
 ---
 
-13 commits
+14 commits

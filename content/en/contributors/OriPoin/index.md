@@ -3,7 +3,7 @@ title: "Yachen"
 description: Yachen — Gentoo Chinese Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/OriPoin"
-weight: 9707
+weight: 9706
 ---
 
-293 commits
+294 commits

@@ -8,7 +8,7 @@ links:
     url: "https://liaobinbin.com"
   - name: "twitter"
     url: "https://x.com/doubiliao"
-weight: 9992
+weight: 9990
 ---
 
-8 commits
+10 commits
