@@ -414,6 +414,7 @@ Run into a problem, or have a suggestion?
 - **Telegram channel**: [@gentoocn](https://t.me/gentoocn)
 - **Telegram group**: [@gentoo_zh](https://t.me/gentoo_zh)
 - **GitHub Issues**: <https://github.com/Gentoo-zh/gentoo-zh.github.io/issues>
+- **Site contact email**: <zakk@gentoozh.org>
 
 For more channels (IRC / Matrix / casual chat groups, etc.), see the [about page](/about/).
 

@@ -413,6 +413,7 @@ git commit -am "bump gentoozh-theme"
 - **Telegram 频道**：[@gentoocn](https://t.me/gentoocn)
 - **Telegram 群组**：[@gentoo_zh](https://t.me/gentoo_zh)
 - **GitHub Issues**：<https://github.com/Gentoo-zh/gentoo-zh.github.io/issues>
+- **网站事宜联络邮箱**：<zakk@gentoozh.org>
 
 更多频道（IRC / Matrix / 闲聊群等）见[关于页面](/about/)。
 

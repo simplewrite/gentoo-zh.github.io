@@ -8,6 +8,9 @@ dateFormat = "2006-01-02"
 # 站点默认社交分享图（Hextra 用于 og:image / twitter:image，绝对化后输出）
 images = ["img/og-cover.png"]
 
+# 页脚备用联系邮箱（footer partial 读取；留空则不显示该行）
+contactEmail = "zakk@gentoozh.org"
+
 [navbar]
   displayTitle = false
   displayLogo = true

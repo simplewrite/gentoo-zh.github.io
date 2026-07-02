@@ -3,3 +3,9 @@ other = "LiveOS 开发者"
 
 [contrib_web_admin]
 other = "网站与桥接服务器维护者"
+
+[footer_contact_main]
+other = "网站事宜"
+
+[footer_contact_backup]
+other = "邮箱"

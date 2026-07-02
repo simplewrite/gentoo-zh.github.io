@@ -3,3 +3,9 @@ other = "LiveOS Developer"
 
 [contrib_web_admin]
 other = "Site & bridge server maintainers"
+
+[footer_contact_main]
+other = "Site contact:"
+
+[footer_contact_backup]
+other = "Email:"
