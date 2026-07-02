@@ -2,6 +2,8 @@
 title: "建设中的 Gentoo 中文社区"
 description: "社区第三次重启、网站仍在搭建时的一篇说明：讲了 Gentoo 是什么、社区为何再起，以及第一阶段要做的翻译、镜像等工作。"
 date: 2014-08-24
+aliases:
+  - /website/community/2014/08/25/gentoo-zh-community-under-construction/
 tags: ["announcement", "community"]
 authors:
   - name: 清风

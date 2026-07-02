@@ -2,6 +2,8 @@
 title: "Gentoo 中文社区成立"
 description: "Gentoo 中文社区第三次组建的成立公告：回顾 2004、2007 两次前身，由清风牵头重启，把国内 Gentoo 的资源和人聚到一起。"
 date: 2013-02-05
+aliases:
+  - /website/community/2013/02/05/gentoo-zh-community-has-been-founded/
 tags: ["announcement", "community"]
 authors:
   - name: 清风
