@@ -20,8 +20,8 @@ title: "關於"
 * **正體中文頻道（TC）**：Telegram [@gentootw](https://t.me/gentootw) · Matrix [#gentootw:matrix.gentoozh.org](https://matrix.to/#/%23gentootw:matrix.gentoozh.org)
 * **閒聊（OT）**：Telegram [@talk_something](https://t.me/talk_something) · Matrix [#talk_something:matrix.gentoozh.org](https://matrix.to/#/%23talk_something:matrix.gentoozh.org) · IRC [#gentoo-zh-offtopic](ircs://irc.libera.chat:6697/#gentoo-zh-offtopic)
 * **申訴 / 爭議**：Telegram [@gentoo_zh_ops](https://t.me/gentoo_zh_ops) · Matrix [#gentoo_zh_ops:matrix.gentoozh.org](https://matrix.to/#/%23gentoo_zh_ops:matrix.gentoozh.org)
-* 學習交流 QQ 群：43047398（舊群，可能不活躍）
-* Gentoo 中文社區 QQ 群：160294591
+* 學習交流 QQ 群：43047398（老群，可能不活躍）
+* Gentoo 中文社群 QQ 群：160294591
 
 > **群組規則提示：**  
 > 中華文化不分國界，更不分信仰。我們尊重每一位成員的宗教、性別、政治傾向，但請將討論聚焦於技術本身。
@@ -47,11 +47,15 @@ title: "關於"
 
 簡體和正體只是書寫形式不同，都是同一種語言和文化。歡迎所有中文使用者貢獻內容，無論你習慣哪種書寫方式。
 
+### 為什麼叫 zh
+
+名字裡的 zh 來自 ISO 639，是中文這門語言的代碼，認的是語言，而不是國家或某個特定地區。而 cn 是 ISO 3166 的國家代碼，範圍反而更窄。況且 gentoo-zh 就是當年的 gentoo-tw 和 gentoo-china [兩岸社群合併](https://code.google.com/archive/p/gentoo-taiwan/issues/2)來的。archlinuxcn 其實也自稱「Arch Linux 中文社群」，cn 只是歷史留下來的叫法，社群裡也有人提過換成 zh，只是體量太大改不動。
+
 ### 英文
 
-公共頁面也提供英文，主要是方便用 gentoo-zh overlay 的海外使用者——overlay 早就有不少中文圈外的人在跑。
+公共頁面也提供英文，主要是方便用 gentoo-zh overlay 的海外使用者，這個 overlay 早就有不少中文圈外的人在跑。
 
-不過得說清楚：**文章不一定都有英文**。目前只在公共頁面（關於、下載、鏡像列表、貢獻指南這些）做了國際化，具體的技術文章大多還是中文。英文部分是借翻譯軟體協助生成、再由至今能找到的最好最貴的模型 Claude Fable 5（ultracode）負責 review 和最佳化的，難免有生硬或錯漏的地方——發現問題歡迎在 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 上指正或提 PR。
+文章不一定都有英文。目前只有公共頁面（關於、下載、鏡像列表、貢獻指南）做了國際化，具體的技術文章大多還是中文。英文內容是由翻譯軟體初譯，再經 Claude Fable 5 校對最佳化，難免會有生硬或錯漏，如果發現問題歡迎到 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 指正或提 PR。
 
 ## 參與社群建設，我能做些什麼？
 

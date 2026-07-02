@@ -10,6 +10,8 @@ blocklist:
   - dearfl
   # 應本人請求移除（dearfl 改名後的 ID）
   - serephus
+  # 應本人請求移除，保持匿名
+  - aieu
   # 自動化 bot，不計入貢獻者
   - dependabot[bot]
 

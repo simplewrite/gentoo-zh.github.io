@@ -47,11 +47,15 @@ title: "关于"
 
 简体和正体只是书写形式不同，都是同一种语言和文化。欢迎所有中文使用者贡献内容，无论你习惯哪种书写方式。
 
+### 为什么叫 zh
+
+名字里的 zh 来自 ISO 639，是中文这门语言的代码，认的是语言，而不是国家或某个特定地区。而 cn 是 ISO 3166 的国家代码，范围反而更窄。况且 gentoo-zh 就是当年的 gentoo-tw 和 gentoo-china [两岸社区合并](https://code.google.com/archive/p/gentoo-taiwan/issues/2)来的。archlinuxcn 其实也自称「Arch Linux 中文社区」，cn 只是历史留下来的叫法，社区里也有人提过换成 zh，只是体量太大改不动。
+
 ### 英文
 
-公共页面也提供英文，主要是方便用 gentoo-zh overlay 的海外用户——overlay 早就有不少中文圈外的人在跑。
+公共页面也提供英文，主要是方便用 gentoo-zh overlay 的海外用户，这个 overlay 早就有不少中文圈外的人在跑。
 
-不过得说清楚：**文章不一定都有英文**。目前只在公共页面（关于、下载、镜像列表、贡献指南这些）做了国际化，具体的技术文章大多还是中文。英文部分是借翻译软件协助生成、再由至今能找到的最好最贵的模型 Claude Fable 5（ultracode）负责 review 和优化的，难免有生硬或错漏的地方——发现问题欢迎在 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 上指正或提 PR。
+文章不一定都有英文。目前只有公共页面（关于、下载、镜像列表、贡献指南）做了国际化，具体的技术文章大多还是中文。英文内容是由翻译软件初译，再经 Claude Fable 5 校对优化，难免会有生硬或错漏，如果发现问题欢迎到 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 指正或提 PR。
 
 ## 参与社区建设，我能做些什么？
 

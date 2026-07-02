@@ -33,13 +33,15 @@ Gentoo 中文社群官網今天正式遷往 **gentoozh.org**。論壇（forum.ge
 
 舊域名有合規方面的要求，架設論壇、Matrix、下載站這類服務需要走一套我們作為志願者專案難以完成的流程。gentoozh.org 是國際域名，沒有這層限制，一直在我們手裡。這次 [@zakkaus](https://github.com/zakkaus) 會把域名和相關服務的管理權限分配給對應的負責人，避免權限再次丟失。
 
-名字裡的 zh 是 zhōnghuá（中華）的縮寫，比 cn 更符合社群的定位。archlinuxcn 很早就討論過改成 archlinuxzh，因為體量推不動。我們沒有那樣的歷史包袱，既然要動就做到位。
+域名裡的 zh 來自 ISO 639，是中文這門語言的代碼，認的是語言，而不是國家或某個特定地區。而 cn 是 ISO 3166 的國家代碼，範圍反而更窄。況且 gentoo-zh 就是當年的 gentoo-tw 和 gentoo-china [兩岸社群合併](https://code.google.com/archive/p/gentoo-taiwan/issues/2)來的。archlinuxcn 其實也自稱「Arch Linux 中文社群」，cn 只是歷史留下來的叫法，社群裡也有人提過換成 zh，只是體量太大改不動。我們沒有那樣的歷史包袱，既然要動就做到位。
 
 ## 感謝
 
-gentoo.org.cn 由 aieu 老師長期持有，在社群沉寂的這十多年裡一直續著。舊域名保留重新導向，不會斷鏈。
+gentoo.org.cn 由一位老師長期持有，在社群沉寂的這十多年裡一直續著。舊域名保留重新導向，不會斷鏈。
 
-同時也感謝[清風老師](/contributors/zhcj/)的指點，這次域名整合的決定很大程度上來自他的建議。清風老師在 2014 年[建立了這個社群](/posts/2014-08-24-gentoo-zh-community-under-construction/)，沒有他就沒有 gentoo-zh 的起點。
+同時也感謝[清風老師](/contributors/zhcj/)和[藍老師](https://packages.gentoo.org/maintainer/dlan@gentoo.org)的指點。這次域名整合的決定很大程度上來自清風老師的建議，他在 2014 年[建立了這個社群](/posts/2014-08-24-gentoo-zh-community-under-construction/)，沒有他就沒有 gentoo-zh 的起點。
+
+最後感謝 David K. Chau、[依雲](https://github.com/lilydjwg)、蝸牛、花火幾位菊苣對文章內容提出的意見，以及 Clover 的審校。
 
 ## 影響
 
