@@ -61,7 +61,8 @@ gentoo.org.cn 由一位老师长期持有，在社区沉寂的这十多年里一
 - `https://gentoo.org.cn` → `https://gentoozh.org`
 - `https://www.gentoo.org.cn` → `https://gentoozh.org`
 - `https://forum.gentoo.org.cn` → `https://forum.gentoozh.org`
-- `https://gentoocn.org` 下所有地址同理
+- `https://distfiles.gentoocn.org` → `https://distfiles.gentoozh.org`
+- `https://gentoocn.org` → `https://gentoozh.org`
 
 如果发现哪里还留着旧域名没更新，欢迎到 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 开 issue 或直接 PR，也可以在 Telegram、Matrix 交流群中告诉我们。
 
