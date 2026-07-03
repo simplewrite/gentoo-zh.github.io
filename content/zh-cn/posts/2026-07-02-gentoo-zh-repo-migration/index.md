@@ -361,7 +361,7 @@ git push origin master
 - 开启 branch protection 或 ruleset
 - 默认分支合并必须经过 pull request
 - 维护者通过 GitHub team 管理权限
-- 仓库 description 设置为 `Gentoo Linux overlay for Chinese users`
+- 仓库 description 设置为 `Gentoo Linux overlay for gentoo users`
 - 仓库 homepage 设置为 gentoo-zh 社区主页
 
 ### 12. 更新 Gentoo overlay registry
@@ -459,4 +459,4 @@ This updates the overlay registry homepage, Git sources, Atom feed URL, and owne
 
 ## 补记：官网侧进度（zakkaus）
 
-官网[贡献者墙](/contributors/)的自动统计（`update-contributors.py`）与相关页面说明已提前指向 `Gentoo-zh/gentoo-zh`——每月 1 日将会自动更新。目前 [Overlay 页](/overlay/)与[贡献指南](/contributing/)里 fork、issue 等教学链接仍指向 `microcai/gentoo-zh`，等迁移完成后再统一更新。
+官网[贡献者墙](/contributors/)的自动统计（`update-contributors.py`）与相关页面说明已指向 `Gentoo-zh/gentoo-zh`——每月 1 日将会自动更新。迁移生效后，[Overlay 页](/overlay/)与[贡献指南](/contributing/)里 fork、issue 等教学链接也已全部更新到新仓库；旧的 `microcai/gentoo-zh` 个人仓库会 301 到新仓库，本地配置过旧地址的建议在方便时更新到新 URL。

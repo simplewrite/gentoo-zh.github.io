@@ -7,7 +7,7 @@
 - Hugo 静态网站生成器 + Hextra 主题（通过 [Hugo Modules](https://gohugo.io/hugo-modules/) 引入，见 `go.mod`，无需 Node 工具链）
 - 简体 / 传统中文双语并存（zh-cn 在根路径 `/`，zh-tw 在 `/zh-tw/`）
 - 站内全文搜索（FlexSearch）、暗色模式、响应式布局
-- 贡献者列表每周自动从 [gentoo-zh Overlay](https://github.com/microcai/gentoo-zh) 抓取并更新
+- 贡献者列表每月自动从 [gentoo-zh Overlay](https://github.com/Gentoo-zh/gentoo-zh) 抓取并更新
 - RSS 订阅
 
 ## 本地开发

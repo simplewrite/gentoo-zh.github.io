@@ -2,7 +2,7 @@
 title: "Overlay"
 ---
 
-An overlay is a source of software outside the official Portage tree—layer it on top and you can install packages that aren't in the official repos. gentoo-zh is one of the long-standing ones: it grew out of gentoo-tw (started in 2003) and the later gentoo-china, when the two communities merged. The source lives on [GitHub](https://github.com/microcai/gentoo-zh).
+An overlay is a source of software outside the official Portage tree—layer it on top and you can install packages that aren't in the official repos. gentoo-zh is one of the long-standing ones: it grew out of gentoo-tw (started in 2003) and the later gentoo-china, when the two communities merged. The source lives on [GitHub](https://github.com/Gentoo-zh/gentoo-zh).
 
 By now gentoo-zh carries over 450 packages, roughly in these categories:
 
@@ -31,7 +31,7 @@ Create `gentoo-zh.conf` under `/etc/portage/repos.conf/`:
 [gentoo-zh]
 location = /var/db/repos/gentoo-zh
 sync-type = git
-sync-uri = https://github.com/microcai/gentoo-zh.git
+sync-uri = https://github.com/Gentoo-zh/gentoo-zh.git
 auto-sync = yes
 ```
 
@@ -49,7 +49,7 @@ If connecting straight to GitHub or the official distfiles is slow for you, swit
 
 ### git sync source
 
-Point the overlay's sync source at a mainland mirror (gentoo-zh is a full ebuild mirror of [microcai/gentoo-zh](https://github.com/microcai/gentoo-zh)—ebuilds only, no source code). Available addresses:
+Point the overlay's sync source at a mainland mirror (gentoo-zh is a full ebuild mirror of [Gentoo-zh/gentoo-zh](https://github.com/Gentoo-zh/gentoo-zh)—ebuilds only, no source code). Available addresses:
 
 - Chongqing University: `https://mirrors.cqu.edu.cn/git/gentoo-zh.git`
 - Nanjing University: `https://mirror.nju.edu.cn/git/gentoo-zh.git`
@@ -67,7 +67,7 @@ If you've already added it, just change the `sync-uri` in `/etc/portage/repos.co
 
 ### distfiles cache
 
-Speeds up downloading package source code. The origin is <https://distfiles.gentoocn.org/>; available mirrors:
+Speeds up downloading package source code. The origin is <https://distfiles.gentoozh.org/>; available mirrors:
 
 - Chongqing University: `https://mirrors.cqu.edu.cn/gentoo-zh/`
 - Nanjing University: `https://mirror.nju.edu.cn/gentoo-zh`
@@ -75,7 +75,7 @@ Speeds up downloading package source code. The origin is <https://distfiles.gent
 In `GENTOO_MIRRORS` in `/etc/portage/make.conf`, append after the official mirrors:
 
 ```bash
-GENTOO_MIRRORS="${GENTOO_MIRRORS} https://distfiles.gentoocn.org"
+GENTOO_MIRRORS="${GENTOO_MIRRORS} https://distfiles.gentoozh.org"
 ```
 
 {{< callout type="info" >}}
@@ -103,4 +103,4 @@ To see what packages the overlay offers: `eix -RO gentoo-zh`.
 
 ## Contributing
 
-We'd love help building out gentoo-zh: open a pull request on the [GitHub repository](https://github.com/microcai/gentoo-zh), and if you find a problem, issues are welcome too.
+We'd love help building out gentoo-zh: open a pull request on the [GitHub repository](https://github.com/Gentoo-zh/gentoo-zh), and if you find a problem, issues are welcome too.

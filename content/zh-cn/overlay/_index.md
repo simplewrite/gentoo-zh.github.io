@@ -2,16 +2,16 @@
 title: "Overlay"
 ---
 
-Overlay 是官方 Portage 树之外的软件来源——叠加上去，就能装到官方源里没有的包。gentoo-zh 是其中历史悠久的一个：前身是 2003 年的 gentoo-tw 与随后的 gentoo-china，两岸社区合并而来，源码在 [GitHub](https://github.com/microcai/gentoo-zh)。
+Overlay 是官方 Portage 树之外的软件来源——叠加上去，就能装到官方源里没有的包。gentoo-zh 是其中历史悠久的一个：前身是 2003 年的 gentoo-tw 与随后的 gentoo-china，两岸社区合并而来，源码在 [GitHub](https://github.com/Gentoo-zh/gentoo-zh)。
 
-{{< callout type="warning" >}}
-overlay 仓库即将迁移到组织仓库 `Gentoo-zh/gentoo-zh`，见[公告与执行方案](/posts/2026-07-02-gentoo-zh-repo-migration/)。迁移完成前本页命令和链接仍用 `microcai/gentoo-zh`，照抄即可；完成后旧地址会自动跳转，本页也会同步更新。
+{{< callout type="info" >}}
+overlay 仓库已迁移到组织仓库 [Gentoo-zh/gentoo-zh](https://github.com/Gentoo-zh/gentoo-zh)，旧的 `microcai/gentoo-zh` 个人仓库会 301 到新仓库，建议在方便时更新到新 URL，详见[公告与执行方案](/posts/2026-07-02-gentoo-zh-repo-migration/)。
 {{< /callout >}}
 
 到现在 gentoo-zh 收录了 450 多个软件包，大致这么几类：
 
 - **中文 / CJK**：fcitx 输入法和一大堆插件、码表（rime、chinese-addons 等），搜狗 / 萌娘 / zhwiki 拼音词库，中文字体，以及一些软件的 CJK 补丁
-- **网络、开发工具等官方源里还没有的**：毕竟是 gentoo 用户，谁手里没几个自己维护的包
+- **官方源里还没有的网络、开发工具等**：毕竟是 gentoo 用户，谁手里没几个自己维护的包
 - **打好补丁的桌面 / 性能向内核**：cachyos-sources、xanmod、liquorix 这些
 - **跟进新版本**：官方源暂时没人管的包，这边接着出新版
 - **错误修复**：开发者踩到 bug，解决后第一时间把补丁推回源里
@@ -35,7 +35,7 @@ emerge --sync gentoo-zh
 [gentoo-zh]
 location = /var/db/repos/gentoo-zh
 sync-type = git
-sync-uri = https://github.com/microcai/gentoo-zh.git
+sync-uri = https://github.com/Gentoo-zh/gentoo-zh.git
 auto-sync = yes
 ```
 
@@ -53,7 +53,7 @@ auto-sync = yes
 
 ### git 同步源
 
-把 overlay 的同步源切到国内镜像（gentoo-zh 是 [microcai/gentoo-zh](https://github.com/microcai/gentoo-zh) 的完整 ebuild 镜像，只含 ebuild、不含源码）。可用地址：
+把 overlay 的同步源切到国内镜像（gentoo-zh 是 [Gentoo-zh/gentoo-zh](https://github.com/Gentoo-zh/gentoo-zh) 的完整 ebuild 镜像，只含 ebuild、不含源码）。可用地址：
 
 - 重庆大学：`https://mirrors.cqu.edu.cn/git/gentoo-zh.git`
 - 南京大学：`https://mirror.nju.edu.cn/git/gentoo-zh.git`
@@ -71,7 +71,7 @@ emerge --sync gentoo-zh
 
 ### distfiles 缓存
 
-加速软件包源码下载。源站 <https://distfiles.gentoocn.org/>，可用镜像：
+加速软件包源码下载。源站 <https://distfiles.gentoozh.org/>，可用镜像：
 
 - 重庆大学：`https://mirrors.cqu.edu.cn/gentoo-zh/`
 - 南京大学：`https://mirror.nju.edu.cn/gentoo-zh`
@@ -79,7 +79,7 @@ emerge --sync gentoo-zh
 在 `/etc/portage/make.conf` 的 `GENTOO_MIRRORS` 里，官方源之后追加：
 
 ```bash
-GENTOO_MIRRORS="${GENTOO_MIRRORS} https://distfiles.gentoocn.org"
+GENTOO_MIRRORS="${GENTOO_MIRRORS} https://distfiles.gentoozh.org"
 ```
 
 {{< callout type="info" >}}
@@ -107,4 +107,4 @@ echo "*/*::gentoo-zh ~amd64" >> /etc/portage/package.accept_keywords/gentoo-zh
 
 ## 参与贡献
 
-欢迎给 gentoo-zh 添砖加瓦：到 [GitHub 仓库](https://github.com/microcai/gentoo-zh) 提 Pull Request，发现问题也欢迎提 issue。
+欢迎给 gentoo-zh 添砖加瓦：到 [GitHub 仓库](https://github.com/Gentoo-zh/gentoo-zh) 提 Pull Request，发现问题也欢迎提 issue。
