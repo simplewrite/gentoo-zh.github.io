@@ -13,6 +13,8 @@ title: "About"
 
 Come join us — the Gentoo Chinese Community
 
+The community **forum** is at [forum.gentoozh.org](https://forum.gentoozh.org/), for posts, questions, and longer discussions.
+
 Join the **main group** and every group below skips verification:
 
 * **Main group**: Telegram [@gentoo_zh](https://t.me/gentoo_zh) · Matrix [#gentoo-zh:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh:matrix.gentoozh.org) · IRC [#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)

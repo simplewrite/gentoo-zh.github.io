@@ -13,6 +13,8 @@ title: "關於"
 
 快來加入我們吧！Gentoo 中文
 
+社群**論壇**在 [forum.gentoozh.org](https://forum.gentoozh.org/)，適合發帖、提問和長期討論。
+
 加入**主群**後，下面其他群全部免去驗證：
 
 * **主群**：Telegram [@gentoo_zh](https://t.me/gentoo_zh) · Matrix [#gentoo-zh:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh:matrix.gentoozh.org) · IRC [#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)
