@@ -459,4 +459,4 @@ This updates the overlay registry homepage, Git sources, Atom feed URL, and owne
 
 ## 补记：官网侧进度（zakkaus）
 
-官网[贡献者墙](/contributors/)的自动统计（`update-contributors.py`）与相关页面说明已提前指向 `Gentoo-zh/gentoo-zh`——它每月 1 日自动更新，下次运行时迁移已完成。[Overlay 页](/overlay/)与[贡献指南](/contributing/)里 fork、issue 等教学链接仍指向 `microcai/gentoo-zh`，等迁移完成后再统一更新。
+官网[贡献者墙](/contributors/)的自动统计（`update-contributors.py`）与相关页面说明已提前指向 `Gentoo-zh/gentoo-zh`——每月 1 日将会自动更新。目前 [Overlay 页](/overlay/)与[贡献指南](/contributing/)里 fork、issue 等教学链接仍指向 `microcai/gentoo-zh`，等迁移完成后再统一更新。
