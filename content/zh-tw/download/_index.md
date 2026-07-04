@@ -10,7 +10,7 @@ title: "下載"
 
 ## 中文社群 Live ISO {#live-iso}
 
-中文社群客製的 **KDE Plasma 6 桌面 Live ISO**——預設帶有三語言可選（簡 / 繁 / 英）、中文輸入法（fcitx5 + rime），適合新手體驗中文 Gentoo 桌面。
+中文社群客製的 **KDE Plasma 6 桌面 Live ISO**——預設帶有三語言可選（簡 / 正體 / 英）、中文輸入法（fcitx5 + rime），適合新手體驗中文 Gentoo 桌面。
 
 - **下載**：<https://mirror.gentoozh.org/>（下載節點由 Cloudflare R2 提供，全球邊緣節點、不限流量）
 - **倉庫**：<https://github.com/Gentoo-zh/Live-ISO>（包含建置指令碼與相關客製）
