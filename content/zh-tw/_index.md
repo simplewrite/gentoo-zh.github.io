@@ -9,7 +9,7 @@ toc: false
   badge="開源 · 社群驅動"
   badgeLink="https://github.com/Gentoo-zh"
   title="Gentoo 中文社群"
-  subtitle="中文 Gentoo 使用者的聚集地——國家電網合作組織（bushi）"
+  subtitle="中文 Gentoo 使用者的聚集地——<s>國家電網合作組織</s>"
   cta="開始使用 Overlay"
   ctaLink="/overlay/"
   cta2="社群 Live ISO"
