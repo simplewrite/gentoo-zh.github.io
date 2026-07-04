@@ -1,7 +1,7 @@
 ---
 title: "Changelog"
 date: 2026-05-31
-description: "Changelog for the Gentoo Chinese Community website"
+description: "Changelog for the Gentoo-zh Community website"
 slug: "changelog"
 ---
 

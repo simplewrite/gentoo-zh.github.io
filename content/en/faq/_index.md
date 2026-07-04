@@ -1,6 +1,6 @@
 ---
 title: "FAQ"
-description: "Common questions for newcomers to the Gentoo Chinese Community: where to start, how the overlay relates to the official tree, mirror speedups, where to ask, and how to contribute."
+description: "Common questions for newcomers to the Gentoo-zh Community: where to start, how the overlay relates to the official tree, mirror speedups, where to ask, and how to contribute."
 ---
 
 The questions newcomers ask most. For more detailed install steps, see the [official Gentoo Handbook](https://wiki.gentoo.org/wiki/Handbook:AMD64/Full/Installation).

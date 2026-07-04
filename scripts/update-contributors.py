@@ -393,7 +393,7 @@ def generate_frontmatter(login, name, links, weight, tag, commits, lang='zh-cn')
     description 給每頁一句穩定的 meta 描述（避免 Hextra 退而用正文「N 次提交」
     當描述）；不含提交數，免得每月隨數字變動而抖。"""
     if lang == 'en':
-        site, role = 'Gentoo Chinese Community', 'contributor'
+        site, role = 'Gentoo-zh Community', 'contributor'
     elif lang == 'zh-tw':
         site, role = 'Gentoo 中文社群', '貢獻者'
     else:

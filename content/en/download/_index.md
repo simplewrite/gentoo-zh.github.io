@@ -2,15 +2,15 @@
 title: "Download"
 ---
 
-Before you install Gentoo, get your installation media sorted. The least hassle for newcomers is the Chinese community's Live ISO; if you'd rather use the official media, pick the nearest mirror from the list below.
+Before you install Gentoo, get your installation media sorted. The least hassle for newcomers is the Gentoo-zh Community's Live ISO; if you'd rather use the official media, pick the nearest mirror from the list below.
 
 {{< callout type="info" >}}
 **Apple Silicon Macs (M1 / M2)** can't use the standard amd64 images listed on this page — see [Installing Gentoo Linux on an Apple Silicon Mac](/posts/2025-10-02-gentoo-m-series-mac/).
 {{< /callout >}}
 
-## Chinese Community Live ISO {#live-iso}
+## Gentoo-zh Community Live ISO {#live-iso}
 
-A **KDE Plasma 6 desktop Live ISO** put together by the Chinese community — Chinese-ready out of the box, three languages to pick from (Simplified / Traditional / English), Chinese input methods (fcitx5 + rime). A good way to get a feel for a Chinese Gentoo desktop first.
+A **KDE Plasma 6 desktop Live ISO** put together by the Gentoo-zh Community — Chinese-ready out of the box, three languages to pick from (Simplified / Traditional / English), Chinese input methods (fcitx5 + rime). A good way to get a feel for a Chinese Gentoo desktop first.
 
 - **Download site**: <https://mirror.gentoozh.org/> (served from Cloudflare R2 — global edge, no bandwidth limits)
 - **Backup repo**: <https://github.com/Gentoo-zh/Live-ISO> (community fork — build scripts and customizations all live here)

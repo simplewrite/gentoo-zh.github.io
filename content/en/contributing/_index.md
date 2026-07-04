@@ -1,9 +1,9 @@
 ---
 title: "Contributing Guide"
-description: "How to contribute to the gentoo-zh overlay and the Gentoo Chinese Community website"
+description: "How to contribute to the gentoo-zh overlay and the Gentoo-zh Community website"
 ---
 
-Welcome to the Gentoo Chinese Community! There are two tracks for contributing, each with its own entry point and its own way onto the [contributor wall](/contributors/). Pick whichever fits what you want to do:
+Welcome to the Gentoo-zh Community! There are two tracks for contributing, each with its own entry point and its own way onto the [contributor wall](/contributors/). Pick whichever fits what you want to do:
 
 - **Contribute to the gentoo-zh overlay** (packages / ebuilds) — the main community track, and the source of the [contributor wall](/contributors/) (a script pulls everyone with 5+ commits to [Gentoo-zh/gentoo-zh](https://github.com/Gentoo-zh/gentoo-zh) every month). See "Contributing to the gentoo-zh overlay" below.
 - **Contribute to the community website** (articles / translations / fixes) — lives in the [gentoo-zh.github.io](https://github.com/Gentoo-zh/gentoo-zh.github.io) repo. See "Contributing to the community website" in the second half of this page.
@@ -424,4 +424,4 @@ Content on this site is licensed under [CC BY-SA 4.0](https://creativecommons.or
 
 ---
 
-Fixing a typo, adding a line of translation, sending a PR — it all counts. The Gentoo Chinese Community was built up exactly this way, one bit at a time.
+Fixing a typo, adding a line of translation, sending a PR — it all counts. The Gentoo-zh Community was built up exactly this way, one bit at a time.
