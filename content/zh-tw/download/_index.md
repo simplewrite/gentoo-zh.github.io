@@ -2,7 +2,7 @@
 title: "下載"
 ---
 
-裝 Gentoo 先把安裝媒體準備好。新手最省事的是中文社群的 Live ISO；想用官方媒體的，從下面的鏡像裡就近選一個。
+在安裝 Gentoo 之前請先把安裝媒體準備好。建議新手使用由我們中文社群客製的 Live ISO；希望使用官方媒體的，請從下面的鏡像站中就近選擇一個。
 
 {{< callout type="info" >}}
 **Apple Silicon Mac（M1 / M2）** 不適用本頁列出的標準 amd64 鏡像，請看 [在 Apple Silicon Mac 上安裝 Gentoo Linux](/posts/2025-10-02-gentoo-m-series-mac/)。
@@ -10,36 +10,36 @@ title: "下載"
 
 ## 中文社群 Live ISO {#live-iso}
 
-中文社群客製的 **KDE Plasma 6 桌面 Live ISO**——開箱即中文、三語言可選（簡 / 繁 / 英）、中文輸入法（fcitx5 + rime），適合先上手體驗中文 Gentoo 桌面。
+中文社群客製的 **KDE Plasma 6 桌面 Live ISO**——預設帶有三語言可選（簡 / 繁 / 英）、中文輸入法（fcitx5 + rime），適合新手體驗中文 Gentoo 桌面。
 
-- **下載站**：<https://mirror.gentoozh.org/>（下載由 Cloudflare R2 提供，全球邊緣節點、不限流量）
-- **備用倉庫**：<https://github.com/Gentoo-zh/Live-ISO>（社群 fork，建置指令碼與客製都在這）
-- **登入憑據**：使用者 {{< copy "live" >}} / 密碼 {{< copy "live" >}} / Root {{< copy "live" >}}
-- **硬體要求**：64 位元 x86 CPU，需支援 AVX2（約 2013 年後的處理器）；更老的 CPU 無法啟動本鏡像。
-- **更新頻率**：每週自動重新編譯並上傳，始終是較新的系統快照；下載站只保留最近幾個版本，請以站上實際檔名（`gig-os-日期.iso`）為準。
-- **新版通知**：關注 Telegram 頻道 <https://t.me/gentoomirror>，每週建置上線時自動播報。
+- **下載**：<https://mirror.gentoozh.org/>（下載節點由 Cloudflare R2 提供，全球邊緣節點、不限流量）
+- **倉庫**：<https://github.com/Gentoo-zh/Live-ISO>（包含建置指令碼與相關客製）
+- **登入憑據**：使用者 {{< copy "live" >}} / 密碼 {{< copy "live" >}} / root 密碼 {{< copy "live" >}}
+- **硬體要求**：64 位元 x86 CPU，需支援 AVX2（約 2013 年後的處理器，更老的 CPU 無法啟動）。
+- **更新頻率**：每週自動編譯並上傳，始終是較新的系統快照；下載站只保留最近幾個版本，請以站上實際檔名（`gig-os-日期.iso`）為準。
+- **新版通知**：關注 Telegram 頻道 <https://t.me/gentoomirror>，每週建置上線時將會自動播報。
 
 {{< callout type="warning" >}}
-**在虛擬機器裡跑？** 鏡像按 `x86-64-v3` 編譯、必須有 AVX2。**VirtualBox 多半傳遞不了 AVX2、鏡像起不來**——請改用 **KVM（`-cpu host`）、原生 Hyper-V 或 VMware**；是否真有 AVX2 以 guest 裡 `grep -o avx2 /proc/cpuinfo` 為準。
+**需要在虛擬機器裡執行？** 鏡像按 `x86-64-v3` 編譯，必須要有 AVX2。而 **VirtualBox 多半傳遞不了 AVX2，這將會導致鏡像無法啟動**——建議換用 **KVM（`-cpu host`）、原生 Hyper-V 或 VMware**；具體是否支援 AVX2 以 guest 裡 `grep -o avx2 /proc/cpuinfo` 為準。
 {{< /callout >}}
 
 {{% details title="這個 Live ISO 有什麼（點開看更多）" %}}
 
-- **三語言開機** — GRUB 選單選 簡體 / 正體 / English，桌面、Firefox、輸入法都跟著切。
-- **多種啟動方式** — 除常規啟動外，還有「複製到記憶體」（整盤載入記憶體後執行，隨身碟可拔、跑得更快）與「安全顯示卡模式」保底，均含三語言。
+- **三語言支援** — GRUB 選單可以選擇 簡體 / 正體 / English，桌面語言、Firefox 語言、相關的輸入法將會跟隨切換。
+- **多種啟動方式** — 除常規啟動外，還支援「載入到記憶體執行」（將整盤載入記憶體後執行，可以移除 隨身碟，執行速度更快），同時還支援「安全顯示卡模式」。
 - **中文輸入法 fcitx5 + rime** — 預設朙月拼音；**右鍵系統匣輸入法圖示 →「方案」** 可切換 注音 / 五筆86 / 倉頡 / 粵拼 等。
-- **開源 / 閉源顯示卡** — 預設 nouveau 隨插即用；新卡（RTX 20/30/40/50）想要硬體加速選「閉源 NVIDIA」啟動項，**需先在 BIOS 關閉 Secure Boot**（驅動未簽名，否則載入不了）。點不亮的疑難卡用「安全顯示卡模式」保底。
-- **圖形安裝器（可選）** — 桌面雙擊「安裝系統」可啟動 Calamares 圖形安裝器（跟隨所選語言），裝好後自動清理 live 殘留（開機自動登入等）；想正經裝、深入瞭解系統，仍推薦照官方手冊一步步來（見下方說明）。
-- **ZFS 根 + 原生加密 + ZBM 引導（進階）** — 安裝器分割區頁檔案系統可選 **ZFS**；勾選「加密」即啟用 **ZFS 原生加密**（aes-256-gcm、密碼解鎖），並由 **ZFSBootMenu** 原生引導（GRUB 讀不了帶新特性 / 原生加密的 ZFS 池，故 ZFS 根改用 ZBM）。預設檔案系統為 btrfs，xfs / ext4 / ZFS 均可在分割區頁選。
-- **按機最佳化** — 裝好系統後，編譯參數 `CPU_FLAGS_X86` 按你的 CPU 自動生成。
+- **開源 / 閉源顯示卡** — 預設 nouveau 隨插即用；新卡（RTX 20/30/40/50）想要硬體加速請選擇「閉源 NVIDIA」啟動項，**需提前在 UEFI 中關閉 Secure Boot**（因為驅動未簽名，無法載入）。如果仍然無法點亮的話，請使用「安全顯示卡模式」。
+- **圖形安裝器（可選）** — 桌面雙擊「安裝系統」可啟動 Calamares 圖形安裝器（跟隨所選語言），安裝完成後將會自動清理 live 殘留（開機自動登入等）；希望正經安裝、深入瞭解系統，推薦按照官方手冊一步步來（見下方說明）。
+- **ZFS 根 + 原生加密 + ZBM 引導（進階）** — 安裝器分割區頁檔案系統可選 **ZFS**；勾選「加密」即啟用 **ZFS 原生加密**（aes-256-gcm、密碼解鎖），並由 **ZFSBootMenu** 原生引導（GRUB 讀不了帶新特性 / 原生加密的 ZFS 池，故 ZFS 根改用 ZBM）。預設檔案系統為 btrfs，在分割區頁面可選擇 xfs / ext4 / ZFS 檔案系統。
+- **按機最佳化** — 裝好系統後，編譯參數 `CPU_FLAGS_X86` 將按你的 CPU 自動生成。
 
 完整功能與配置說明見 **[鏡像站「使用說明」頁](https://mirror.gentoozh.org/about.html)**。
 
 {{% /details %}}
 
-## 鏡像源
+## 鏡像站 {#鏡像源}
 
-下面節點都已逐項實測可用，均提供 amd64 / x86 / arm64 等架構的安裝媒體。按地區就近選一般更快：
+下面節點均提供 amd64 / x86 / arm64 等架構的官方安裝媒體。按地區就近選擇，下載更快：
 
 | 鏡像 | 地區 | 下載地址（releases/） |
 | --- | --- | --- |
