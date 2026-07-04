@@ -37,7 +37,7 @@ title: "关于"
 
 ### 一次加入全部
 
-上面所有 Matrix 频道/群组都收在一个 Space，加它即可一并加入：[#gentoo:matrix.gentoozh.org](https://matrix.to/#/%23gentoo:matrix.gentoozh.org)
+社区所有 Matrix 频道/群组都收在一个 Space 里，加入 Space 会更方便：[#gentoo:matrix.gentoozh.org](https://matrix.to/#/%23gentoo:matrix.gentoozh.org)
 
 ## 本社区网站目标
 
@@ -55,9 +55,9 @@ title: "关于"
 
 ### 英文
 
-公共页面也提供英文，主要是方便用 gentoo-zh overlay 的海外用户，这个 overlay 早就有不少中文圈外的人在跑。
+为了方便使用 gentoo-zh overlay 的海外用户，社区公共页面也提供英文版本。
 
-文章不一定都有英文。目前只有公共页面（关于、下载、镜像列表、贡献指南）做了国际化，具体的技术文章大多还是中文。英文内容是由翻译软件初译，再经 Claude Fable 5 校对优化，难免会有生硬或错漏，如果发现问题欢迎到 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 指正或提 PR。
+但目前只有公共页面（关于、下载、镜像列表、贡献指南）全部做了英文版本，具体的技术文章大多还是中文，只有少数文章提供英文版，英文内容是由翻译软件初译，再经 Claude Fable 5 校对优化，难免会有生硬或错漏，如果发现问题欢迎到 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 指正或提 PR。
 
 ## 参与社区建设，我能做些什么？
 
