@@ -37,7 +37,7 @@ Auto-pushes new Gentoo Bugzilla bugs and official news, with live Matrix relay (
 
 ### Join everything at once
 
-All the Matrix rooms above live in a single Space — join it to get them all: [#gentoo:matrix.gentoozh.org](https://matrix.to/#/%23gentoo:matrix.gentoozh.org)
+All the community's Matrix channels/groups live in one Space; joining the Space is the easy way in: [#gentoo:matrix.gentoozh.org](https://matrix.to/#/%23gentoo:matrix.gentoozh.org)
 
 ## What this site is for
 
@@ -51,9 +51,9 @@ Simplified and Traditional are just different written forms of the same language
 
 ### English
 
-The public pages are also available in English, mainly for the gentoo-zh overlay's overseas users — the overlay has had plenty of users outside the Chinese-speaking world for a while now.
+The public pages are also available in English, to make things easier for the gentoo-zh overlay's overseas users.
 
-One thing to be upfront about: **not everything is in English.** For now only the public pages — about, download, mirror list, contributing and the like — are internationalized; most of the technical articles are still Chinese-only. The English here was drafted with translation software and then reviewed and polished by Claude Fable 5 (ultracode) — the best and most expensive model we could find to date — so it may still read a little stiff in places or have the odd slip. Spot something off? Please open an issue or PR on [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) — corrections are very welcome.
+Only the public pages (About, Download, Mirror list, Contributing) are fully in English; most of the technical articles are still Chinese-only, with only a few articles available in English. The English was drafted with translation software and then reviewed and polished by Claude Fable 5, so it may read a little stiff or have the odd slip — spot something? Open an issue or PR on [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io).
 
 ## How can I help build the community?
 

@@ -2,7 +2,10 @@
 title: "Mirror List"
 ---
 
-Switching Gentoo's sources happens in two parts: the **Portage tree** (the ebuilds and metadata for packages — best synced over git, though rsync works too) and **Distfiles** (the package source tarballs, served over HTTP and configured via `GENTOO_MIRRORS` in `make.conf`).
+Switching Gentoo's sources happens in two parts:
+
+- **Portage tree**: the ebuilds and metadata for packages. Sync with git (recommended), or use rsync.
+- **Distfiles**: the package source tarballs, served over HTTP and set by `GENTOO_MIRRORS` in `make.conf`.
 
 Below is a **tested summary table** showing at a glance what each mirror supports; the per-method config is in the collapsible tutorials further down.
 
@@ -42,7 +45,7 @@ Every node has been individually tested; ✓ = verified working. The `distfiles 
 
 ## Configuration tutorials
 
-{{% details title="① Sync the Portage tree over git (recommended)" %}}
+{{% details title="Sync the Portage tree with git (recommended)" %}}
 
 **Tested working git sources:**
 
@@ -57,7 +60,7 @@ Every node has been individually tested; ✓ = verified working. The `distfiles 
 | HUST | `https://mirrors.hust.edu.cn/git/gentoo-portage.git` |
 | GitHub (overseas) | `https://github.com/gentoo-mirror/gentoo.git` |
 
-**Switching to git sync for the first time**: edit `/etc/portage/repos.conf/gentoo.conf`:
+**Switching to git for the first time**: edit `/etc/portage/repos.conf/gentoo.conf`:
 
 ```ini
 [gentoo]
@@ -84,10 +87,10 @@ emerge --sync
 
 {{% /details %}}
 
-{{% details title="② Sync the Portage tree over rsync" %}}
+{{% details title="Sync the Portage tree with rsync" %}}
 
 {{< callout type="warning" >}}
-Quite a few mirrors only offer git / distfiles and don't run rsync at all. The ones below have been tested to expose the `gentoo-portage` module, so they're safe to use.
+Most mirrors only offer git / distfiles, not rsync sync. The ones below are tested to list the `gentoo-portage` module, so they're safe to use.
 {{< /callout >}}
 
 | Mirror | Sync URL |
@@ -112,7 +115,7 @@ Then run `emerge --sync`.
 
 {{% /details %}}
 
-{{% details title="③ Distfiles config (GENTOO_MIRRORS)" %}}
+{{% details title="Distfiles (GENTOO_MIRRORS)" %}}
 
 In `/etc/portage/make.conf`, fill in the `distfiles URL` from the overview table. You can list several (Portage tries them in order, with the earlier ones taking priority):
 
