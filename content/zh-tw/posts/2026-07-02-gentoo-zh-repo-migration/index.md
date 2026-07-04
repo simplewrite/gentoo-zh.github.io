@@ -19,6 +19,10 @@ authors:
     link: https://github.com/Zakkaus
 ---
 
+{{< callout type="info" >}}
+**更新（2026-07-05）**：本倉庫後來又從 `Gentoo-zh/gentoo-zh` 改名到了 **[`Gentoo-zh/overlay`](https://github.com/gentoo-zh/overlay)**（現在的正式地址），來龍去脈見[文末補充](#rename-to-overlay)。下面「使用者 / 貢獻者切換操作」已按新地址給出；「遷移背景」「遷移執行步驟」等是當時的記錄，倉庫名仍寫作 `gentoo-zh/gentoo-zh`。
+{{< /callout >}}
+
 gentoo-zh overlay 的正式維護倉庫遷移到 GitHub 組織倉庫：
 
 - 新倉庫：https://github.com/gentoo-zh/gentoo-zh
@@ -54,30 +58,34 @@ gentoo-zh overlay 遷移到 GitHub 組織倉庫，是為了讓維護權限、CI 
 
 ```bash
 sudo eselect repository remove gentoo-zh
-sudo eselect repository add gentoo-zh git https://github.com/gentoo-zh/gentoo-zh.git
+sudo eselect repository add gentoo-zh git https://github.com/gentoo-zh/overlay.git
 sudo emaint sync -r gentoo-zh
 ```
 
-直接修改現有 remote：
+或在 `/etc/portage/repos.conf/` 下編輯對應的配置檔案（手動新增的在 `gentoo-zh.conf`，用 eselect 新增的在 `eselect-repo.conf`），把 `[gentoo-zh]` 段的 `sync-uri` 改成新地址：
 
-```bash
-cd /var/db/repos/gentoo-zh
-sudo git remote set-url origin https://github.com/gentoo-zh/gentoo-zh.git
-sudo emaint sync -r gentoo-zh
+```ini
+[gentoo-zh]
+location = /var/db/repos/gentoo-zh
+sync-type = git
+sync-uri = https://github.com/gentoo-zh/overlay.git
+auto-sync = yes
 ```
+
+然後 `emerge --sync gentoo-zh`。
 
 ## 貢獻者切換操作
 
 新的 issue、pull request 和維護討論統一提交到：
 
 ```text
-https://github.com/gentoo-zh/gentoo-zh
+https://github.com/gentoo-zh/overlay
 ```
 
 已有本地工作副本的貢獻者更新 upstream：
 
 ```bash
-git remote set-url upstream https://github.com/gentoo-zh/gentoo-zh.git
+git remote set-url upstream https://github.com/gentoo-zh/overlay.git
 git fetch upstream
 ```
 
@@ -459,4 +467,12 @@ This updates the overlay registry homepage, Git sources, Atom feed URL, and owne
 
 ## 補記：官網側進度（zakkaus）
 
-官網[貢獻者牆](/contributors/)的自動統計（`update-contributors.py`）與相關頁面說明已指向 `Gentoo-zh/gentoo-zh`——每月 1 日將會自動更新。遷移生效後，[Overlay 頁](/overlay/)與[貢獻指南](/contributing/)裡 fork、issue 等教學連結也已全部更新到新倉庫；舊的 `microcai/gentoo-zh` 個人倉庫會 301 到新倉庫，本地配置過舊地址的建議在方便時更新到新 URL。
+官網[貢獻者牆](/contributors/)的自動統計（`update-contributors.py`）與相關頁面說明已指向 `Gentoo-zh/overlay`，每月 1 日將會自動更新。遷移生效後，[Overlay 頁](/overlay/)與[貢獻指南](/contributing/)裡 fork、issue 等教學連結也已全部更新到新倉庫；舊的 `microcai/gentoo-zh` 個人倉庫會 301 到新倉庫，本地配置過舊地址的建議在方便時更新到新 URL。
+
+## 補充：倉庫隨後改名為 gentoo-zh/overlay {#rename-to-overlay}
+
+上面的遷移把倉庫落到了 `Gentoo-zh/gentoo-zh`（GitHub transfer 會保留原倉庫名）。之後社群就正式倉庫名做了一次投票，`gentoo-zh/overlay` 以 21 票比 9 票勝出，於是又把 `Gentoo-zh/gentoo-zh` 重新命名為 **[`Gentoo-zh/overlay`](https://github.com/gentoo-zh/overlay)**，這是現在的正式地址：
+
+- 新地址 <https://github.com/gentoo-zh/overlay>，`sync-uri` 用 `https://github.com/gentoo-zh/overlay.git`
+- `microcai/gentoo-zh` 和 `Gentoo-zh/gentoo-zh` 兩個舊地址都會**一跳 301** 直達新倉庫（網頁和 git 都是），已經配過舊地址的使用者不受影響，方便時更新即可（見上面的「使用者切換操作」）
+- Gentoo 官方 overlay 登記（homepage / git source / feed / owner）已同步改到新地址，見 [gentoo/api-gentoo-org#829](https://github.com/gentoo/api-gentoo-org/pull/829)

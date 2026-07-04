@@ -19,6 +19,10 @@ authors:
     link: https://github.com/Zakkaus
 ---
 
+{{< callout type="info" >}}
+**Update (2026-07-05)**: this repo was later renamed from `Gentoo-zh/gentoo-zh` to **[`Gentoo-zh/overlay`](https://github.com/gentoo-zh/overlay)** (the current canonical address); see [the note at the end](#rename-to-overlay) for the full story. The "For Users" and "For Contributors" sections below already use the new address; the "Background" and "Migration Steps" are the record from that time and still use the name `gentoo-zh/gentoo-zh`.
+{{< /callout >}}
+
 The canonical maintenance repository for the gentoo-zh overlay has moved to a GitHub organization repo:
 
 - New repository: https://github.com/gentoo-zh/gentoo-zh
@@ -54,30 +58,34 @@ Re-add the overlay:
 
 ```bash
 sudo eselect repository remove gentoo-zh
-sudo eselect repository add gentoo-zh git https://github.com/gentoo-zh/gentoo-zh.git
+sudo eselect repository add gentoo-zh git https://github.com/gentoo-zh/overlay.git
 sudo emaint sync -r gentoo-zh
 ```
 
-Or change the existing remote directly:
+Or edit the relevant config file under `/etc/portage/repos.conf/` (`gentoo-zh.conf` if you added it manually, or `eselect-repo.conf` if you used eselect) and change the `sync-uri` in the `[gentoo-zh]` section to the new address:
 
-```bash
-cd /var/db/repos/gentoo-zh
-sudo git remote set-url origin https://github.com/gentoo-zh/gentoo-zh.git
-sudo emaint sync -r gentoo-zh
+```ini
+[gentoo-zh]
+location = /var/db/repos/gentoo-zh
+sync-type = git
+sync-uri = https://github.com/gentoo-zh/overlay.git
+auto-sync = yes
 ```
+
+Then run `emerge --sync gentoo-zh`.
 
 ## For Contributors
 
 Submit new issues, pull requests, and maintenance discussions to:
 
 ```text
-https://github.com/gentoo-zh/gentoo-zh
+https://github.com/gentoo-zh/overlay
 ```
 
 Contributors with an existing local working copy should update upstream:
 
 ```bash
-git remote set-url upstream https://github.com/gentoo-zh/gentoo-zh.git
+git remote set-url upstream https://github.com/gentoo-zh/overlay.git
 git fetch upstream
 ```
 
@@ -459,4 +467,12 @@ After the transfer, carry out the following maintenance tasks:
 
 ## Postscript: Website Progress (zakkaus)
 
-The website's [contributor wall](/contributors/) auto-stats (`update-contributors.py`) and the related page notes now point to `Gentoo-zh/gentoo-zh`, and they refresh automatically on the 1st of each month. Now that the migration is in effect, the fork, issue, and other how-to links on the [Overlay page](/overlay/) and in the [contributing guide](/contributing/) have all been updated to the new repository. The old personal repository `microcai/gentoo-zh` 301-redirects to the new one; if you configured the old address locally, update it to the new URL when convenient.
+The website's [contributor wall](/contributors/) auto-stats (`update-contributors.py`) and the related page notes now point to `Gentoo-zh/overlay`, and they refresh automatically on the 1st of each month. Now that the migration is in effect, the fork, issue, and other how-to links on the [Overlay page](/overlay/) and in the [contributing guide](/contributing/) have all been updated to the new repository. The old personal repository `microcai/gentoo-zh` 301-redirects to the new one; if you configured the old address locally, update it to the new URL when convenient.
+
+## Postscript: the repo was later renamed to gentoo-zh/overlay {#rename-to-overlay}
+
+The transfer above landed the repository at `Gentoo-zh/gentoo-zh` (a GitHub transfer keeps the original repository name). The community then voted on the canonical name, `gentoo-zh/overlay` won 21 to 9, and `Gentoo-zh/gentoo-zh` was renamed to **[`Gentoo-zh/overlay`](https://github.com/gentoo-zh/overlay)**, which is the current canonical address:
+
+- New address: <https://github.com/gentoo-zh/overlay>, with `sync-uri` set to `https://github.com/gentoo-zh/overlay.git`
+- Both old paths, `microcai/gentoo-zh` and `Gentoo-zh/gentoo-zh`, **301-redirect in a single hop** to the new repo (web and git), so users on an old address aren't affected and can update when convenient (see "For Users" above)
+- Gentoo's official overlay registry (homepage / git source / feed / owner) has been updated to the new address too, see [gentoo/api-gentoo-org#829](https://github.com/gentoo/api-gentoo-org/pull/829)
