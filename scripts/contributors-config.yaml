@@ -6,7 +6,7 @@
 blocklist:
   - Claude
   - charm
-  # 已刪除的 GitHub 帳號（歷史 commits 仍保留在 microcai/gentoo-zh git log）
+  # 已刪除的 GitHub 帳號（歷史 commits 仍保留在 gentoo-zh/overlay git log）
   - dearfl
   # 應本人請求移除（dearfl 改名後的 ID）
   - serephus
@@ -19,7 +19,7 @@ blocklist:
 min_commits: 5
 
 # 倉庫配置
-repository: Gentoo-zh/gentoo-zh
+repository: gentoo-zh/overlay
 
 # 頭像尺寸配置
 avatar_sizes:
