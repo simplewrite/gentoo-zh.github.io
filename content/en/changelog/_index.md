@@ -53,4 +53,4 @@ This page tracks the major updates to the site's content, so readers can follow 
 
 - This page records the major updates to the site's **content**, not purely technical changes
 - Contributor information updates automatically each month and isn't recorded here
-- Questions or suggestions? Reach out at [admin@zakk.au](mailto:admin@zakk.au) or discuss in the [Telegram group](https://t.me/gentoo_zh)
+- Questions or suggestions? Reach out at [zakk@gentoozh.org](mailto:zakk@gentoozh.org) or discuss in the [Telegram group](https://t.me/gentoo_zh)

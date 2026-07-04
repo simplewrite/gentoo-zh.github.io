@@ -9,6 +9,15 @@ slug: "changelog"
 
 ---
 
+## 2026 年 7 月
+
+- **社区主域名迁往 [gentoozh.org](https://gentoozh.org/)**：旧域名（gentoo.org.cn、gentoocn.org）全部 301 永久跳转，书签与已有链接不失效，建议尽快更新；详见[迁移公告](/posts/2026-07-01-domain-migration/)
+- **gentoo-zh overlay 仓库迁到组织仓库 [Gentoo-zh/gentoo-zh](https://github.com/Gentoo-zh/gentoo-zh)**：旧的 `microcai/gentoo-zh` 会 301 到新仓库，已添加的用户请把同步源更新到新 URL，详见[仓库迁移公告与执行方案](/posts/2026-07-02-gentoo-zh-repo-migration/)
+- **社区论坛 [forum.gentoozh.org](https://forum.gentoozh.org/) 上线**（Discourse，简繁双语）：适合发帖、提问和长期讨论；首页「加入社区」与[关于页](/about/)已加入口
+- **官网托管迁到 Cloudflare Workers**：从 GitHub Pages 迁到 Workers 静态资源托管（免费不限量、全球边缘节点），见[迁移文的补充说明](/posts/2026-07-01-domain-migration/)
+- [下载页](/download/#live-iso)与 [Overlay 页](/overlay/)文案更新：下载页整理登录凭据、虚拟机 AVX2 提示与镜像站清单；Overlay 页重排软件包分类、把两种添加方式收进折叠块、补上国内 git / distfiles 换源地址
+- 英文界面站名统一为 **Gentoo-zh Community**
+
 ## 2026 年 6 月
 
 - 新增文章 **[如何参与 Gentoo Wiki 的翻译工作](/posts/2026-06-30-gentoo-wiki-translation/)**：面向中文译者的翻译入门，涵盖账号与权限申请、翻译界面用法、翻译规范与中英文排版约定，以及 Gentoo 理事会 AI 政策对翻译的具体影响（作者 YangMame）
@@ -19,7 +28,7 @@ slug: "changelog"
 - 新增转载文章 **[Gentoo Linux with ZFS](/posts/2026-06-18-gentoo-linux-with-zfs/)**（原作者 [Locez](https://github.com/locez)，经授权按 CC BY-NC-SA 4.0 转载）：在双 NVMe 镜像上安装 ZFS 根 + ZFS 原生加密的实录；本站补充了 SLOG 配置勘误、分区要点，以及各安装步骤对应的官方中文手册链接
 - Live ISO 图形安装器支持 **ZFS 根文件系统**：可把 ZFS 装成根，勾选加密即 ZFS 原生加密（aes-256-gcm）、由 ZFSBootMenu 引导（btrfs / ext4 / xfs / ZFS 均可在分区页选）。[下载页](/download/#live-iso)与[使用说明](https://mirror.gentoozh.org/about.html)已补充说明
 - 下载站上云：Live ISO 下载迁到 **Cloudflare R2**（[r2.gentoozh.org](https://r2.gentoozh.org/)，零出口流量、全球边缘），落地页 [mirror.gentoozh.org](https://mirror.gentoozh.org/) 改成 **Cloudflare Worker**（边缘即时读 R2，列出最新镜像 + 全部历史版本）；测速改用 [Cloudflare 官方测速](https://speed.cloudflare.com/)；自建的美国下载 / 测速服务器随之下线
-- 公共页面新增英文（English）国际化：关于、下载、镜像列表、贡献指南等公共页面现在可在简体 / 正體 / 英文之间切换，主要是方便用 gentoo-zh overlay 的海外用户。需要说明：**技术文章不一定都有英文**，目前只做了公共页面；英文部分借翻译软件协助生成、由至今能找到的最好最贵的模型 Claude Fable 5（ultracode）负责 review 和优化，难免有错漏，欢迎在 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 指正
+- 公共页面新增英文（English）国际化：关于、下载、镜像列表、贡献指南等公共页面可在简体 / 正體 / 英文之间切换，方便用 gentoo-zh overlay 的海外用户。技术文章不一定都有英文，目前只做了公共页面；英文借翻译软件初译、再经 AI 校对，难免有错漏，欢迎到 [GitHub](https://github.com/Gentoo-zh/gentoo-zh.github.io) 指正
 
 ## 2026 年 5 月
 
@@ -34,28 +43,10 @@ slug: "changelog"
 - 贡献者自动更新改为每月一次，并在更新时清理已下线贡献者与旧头像，控制仓库体积
 - 全站清理与贡献者自动更新脚本的稳定性强化
 
-## 2026 年 1–4 月
-
-- 安装指南系列转为草稿（错漏较多，推荐参考 [Gentoo Wiki](https://wiki.gentoo.org/)）
-- 新增 NVIDIA + Chromium 硬件加速配置，简化相关配置
-
-## 2025 年 12 月
-
-- 新增贡献者自动更新功能（定期从 GitHub 抓取提交数据，按提交量排序）
-- 完善 btrfs 子卷 / LUKS / fstab 安装演示，提升可读性
-- M 系列 Mac 安装指南标明仅支持 M1 / M2
-
-## 2025 年 11 月
-
-- 站点从 Jekyll 迁移到 Hugo，上线新版
-- 新增贡献者列表与个人介绍页
-- 完善 SEO 元标签、结构化数据与暗色模式
-- 更新 Telegram 群规、下载页凭证与社区频道信息（IRC 迁至 Libera Chat）
-
 ---
 
 ## 更新说明
 
 - 本页面记录网站**内容**的主要更新，不包括纯技术性修改
 - 贡献者信息每月自动更新，不在此处记录
-- 如有问题或建议，请联系 [admin@zakk.au](mailto:admin@zakk.au) 或在 [Telegram 群组](https://t.me/gentoo_zh) 讨论
+- 如有问题或建议，请联系 [zakk@gentoozh.org](mailto:zakk@gentoozh.org) 或在 [Telegram 群组](https://t.me/gentoo_zh) 讨论
