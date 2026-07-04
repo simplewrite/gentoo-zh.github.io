@@ -49,6 +49,10 @@ This site comes in Simplified Chinese and Traditional Chinese; the Traditional v
 
 Simplified and Traditional are just different written forms of the same language and culture. All Chinese users are welcome to contribute, whichever script you're used to.
 
+### Why zh
+
+The zh in the name comes from ISO 639, the code for the Chinese language. It identifies a language, not a country or any particular region. The cn, by contrast, is an ISO 3166 country code, and its scope is actually narrower. On top of that, gentoo-zh came from the old gentoo-tw and gentoo-china [when the two communities merged](https://code.google.com/archive/p/gentoo-taiwan/issues/2). archlinuxcn actually calls itself the "Arch Linux Chinese community" too; the cn there is just a name left over from history. People there have suggested switching to zh, but it's too big to change now.
+
 ### English
 
 The public pages are also available in English, to make things easier for the gentoo-zh overlay's overseas users.
