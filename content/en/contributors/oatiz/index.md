@@ -1,6 +1,6 @@
 ---
 title: "oatiz"
-description: oatiz — Gentoo Chinese Community gentoo-zh contributor
+description: oatiz — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/oatiz"
 links:

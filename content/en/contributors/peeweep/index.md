@@ -1,6 +1,6 @@
 ---
 title: "jinqiang zhang"
-description: jinqiang zhang — Gentoo Chinese Community gentoo-zh contributor
+description: jinqiang zhang — Gentoo-zh Community gentoo-zh contributor
 tags: ['Current maintainer']
 externalUrl: "https://github.com/peeweep"
 links:

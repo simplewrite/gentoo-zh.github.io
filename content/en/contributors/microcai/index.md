@@ -1,6 +1,6 @@
 ---
 title: "microcai"
-description: microcai — Gentoo Chinese Community gentoo-zh contributor
+description: microcai — Gentoo-zh Community gentoo-zh contributor
 tags: ['Current maintainer']
 externalUrl: "https://github.com/microcai"
 links:

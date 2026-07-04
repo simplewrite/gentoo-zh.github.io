@@ -1,6 +1,6 @@
 ---
 title: "Mame"
-description: Mame — Gentoo Chinese Community LiveOS developer
+description: Mame — Gentoo-zh Community LiveOS developer
 tags: ['LiveOS developer']
 externalUrl: "https://github.com/YangMame"
 links:

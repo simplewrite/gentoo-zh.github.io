@@ -1,6 +1,6 @@
 ---
 title: "liuyujielol"
-description: liuyujielol — Gentoo Chinese Community gentoo-zh contributor
+description: liuyujielol — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/liuyujielol"
 weight: 9572

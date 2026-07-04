@@ -1,6 +1,6 @@
 ---
 title: "wgjak47"
-description: wgjak47 — Gentoo Chinese Community gentoo-zh contributor
+description: wgjak47 — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/wgjak47"
 weight: 9914

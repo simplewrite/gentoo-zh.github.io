@@ -1,6 +1,6 @@
 ---
 title: "Vít Smolík"
-description: Vít Smolík — Gentoo Chinese Community gentoo-zh contributor
+description: Vít Smolík — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/smoliicek"
 links:

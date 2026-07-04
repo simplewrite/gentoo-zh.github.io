@@ -1,6 +1,6 @@
 ---
 title: "longlene"
-description: longlene — Gentoo Chinese Community gentoo-zh contributor
+description: longlene — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/longlene"
 weight: 9958

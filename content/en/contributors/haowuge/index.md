@@ -1,6 +1,6 @@
 ---
 title: "葛豪武"
-description: 葛豪武 — Gentoo Chinese Community gentoo-zh contributor
+description: 葛豪武 — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/haowuge"
 links:

@@ -1,6 +1,6 @@
 ---
 title: "lujianhua"
-description: lujianhua — Gentoo Chinese Community gentoo-zh contributor
+description: lujianhua — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/lujianhua"
 weight: 9977

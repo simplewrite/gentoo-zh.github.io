@@ -1,6 +1,6 @@
 ---
 title: "Jiajun Wang"
-description: Jiajun Wang — Gentoo Chinese Community gentoo-zh contributor
+description: Jiajun Wang — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/JiajunW"
 weight: 9873

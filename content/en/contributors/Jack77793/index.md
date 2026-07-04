@@ -1,6 +1,6 @@
 ---
 title: "Jack77793"
-description: Jack77793 — Gentoo Chinese Community gentoo-zh contributor
+description: Jack77793 — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/Jack77793"
 links:

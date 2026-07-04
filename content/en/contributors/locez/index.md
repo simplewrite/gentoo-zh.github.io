@@ -1,6 +1,6 @@
 ---
 title: "Locez"
-description: Locez — Gentoo Chinese Community gentoo-zh contributor
+description: Locez — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/locez"
 links:

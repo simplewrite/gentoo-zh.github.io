@@ -1,6 +1,6 @@
 ---
 title: "biergaizi"
-description: biergaizi — Gentoo Chinese Community gentoo-zh contributor
+description: biergaizi — Gentoo-zh Community gentoo-zh contributor
 tags: ['Community founder']
 externalUrl: "https://github.com/biergaizi"
 links:

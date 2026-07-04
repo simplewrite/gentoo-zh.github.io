@@ -1,6 +1,6 @@
 ---
 title: "RobinDX"
-description: RobinDX — Gentoo Chinese Community gentoo-zh contributor
+description: RobinDX — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/RobinDX"
 weight: 9991

@@ -1,6 +1,6 @@
 ---
 title: "Boiao Ch"
-description: Boiao Ch — Gentoo Chinese Community gentoo-zh contributor
+description: Boiao Ch — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/liaobinbin"
 links:

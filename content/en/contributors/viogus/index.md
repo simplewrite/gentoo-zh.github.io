@@ -1,6 +1,6 @@
 ---
 title: "viogus"
-description: viogus — Gentoo Chinese Community gentoo-zh contributor
+description: viogus — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/viogus"
 weight: 9995

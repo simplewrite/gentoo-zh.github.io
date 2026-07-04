@@ -1,6 +1,6 @@
 ---
 title: "Mat"
-description: Mat — Gentoo Chinese Community gentoo-zh contributor
+description: Mat — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/matlinuxer2"
 weight: 9934

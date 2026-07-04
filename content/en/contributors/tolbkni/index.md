@@ -1,6 +1,6 @@
 ---
 title: "Waters Gao"
-description: Waters Gao — Gentoo Chinese Community gentoo-zh contributor
+description: Waters Gao — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/tolbkni"
 links:

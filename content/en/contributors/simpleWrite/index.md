@@ -1,6 +1,6 @@
 ---
 title: "Clover"
-description: Clover — Gentoo Chinese Community site & IRC-Telegram bridge maintainer
+description: Clover — Gentoo-zh Community site & IRC-Telegram bridge maintainer
 tags: ['Site maintainer']
 externalUrl: "https://github.com/simpleWrite"
 ---

@@ -1,6 +1,6 @@
 ---
 title: "YamaD"
-description: YamaD — Gentoo Chinese Community gentoo-zh contributor
+description: YamaD — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/yamader"
 links:

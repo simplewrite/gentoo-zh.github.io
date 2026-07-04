@@ -1,6 +1,6 @@
 ---
 title: SCX-snow
-description: SCX-snow — Gentoo Chinese Community gentoo-zh contributor
+description: SCX-snow — Gentoo-zh Community gentoo-zh contributor
 tags:
 - Overlay contributor
 externalUrl: https://github.com/SCX-snow

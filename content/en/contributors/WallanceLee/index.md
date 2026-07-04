@@ -1,6 +1,6 @@
 ---
 title: "Li Yanxu"
-description: Li Yanxu — Gentoo Chinese Community gentoo-zh contributor
+description: Li Yanxu — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/WallanceLee"
 weight: 9995

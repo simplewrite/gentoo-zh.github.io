@@ -1,6 +1,6 @@
 ---
 title: "scsi"
-description: scsi — Gentoo Chinese Community gentoo-zh contributor
+description: scsi — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/scsi"
 weight: 9676

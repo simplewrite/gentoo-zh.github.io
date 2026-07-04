@@ -1,6 +1,6 @@
 ---
 title: "Raymond Kwok"
-description: Raymond Kwok — Gentoo Chinese Community gentoo-zh contributor
+description: Raymond Kwok — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/zozx"
 links:

@@ -1,6 +1,6 @@
 ---
 title: "Vitaly Zdanevich"
-description: Vitaly Zdanevich — Gentoo Chinese Community gentoo-zh contributor
+description: Vitaly Zdanevich — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/vitaly-zdanevich"
 links:

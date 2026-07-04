@@ -1,6 +1,6 @@
 ---
 title: "Noel Errenil"
-description: Noel Errenil — Gentoo Chinese Community gentoo-zh contributor
+description: Noel Errenil — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/Linerre"
 links:

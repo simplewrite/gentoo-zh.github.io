@@ -1,6 +1,6 @@
 ---
 title: "douglarek"
-description: douglarek — Gentoo Chinese Community gentoo-zh contributor
+description: douglarek — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/douglarek"
 links:

@@ -1,6 +1,6 @@
 ---
 title: "Blackteahamburger"
-description: Blackteahamburger — Gentoo Chinese Community gentoo-zh contributor
+description: Blackteahamburger — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/blackteahamburger"
 weight: 9759

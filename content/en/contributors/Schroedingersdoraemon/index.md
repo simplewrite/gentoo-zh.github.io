@@ -1,6 +1,6 @@
 ---
 title: "Schroedingersdoraemon"
-description: Schroedingersdoraemon — Gentoo Chinese Community gentoo-zh contributor
+description: Schroedingersdoraemon — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/Schroedingersdoraemon"
 weight: 9984

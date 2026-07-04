@@ -1,6 +1,6 @@
 ---
 title: "f3rmata"
-description: f3rmata — Gentoo Chinese Community gentoo-zh contributor
+description: f3rmata — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/f3rmata"
 links:

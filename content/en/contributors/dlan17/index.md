@@ -1,6 +1,6 @@
 ---
 title: "Yixun Lan"
-description: Yixun Lan — Gentoo Chinese Community gentoo-zh contributor
+description: Yixun Lan — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/dlan17"
 links:

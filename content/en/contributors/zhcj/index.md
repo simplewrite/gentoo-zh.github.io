@@ -1,6 +1,6 @@
 ---
 title: "qingfeng"
-description: qingfeng — Gentoo Chinese Community gentoo-zh contributor
+description: qingfeng — Gentoo-zh Community gentoo-zh contributor
 tags: ['Community founder']
 externalUrl: "https://github.com/zhcj"
 links:

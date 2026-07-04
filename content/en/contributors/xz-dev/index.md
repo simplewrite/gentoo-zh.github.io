@@ -1,6 +1,6 @@
 ---
 title: "Xiangzhe"
-description: Xiangzhe — Gentoo Chinese Community gentoo-zh contributor
+description: Xiangzhe — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/xz-dev"
 links:

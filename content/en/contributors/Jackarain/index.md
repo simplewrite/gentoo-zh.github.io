@@ -1,6 +1,6 @@
 ---
 title: "Jack"
-description: Jack — Gentoo Chinese Community gentoo-zh contributor
+description: Jack — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/Jackarain"
 links:

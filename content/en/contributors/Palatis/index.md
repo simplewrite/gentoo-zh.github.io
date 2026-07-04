@@ -1,6 +1,6 @@
 ---
 title: "Victor Tseng"
-description: Victor Tseng — Gentoo Chinese Community gentoo-zh contributor
+description: Victor Tseng — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/Palatis"
 links:

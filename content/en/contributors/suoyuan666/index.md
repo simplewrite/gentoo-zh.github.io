@@ -1,6 +1,6 @@
 ---
 title: "Yuan Suo"
-description: Yuan Suo — Gentoo Chinese Community gentoo-zh contributor
+description: Yuan Suo — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/suoyuan666"
 links:

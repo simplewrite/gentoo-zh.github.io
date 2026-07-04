@@ -1,6 +1,6 @@
 ---
 title: "qifly"
-description: qifly — Gentoo Chinese Community gentoo-zh contributor
+description: qifly — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/qifly"
 weight: 9974

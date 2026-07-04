@@ -1,6 +1,6 @@
 ---
 title: "陈浩南"
-description: 陈浩南 — Gentoo Chinese Community gentoo-zh contributor
+description: 陈浩南 — Gentoo-zh Community gentoo-zh contributor
 tags: ['Overlay contributor']
 externalUrl: "https://github.com/CHN-beta"
 links:
