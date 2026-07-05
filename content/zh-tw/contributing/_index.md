@@ -14,7 +14,7 @@ description: "如何為 gentoo-zh Overlay 與 Gentoo 中文社群網站做出貢
 gentoo-zh 是一個 `masters = gentoo` 的 Gentoo overlay（疊加在官方 Portage 樹之上），收錄 450 多個包，原始碼在 [gentoo-zh/overlay](https://github.com/gentoo-zh/overlay)。新增或更新 ebuild、修 bug、跟進新版本，都透過 GitHub Pull Request 提交；發現問題也歡迎提 [issue](https://github.com/gentoo-zh/overlay/issues)。
 
 {{< callout type="info" >}}
-overlay 倉庫已遷移到組織倉庫 [gentoo-zh/overlay](https://github.com/gentoo-zh/overlay)，本頁連結均已更新。舊的 `microcai/gentoo-zh` 個人倉庫會 301 到新倉庫，fork、本地 remote 建議在方便時更新到新 URL，詳見[公告與執行方案](/posts/2026-07-02-gentoo-zh-repo-migration/)。
+overlay 倉庫已遷移到組織倉庫 [gentoo-zh/overlay](https://github.com/gentoo-zh/overlay)，本頁連結均已更新。舊的 `microcai/gentoo-zh` 個人倉庫會 301 到新倉庫，fork、本地 remote 建議在方便時更新到新 URL，詳見[公告與執行記錄](/posts/2026-07-02-gentoo-zh-repo-migration/)。
 {{< /callout >}}
 
 {{< callout type="info" >}}

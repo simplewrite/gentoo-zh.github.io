@@ -5,7 +5,7 @@ title: "Overlay"
 An overlay is a source of software outside the official Portage tree—layer it on top and you can install packages that aren't in the official repos. gentoo-zh is one of the long-standing ones: it grew out of gentoo-tw (started in 2003) and the later gentoo-china, when the two communities merged. The source lives on [GitHub](https://github.com/gentoo-zh/overlay).
 
 {{< callout type="info" >}}
-The overlay repo has moved to the organization repo [gentoo-zh/overlay](https://github.com/gentoo-zh/overlay). The old personal repo `microcai/gentoo-zh` now redirects (301) to the new one; update to the new URL when you get a chance. See the [announcement and rollout plan](/posts/2026-07-02-gentoo-zh-repo-migration/) for details.
+The overlay repo has moved to the organization repo [gentoo-zh/overlay](https://github.com/gentoo-zh/overlay). The old personal repo `microcai/gentoo-zh` now redirects (301) to the new one; update to the new URL when you get a chance. See the [announcement and record](/posts/2026-07-02-gentoo-zh-repo-migration/) for details.
 {{< /callout >}}
 
 By now gentoo-zh carries over 450 packages, roughly in these categories:

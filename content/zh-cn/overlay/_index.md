@@ -5,7 +5,7 @@ title: "Overlay"
 Overlay 是官方 Portage 树之外的软件来源——叠加上去，就能装到官方源里没有的包。gentoo-zh 是其中历史悠久的一个：前身是 2003 年的 gentoo-tw 与随后的 gentoo-china，两岸社区合并而来，源码在 [GitHub](https://github.com/gentoo-zh/overlay)。
 
 {{< callout type="info" >}}
-overlay 仓库已迁移到组织仓库 [gentoo-zh/overlay](https://github.com/gentoo-zh/overlay)，旧的 `microcai/gentoo-zh` 个人仓库会 301 到新仓库，建议在方便时更新到新 URL，详见[公告与执行方案](/posts/2026-07-02-gentoo-zh-repo-migration/)。
+overlay 仓库已迁移到组织仓库 [gentoo-zh/overlay](https://github.com/gentoo-zh/overlay)，旧的 `microcai/gentoo-zh` 个人仓库会 301 到新仓库，建议在方便时更新到新 URL，详见[公告与执行记录](/posts/2026-07-02-gentoo-zh-repo-migration/)。
 {{< /callout >}}
 
 至今为止 gentoo-zh 已收录了 450 多个软件包，可大致分为：
