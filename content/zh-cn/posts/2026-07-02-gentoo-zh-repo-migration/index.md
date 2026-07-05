@@ -1,11 +1,14 @@
 ---
-title: "gentoo-zh 仓库迁移公告与执行方案"
+title: "gentoo-zh 仓库迁移公告与执行记录"
 description: "gentoo-zh overlay 的正式维护仓库迁移到 GitHub 组织仓库"
 date: 2026-07-02
 featured: true
 tags: ["announcement", "overlay"]
 authors:
-  - name: Locez
+  - name: Zakk（修订/更新）
+    image: /contributors/zakkaus/feature.webp
+    link: https://github.com/Zakkaus
+  - name: Locez（草案）
     image: /authors/locez.webp
     link: https://github.com/locez
   - name: Clover（审校）
@@ -14,25 +17,22 @@ authors:
   - name: Mame（审校）
     image: /contributors/yangmame/feature.webp
     link: https://github.com/YangMame
-  - name: Zakk（排版）
-    image: /contributors/zakkaus/feature.webp
-    link: https://github.com/Zakkaus
 ---
 
 {{< callout type="info" >}}
-**更新（2026-07-05）**：本仓库后来又从 `Gentoo-zh/gentoo-zh` 改名到了 **[`Gentoo-zh/overlay`](https://github.com/gentoo-zh/overlay)**（现在的正式地址），来龙去脉见[文末补充](#rename-to-overlay)。下面「用户 / 贡献者切换操作」已按新地址给出；「迁移背景」「迁移执行步骤」等是当时的记录，仓库名仍写作 `gentoo-zh/gentoo-zh`。
+仓库现在的正式地址是 **[`Gentoo-zh/overlay`](https://github.com/gentoo-zh/overlay)**；切换请用新地址，改名的来龙去脉见下面的[社区投票、改名](#rename-to-overlay)一步。
 {{< /callout >}}
 
-gentoo-zh overlay 的正式维护仓库迁移到 GitHub 组织仓库：
+gentoo-zh overlay 的正式维护仓库迁移到了 GitHub 组织仓库：
 
-- 新仓库：https://github.com/gentoo-zh/gentoo-zh
+- 现仓库：https://github.com/gentoo-zh/overlay
 - 原仓库：https://github.com/microcai/gentoo-zh
 
-本次迁移由原仓库 owner 发起 GitHub repository transfer 完成。迁移完成后，`gentoo-zh/gentoo-zh` 作为 gentoo-zh overlay 的 canonical repository。
+本次迁移由原仓库 owner 发起 GitHub repository transfer 完成，仓库先落在 `gentoo-zh/gentoo-zh`（transfer 会保留原仓库名），随后经社区投票改名为现在的 `gentoo-zh/overlay`。下面按时间顺序完整记录整个过程。
 
 ## 迁移背景
 
-gentoo-zh overlay 迁移到 GitHub 组织仓库，是为了让维护权限、CI 配置、issue/PR 管理和发布流程统一由社区维护团队管理，降低单一账号对长期维护的影响。
+把 gentoo-zh overlay 迁到 GitHub 组织仓库，是想让维护权限、CI、issue/PR 和发布流程都归社区维护团队打理，不再让整个 overlay 长期系在某一个人的账号上。
 
 本次迁移采用 GitHub 官方 repository transfer。迁移结果如下：
 
@@ -52,17 +52,15 @@ gentoo-zh overlay 迁移到 GitHub 组织仓库，是为了让维护权限、CI 
 
 ## 用户切换操作
 
-旧地址会由 GitHub redirect 到新仓库。手动配置过 remote 的用户，建议在方便时更新到新 URL。
-
-重新添加 overlay：
+gentoo-zh 已在 Gentoo 官方仓库列表里（地址已是新的 overlay），直接重新启用即可：
 
 ```bash
 sudo eselect repository remove gentoo-zh
-sudo eselect repository add gentoo-zh git https://github.com/gentoo-zh/overlay.git
+sudo eselect repository enable gentoo-zh
 sudo emaint sync -r gentoo-zh
 ```
 
-或在 `/etc/portage/repos.conf/` 下编辑对应的配置文件（手动添加的在 `gentoo-zh.conf`，用 eselect 添加的在 `eselect-repo.conf`），把 `[gentoo-zh]` 段的 `sync-uri` 改成新地址：
+或在 `/etc/portage/repos.conf/` 下编辑含 `[gentoo-zh]` 段的那个配置文件（用 eselect 加的在 `eselect-repo.conf`，手动加的可能是 `gentoo-zh.conf` 或你自己起的名字），把 `sync-uri` 改成新地址：
 
 ```ini
 [gentoo-zh]
@@ -155,40 +153,67 @@ https://github.com/gentoo-zh/gentoo-zh
 - `git clone https://github.com/gentoo-zh/gentoo-zh.git` 正常工作
 - `microcai/gentoo-zh` 旧路径未被重新创建为仓库或同名 fork
 
-### 5. 更新仓库内维护入口
+### 5. 确认改名不破坏跳转（301 单跳）
 
-迁移完成后修改以下文件：
+改名前先确认 GitHub 的 301 跳转在 transfer 加 rename 之后仍然可靠：网页和 git 都会保留。这里拿同样经历过「transfer + rename」的 Homebrew 实测：[`mxcl/homebrew`](https://github.com/mxcl/homebrew)（最初）和 [`Homebrew/homebrew`](https://github.com/Homebrew/homebrew)（中间名）都是一跳 301 直达最终的 [`Homebrew/legacy-homebrew`](https://github.com/Homebrew/legacy-homebrew)，不是二次跳转；`git ls-remote` 也照常工作。自己也能测：
 
-- `repo.xml`
-- `README.md`
-- `sys-kernel/cachyos-sources/cachyos-sources-6.18.6.ebuild`
-- `.github/workflows/nvchecker.yml`
-- `MIGRATION.md`
-
-`repo.xml` 中的 source 更新为：
-
-```xml
-<source type="git">https://github.com/gentoo-zh/gentoo-zh.git</source>
+```bash
+UA="Mozilla/5.0"
+curl -sIL -A "$UA" https://github.com/mxcl/homebrew     | grep -iE '^HTTP/|^location:'
+curl -sIL -A "$UA" https://github.com/Homebrew/homebrew | grep -iE '^HTTP/|^location:'
 ```
 
-`README.md` 中的 dependencies table 链接更新为：
+![以 Homebrew 实测 GitHub 的 301 单跳：mxcl/homebrew 与 Homebrew/homebrew 都一跳直达 Homebrew/legacy-homebrew，git ls-remote 正常](/img/gentoo-zh-overlay-301-homebrew.png)
+
+所以把 `gentoo-zh/gentoo-zh` 改名为 `gentoo-zh/overlay` 之后，`microcai/gentoo-zh` 和 `gentoo-zh/gentoo-zh` 两个旧地址同样会一跳直达 `gentoo-zh/overlay`（网页和 git 都是），配过旧地址的用户不会断。
+
+### 6. 社区投票，最终定名 gentoo-zh/overlay {#rename-to-overlay}
+
+transfer 完成后仓库落在 `gentoo-zh/gentoo-zh`（GitHub transfer 会保留原仓库名）。社区就正式仓库名做了一次投票，`gentoo-zh/overlay` 以 21 票比 9 票胜出（见 [api-gentoo-org#829](https://github.com/gentoo/api-gentoo-org/pull/829)），最终定名为 `gentoo-zh/overlay`。
+
+### 7. 在 GitHub 上执行 rename
+
+在组织仓库设置里把 `Gentoo-zh/gentoo-zh` 重命名为 **[`Gentoo-zh/overlay`](https://github.com/gentoo-zh/overlay)**：
 
 ```text
-https://github.com/gentoo-zh/gentoo-zh/blob/deps-table/relation.md
+Settings -> General -> Repository name -> overlay
 ```
 
-`sys-kernel/cachyos-sources/cachyos-sources-6.18.6.ebuild` 中的支持入口更新为：
+### 8. 更新仓库内维护入口（[PR #10744](https://github.com/Gentoo-zh/overlay/pull/10744)）
 
-```text
-https://github.com/gentoo-zh/gentoo-zh
+改名后在一个 PR 里把仓库内所有指向旧地址的入口统一更新到 `gentoo-zh/overlay`，共 7 个文件：
+
+- `.github/workflows/nvchecker.yml`：仓库名判断从 `'Gentoo-zh/gentoo-zh'` 改为 `'gentoo-zh/overlay'`
+- `repo.xml`：更新 source、homepage 与 owner email
+- `README.md`：迁移 NOTE 指向 `https://github.com/gentoo-zh/overlay`，dependencies table 链接改到 `gentoo-zh/overlay`
+- `sys-kernel/cachyos-sources/cachyos-sources-6.18.6.ebuild`：支持入口改为 `gentoo-zh/overlay`
+- `MIGRATION.md`：新增
+- `metadata/news/2026-07-05-repo-moved-to-overlay/`：新增 repository news（见第 9 步）
+
+ebuild 注释中指向原仓库 issue 的历史链接保留不变。旧 issue 链接会自动跳转，不需要批量替换历史 issue URL。
+
+这几处改动的具体内容（点开展开）：
+
+{{% details title="repo.xml 改动" %}}
+```diff
+   <repo quality="experimental" status="unofficial">
+     <name>gentoo-zh</name>
+     <description>merged overlay of Gentoo-{China,Taiwan}</description>
+-    <homepage>http://gentoo-zh.googlecode.com/</homepage>
++    <homepage>https://gentoozh.org</homepage>
+     <owner type="project">
+-      <email>microcaicai@gmail.com, robert.zhangle@gmail.com</email>
++      <email>overlay@gentoozh.org</email>
+       <name>gentoo-zh</name>
+     </owner>
+-    <source type="git">https://github.com/Gentoo-zh/gentoo-zh.git</source>
++    <source type="git">https://github.com/gentoo-zh/overlay.git</source>
+   </repo>
+ </repositories>
 ```
+{{% /details %}}
 
-ebuild 注释中指向原仓库 issue 的历史链接保留不变。repository transfer 会保留旧 issue 链接跳转，不需要批量替换历史 issue URL。
-
-### 6. 添加 `MIGRATION.md`
-
-在新仓库根目录新增 `MIGRATION.md`：
-
+{{% details title="MIGRATION.md（新增）" %}}
 ````md
 # gentoo-zh repository migration / gentoo-zh 仓库迁移说明
 
@@ -197,16 +222,18 @@ ebuild 注释中指向原仓库 issue 的历史链接保留不变。repository t
 gentoo-zh overlay 已通过 GitHub repository transfer 从个人仓库迁移到社区组织仓库：
 
 - 原仓库：https://github.com/microcai/gentoo-zh
-- 当前仓库：https://github.com/gentoo-zh/gentoo-zh
+- 当前仓库：https://github.com/gentoo-zh/overlay
 
-迁移完成后，`gentoo-zh/gentoo-zh` 是 gentoo-zh overlay 的正式维护入口。GitHub 会将旧仓库地址自动跳转到新仓库；旧的 Git remote URL 也会继续跳转。
+该仓库先从 microcai 个人账号 transfer 到 gentoo-zh 组织（当时为 `gentoo-zh/gentoo-zh`），随后经社区投票（21:9）定名并重命名为 `gentoo-zh/overlay`；`microcai/gentoo-zh` 和 `gentoo-zh/gentoo-zh` 两个旧地址都会一跳 301 直达新仓库（网页和 git 均可），现有用户不受影响。相关更新也已提交到 Gentoo 官方 overlay 登记（gentoo/api-gentoo-org#829）。
 
-过去所有维护者和用户对 gentoo-zh 的贡献会随仓库迁移一并保留。后续维护在 `gentoo-zh/gentoo-zh` 继续进行。
+迁移完成后，`gentoo-zh/overlay` 是 gentoo-zh overlay 的正式维护入口。
+
+过去所有维护者和用户对 gentoo-zh 的贡献会随仓库迁移一并保留。后续维护在 `gentoo-zh/overlay` 继续进行。
 
 为了让仓库地址与当前维护入口保持一致，建议在方便时将本地 remote 更新为：
 
 ```bash
-git remote set-url origin https://github.com/gentoo-zh/gentoo-zh.git
+git remote set-url origin https://github.com/gentoo-zh/overlay.git
 ```
 
 后续 issue、pull request 和维护讨论请使用当前仓库。
@@ -216,263 +243,231 @@ git remote set-url origin https://github.com/gentoo-zh/gentoo-zh.git
 The gentoo-zh overlay has been transferred from the personal repository to the community organization through GitHub repository transfer:
 
 - Previous repository: https://github.com/microcai/gentoo-zh
-- Current repository: https://github.com/gentoo-zh/gentoo-zh
+- Current repository: https://github.com/gentoo-zh/overlay
 
-After the transfer, `gentoo-zh/gentoo-zh` is the canonical maintenance repository for the gentoo-zh overlay. GitHub redirects the old repository URL to the new one, and old Git remote URLs continue to work through GitHub redirects.
+The repository was first transferred from microcai's personal account to the gentoo-zh organization (then `gentoo-zh/gentoo-zh`), and later renamed to `gentoo-zh/overlay` following a community poll (21 vs 9); both `microcai/gentoo-zh` and `gentoo-zh/gentoo-zh` 301-redirect to the new repository in a single hop (web and git), so existing users are not affected. A corresponding update has been submitted to the Gentoo overlay registry (gentoo/api-gentoo-org#829).
 
-Contributions from past maintainers and users are preserved as part of this repository transfer. Future maintenance continues at `gentoo-zh/gentoo-zh`.
+After the transfer, `gentoo-zh/overlay` is the main repository for the gentoo-zh overlay.
+
+Contributions from past maintainers and users are preserved as part of this repository transfer. Future maintenance continues at `gentoo-zh/overlay`.
 
 To keep local remotes aligned with the current maintenance location, update them when convenient:
 
 ```bash
-git remote set-url origin https://github.com/gentoo-zh/gentoo-zh.git
+git remote set-url origin https://github.com/gentoo-zh/overlay.git
 ```
 
 Please use the current repository for future issues, pull requests, and maintenance discussions.
 ````
+{{% /details %}}
 
-### 7. 更新 README
-
-在 `README.md` 中添加一个简短迁移小节，放在安装说明前：
-
+{{% details title="README 迁移小节" %}}
 ````md
 > [!NOTE]
-> gentoo-zh overlay has moved to https://github.com/gentoo-zh/gentoo-zh. Old GitHub URLs continue to redirect. If you manually configured a remote, update it when convenient.
+> gentoo-zh overlay has moved to https://github.com/gentoo-zh/overlay. Old GitHub URLs continue to redirect. If you manually configured a remote, update it when convenient.
 
 ## Repository migration
 
-This repository was transferred from `microcai/gentoo-zh` to the `gentoo-zh` organization through GitHub repository transfer.
+This repository was transferred from `microcai/gentoo-zh` to the `gentoo-zh` organization through GitHub repository transfer, and later renamed to `gentoo-zh/overlay`.
 
-The current canonical repository is:
+The current repository is:
 
-https://github.com/gentoo-zh/gentoo-zh
+https://github.com/gentoo-zh/overlay
 
 See [MIGRATION.md](./MIGRATION.md) for details.
 ````
+{{% /details %}}
 
-### 8. 添加 Gentoo repository news
+### 9. 添加 Gentoo repository news
 
-在 `metadata/news/` 中添加一个符合 GLEP 42 的 repository news item。该 news item 使用单个 `.en.txt` 文件；英文为 authoritative 正文，中文为补充说明，最后统一给出迁移命令。用户同步 overlay 后可通过 `eselect news read` 读取。
+在 `metadata/news/` 中添加一个符合 GLEP 42 的 repository news item，标题「gentoo-zh overlay moved to gentoo-zh/overlay」，同时提供 `.en.txt` 和 `.zh.txt` 两个文件。用户同步 overlay 后可通过 `eselect news read` 读取。
 
-新增 news item 目录：
+news item 目录：
 
 ```text
-metadata/news/2026-07-02-gentoo-zh-transfer/
+metadata/news/2026-07-05-repo-moved-to-overlay/
 ```
 
-news 文件：
+两个 news 文件：
 
 ```text
-metadata/news/2026-07-02-gentoo-zh-transfer/2026-07-02-gentoo-zh-transfer.en.txt
+metadata/news/2026-07-05-repo-moved-to-overlay/2026-07-05-repo-moved-to-overlay.en.txt
+metadata/news/2026-07-05-repo-moved-to-overlay/2026-07-05-repo-moved-to-overlay.zh.txt
 ```
 
-内容：
-
+{{% details title="news 全文（.en.txt，英文）" %}}
 ```text
-Title: Action required: gentoo-zh repository moved
-Author: gentoo-zh maintainers <overlay@gentoozh.org>
+Title: gentoo-zh overlay moved to gentoo-zh/overlay
+Author: zakkaus <zakk@gentoozh.org>
 Content-Type: text/plain
-Posted: 2026-07-02
+Posted: 2026-07-05
 Revision: 1
 News-Item-Format: 1.0
 
-ACTION REQUIRED: Update manually configured gentoo-zh overlay remotes.
-
-The gentoo-zh overlay has been transferred through GitHub repository transfer
-from:
+The gentoo-zh overlay was transferred from the personal account:
 
 https://github.com/microcai/gentoo-zh
 
-to the community organization repository:
+to the gentoo-zh organization through GitHub repository transfer, and
+then renamed to its current location:
 
-https://github.com/gentoo-zh/gentoo-zh
+https://github.com/gentoo-zh/overlay
 
-GitHub redirects old repository URLs and old Git remote URLs to the new
-repository. The new repository is the canonical maintenance location for the
-gentoo-zh overlay.
+Both old addresses (microcai/gentoo-zh and gentoo-zh/gentoo-zh)
+301-redirect to the new repository in a single hop, for both the web and
+Git, so existing setups keep working. The gentoo-zh overlay is now
+maintained in the new repository.
 
 Please use the new repository for future issues, pull requests, and
 maintenance discussions.
 
-gentoo-zh overlay 已通过 GitHub repository transfer 从以下仓库迁移：
+For more details, see MIGRATION.md in the repository.
+
+Users who configured the gentoo-zh overlay manually can update to the new
+address when convenient.
+
+Re-add the overlay:
+
+sudo eselect repository remove gentoo-zh
+sudo eselect repository add gentoo-zh git https://github.com/gentoo-zh/overlay.git
+sudo emaint sync -r gentoo-zh
+
+Or edit whichever file under /etc/portage/repos.conf/ contains the [gentoo-zh]
+section (eselect-repo.conf if you added it with eselect) and set its sync-uri to
+the new address:
+
+[gentoo-zh]
+location = /var/db/repos/gentoo-zh
+sync-type = git
+sync-uri = https://github.com/gentoo-zh/overlay.git
+auto-sync = yes
+
+Then run emerge --sync gentoo-zh.
+```
+
+{{% /details %}}
+
+{{% details title="news 全文（.zh.txt，中文）" %}}
+
+```text
+Title: gentoo-zh overlay moved to gentoo-zh/overlay
+Author: zakkaus <zakk@gentoozh.org>
+Content-Type: text/plain
+Posted: 2026-07-05
+Revision: 1
+News-Item-Format: 1.0
+
+gentoo-zh overlay 已通过 GitHub repository transfer 从个人账号：
 
 https://github.com/microcai/gentoo-zh
 
-到新的社区组织仓库：
+迁移到 gentoo-zh 组织，随后重命名为当前地址：
 
-https://github.com/gentoo-zh/gentoo-zh
+https://github.com/gentoo-zh/overlay
 
-GitHub 会将旧仓库地址和旧 Git remote URL 自动跳转到新仓库。新仓库
-是 gentoo-zh overlay 后续维护的正式入口。
+两个旧地址（microcai/gentoo-zh 和 gentoo-zh/gentoo-zh）都会一跳 301 直达新仓库
+（网页和 git 均可），现有配置不受影响。新仓库是 gentoo-zh overlay 后续维护的
+正式入口。
 
 后续 issue、pull request 和维护讨论请使用新仓库。
 
-Users who configured the gentoo-zh overlay remote manually should update it
-as soon as possible.
+更多细节请见仓库根目录的 MIGRATION.md。
 
-手动配置过 gentoo-zh overlay remote 的用户请尽快更新为新地址：
+手动配置过 gentoo-zh overlay 的用户，建议在方便时更新到新地址。
 
-cd /var/db/repos/gentoo-zh
-sudo git remote set-url origin https://github.com/gentoo-zh/gentoo-zh.git
+重新添加 overlay：
+
+sudo eselect repository remove gentoo-zh
+sudo eselect repository add gentoo-zh git https://github.com/gentoo-zh/overlay.git
 sudo emaint sync -r gentoo-zh
+
+或编辑 /etc/portage/repos.conf/ 下含 [gentoo-zh] 段的那个配置文件（用 eselect
+添加的在 eselect-repo.conf），把该段的 sync-uri 改成新地址：
+
+[gentoo-zh]
+location = /var/db/repos/gentoo-zh
+sync-type = git
+sync-uri = https://github.com/gentoo-zh/overlay.git
+auto-sync = yes
+
+然后 emerge --sync gentoo-zh。
+```
+{{% /details %}}
+
+### 10. 同步 Gentoo 官方仓库登记
+
+`gentoo/api-gentoo-org` 中的 overlay registry 通过 [api-gentoo-org#829](https://github.com/gentoo/api-gentoo-org/pull/829) 提交，投票定名后合并为 commit [`0f28fd9`](https://github.com/gentoo/api-gentoo-org/commit/0f28fd9d830936d17247274b390658a74f69cf9e)。`files/overlays/repositories.xml` 里 gentoo-zh 条目的改动（点开看）：
+
+{{% details title="repositories.xml 改动" %}}
+```diff
+   <name>gentoo-zh</name>
+   <description>To provide programs useful to Chinese speaking users (merged
+     from gentoo-china and gentoo-taiwan).</description>
+-  <homepage>https://github.com/microcai/gentoo-zh</homepage>
+-  <owner type="person">
+-    <email>microcai@fedoraproject.org</email>
++  <homepage>https://github.com/gentoo-zh/overlay</homepage>
++  <owner type="project">
++    <email>overlay@gentoozh.org</email>
+   </owner>
+-  <source type="git">https://github.com/microcai/gentoo-zh.git</source>
+-  <source type="git">git+ssh://git@github.com/microcai/gentoo-zh.git</source>
+-  <feed>https://github.com/microcai/gentoo-zh/commits/master.atom</feed>
++  <source type="git">https://github.com/gentoo-zh/overlay.git</source>
++  <source type="git">git+ssh://git@github.com/gentoo-zh/overlay.git</source>
++  <feed>https://github.com/gentoo-zh/overlay/commits/master.atom</feed>
+   </repo>
+```
+{{% /details %}}
+
+## 收尾与确认
+
+overlay 内部元数据、README 与安装说明在 [PR #10744](https://github.com/Gentoo-zh/overlay/pull/10744) 更新（第 8 步）；Gentoo 官方 registry 在 [api-gentoo-org#829](https://github.com/gentoo/api-gentoo-org/pull/829) 合并（第 10 步）。
+
+模拟用户实操了一遍：从 Gentoo 官方仓库列表直接 `enable` gentoo-zh，`emerge --sync` 会从新的 overlay 地址拉取（看最后一行）：
+
+```console
+$ sudo eselect repository remove gentoo-zh
+Removing /var/db/repos/gentoo-zh ...
+Updating repos.conf ...
+1 repositories removed
+$ sudo eselect repository enable gentoo-zh
+Adding gentoo-zh to /etc/portage/repos.conf/eselect-repo.conf ...
+1 repositories enabled
+$ sudo emaint sync -r gentoo-zh
+>>> Syncing repository 'gentoo-zh' into '/var/db/repos/gentoo-zh'...
+/usr/sbin/git clone --depth 1 https://github.com/gentoo-zh/overlay.git .
 ```
 
-### 9. 更新 CI 与自动化配置
+301 跳转确认：改名后 `microcai/gentoo-zh` 和 `gentoo-zh/gentoo-zh` 两个旧地址都一跳 301 直达 `gentoo-zh/overlay`（网页和 git 都是），老用户不受影响。实测输出：
 
-迁移后更新 GitHub Actions 和自动化任务中的仓库归属配置。
-
-`.github/workflows/nvchecker.yml` 中的仓库名判断更新为：
-
-```yaml
-if: github.repository == 'gentoo-zh/gentoo-zh'
+```console
+$ UA="Mozilla/5.0"
+$ curl -sIL -A "$UA" https://github.com/microcai/gentoo-zh  | grep -iE '^HTTP/|^location:'
+HTTP/2 301
+location: https://github.com/Gentoo-zh/overlay
+HTTP/2 200
+$ curl -sIL -A "$UA" https://github.com/gentoo-zh/gentoo-zh | grep -iE '^HTTP/|^location:'
+HTTP/2 301
+location: https://github.com/Gentoo-zh/overlay
+HTTP/2 200
 ```
 
-新仓库确认以下 Actions secrets：
-
-- `GENTOO_ZH_NVCHECKER_PAT`
-
-新仓库启用以下 Actions 权限：
-
-- `Read and write permissions`
-- `Allow GitHub Actions to create and approve pull requests`
-
-`deps-table` 分支由 dependencies table workflow 自动更新。仓库 ruleset 对 `deps-table` 的 force push 权限单独放行给 GitHub Actions。
-
-pull request CI 继续由 GitHub Actions 的 `pull_request` 事件触发。
-
-### 10. 验证并提交迁移后仓库修改
-
-仓库内迁移修改全部完成后统一验证并提交一次，避免把 README、metadata 和 news 拆成重复提交。
-
-验证 news 可被读取：
+迁移 news 已生效，同步 overlay 后用 `eselect news` 读：
 
 ```bash
-eselect news list
-eselect news read
+eselect news list     # 列表里能看到 2026-07-05-repo-moved-to-overlay
+eselect news read     # 读未读的 news（也可 eselect news read 1 按编号读某条）
 ```
 
-提交本仓库内全部迁移修改：
+这条 news 会跟随系统语言显示：系统语言是 `zh`（`zh_CN`、`zh_TW`、`zh_HK` 等）读到中文版，其它读到英文版。要是没自动切过来，直接 `cat` 同步下来的 news 文件也行，比如中文版：
 
 ```bash
-git add metadata/news/2026-07-02-gentoo-zh-transfer README.md repo.xml sys-kernel/cachyos-sources/cachyos-sources-6.18.6.ebuild .github/workflows/nvchecker.yml MIGRATION.md
-git commit -m "Update repository metadata after transfer"
-git push origin master
+cat /var/db/repos/gentoo-zh/metadata/news/2026-07-05-repo-moved-to-overlay/*.zh.txt
 ```
 
-### 11. 配置组织维护规则
-
-在 `gentoo-zh/gentoo-zh` 仓库设置中完成以下配置：
-
-- 默认分支设置为 `master`
-- 禁止删除默认分支
-- 禁止 force push 到默认分支
-- 开启 branch protection 或 ruleset
-- 默认分支合并必须经过 pull request
-- 维护者通过 GitHub team 管理权限
-- 仓库 description 设置为 `Gentoo Linux overlay for gentoo users`
-- 仓库 homepage 设置为 gentoo-zh 社区主页
-
-### 12. 更新 Gentoo overlay registry
-
-同步更新 `gentoo/api-gentoo-org` 中的 overlay registry，让 `gentoo-zh` 指向新的组织仓库。
-
-目标仓库：
-
-```text
-https://github.com/gentoo/api-gentoo-org
-```
-
-修改文件：
-
-```text
-files/overlays/repositories.xml
-```
-
-修改 `gentoo-zh` 条目中的以下字段：
-
-```xml
-<repo quality="experimental" status="unofficial">
-  <name>gentoo-zh</name>
-  <description>To provide programs useful to Chinese speaking users (merged
-    from gentoo-china and gentoo-taiwan).</description>
-  <homepage>https://github.com/gentoo-zh/gentoo-zh</homepage>
-  <owner type="project">
-    <email>overlay@gentoozh.org</email>
-    <name>gentoozh</name>
-  </owner>
-  <source type="git">https://github.com/gentoo-zh/gentoo-zh.git</source>
-  <source type="git">git+ssh://git@github.com/gentoo-zh/gentoo-zh.git</source>
-  <feed>https://github.com/gentoo-zh/gentoo-zh/commits/master.atom</feed>
-</repo>
-```
-
-本次 registry PR 更新以下字段：
-
-- `homepage`
-- `owner type`
-- `owner/email`
-- `owner/name`
-- HTTPS `source`
-- SSH `source`
-- Atom `feed`
-
-执行步骤：
-
-```bash
-git clone https://github.com/gentoo/api-gentoo-org.git
-cd api-gentoo-org
-git checkout -b update-gentoo-zh-overlay-metadata
-```
-
-编辑：
-
-```text
-files/overlays/repositories.xml
-```
-
-提交：
-
-```bash
-git add files/overlays/repositories.xml
-git commit -m "Update gentoo-zh overlay metadata"
-```
-
-验证：
-
-```bash
-python bin/repositories-checker.py - files/overlays/repositories.xml
-```
-
-向 `gentoo/api-gentoo-org` 提交 pull request：
-
-```text
-Title: Update gentoo-zh overlay metadata
-
-The gentoo-zh overlay repository has been transferred from microcai/gentoo-zh to gentoo-zh/gentoo-zh via GitHub repository transfer.
-
-This updates the overlay registry homepage, Git sources, Atom feed URL, and owner metadata to the new canonical repository and maintainer organization.
-```
-
-## 后续维护事项
-
-迁移完成后执行以下维护事项：
-
-1. 更新 gentoo-zh overlay 内部元数据
-2. 更新 README 和安装文档
-3. 跟进 `gentoo/api-gentoo-org` 中 gentoo-zh registry PR 合并
-4. 检查 GitHub Actions secrets 和 permissions
-5. 配置 branch protection 和维护者 team
-6. 确认 `eselect news read` 可读到迁移 news
-7. 将后续贡献入口统一收敛到 `gentoo-zh/gentoo-zh`
+完整内容见上面第 9 步。
 
 ## 补记：官网侧进度（zakkaus）
 
-官网[贡献者墙](/contributors/)的自动统计（`update-contributors.py`）与相关页面说明已指向 `Gentoo-zh/overlay`，每月 1 日将会自动更新。迁移生效后，[Overlay 页](/overlay/)与[贡献指南](/contributing/)里 fork、issue 等教学链接也已全部更新到新仓库；旧的 `microcai/gentoo-zh` 个人仓库会 301 到新仓库，本地配置过旧地址的建议在方便时更新到新 URL。
-
-## 补充：仓库随后改名为 gentoo-zh/overlay {#rename-to-overlay}
-
-上面的迁移把仓库落到了 `Gentoo-zh/gentoo-zh`（GitHub transfer 会保留原仓库名）。之后社区就正式仓库名做了一次投票，`gentoo-zh/overlay` 以 21 票比 9 票胜出，于是又把 `Gentoo-zh/gentoo-zh` 重命名为 **[`Gentoo-zh/overlay`](https://github.com/gentoo-zh/overlay)**，这是现在的正式地址：
-
-- 新地址 <https://github.com/gentoo-zh/overlay>，`sync-uri` 用 `https://github.com/gentoo-zh/overlay.git`
-- `microcai/gentoo-zh` 和 `Gentoo-zh/gentoo-zh` 两个旧地址都会**一跳 301** 直达新仓库（网页和 git 都是），已经配过旧地址的用户不受影响，方便时更新即可（见上面的「用户切换操作」）
-- Gentoo 官方 overlay 登记（homepage / git source / feed / owner）已同步改到新地址，见 [gentoo/api-gentoo-org#829](https://github.com/gentoo/api-gentoo-org/pull/829)
+官网[贡献者墙](/contributors/)的自动统计（`update-contributors.py`）与相关页面说明已指向 `Gentoo-zh/overlay`，每月 1 日将会自动更新。迁移生效后，[Overlay 页](/overlay/)与[贡献指南](/contributing/)里 fork、issue 等教学链接也已全部更新到新仓库；官网、Telegram、Matrix、[论坛](https://forum.gentoozh.org/)等社区各处凡是提到 overlay 仓库的地方，也都改成了新地址。旧的 `microcai/gentoo-zh` 个人仓库会 301 到新仓库，本地配置过旧地址的建议在方便时更新到新 URL。
