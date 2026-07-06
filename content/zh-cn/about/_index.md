@@ -15,6 +15,8 @@ title: "关于"
 
 社区**论坛**在 [forum.gentoozh.org](https://forum.gentoozh.org/)，适合发帖、提问和长期讨论。
 
+社区在 Gentoo Wiki 上的页面：[User:Gentoo-zh](https://wiki.gentoo.org/wiki/User:Gentoo-zh)。
+
 加入**主群**后，下面其它群全部免去验证：
 
 * **主群**：Telegram [@gentoo_zh](https://t.me/gentoo_zh) · Matrix [#gentoo-zh:matrix.gentoozh.org](https://matrix.to/#/%23gentoo-zh:matrix.gentoozh.org) · IRC [#gentoo-zh](ircs://irc.libera.chat:6697/#gentoo-zh)
