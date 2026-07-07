@@ -20,14 +20,21 @@
   weight = 40
 
 [[main]]
-  name = "Contributing"
-  pageRef = "/contributing"
-  weight = 50
-
-[[main]]
   name = "About"
   pageRef = "/about"
   weight = 60
+
+# Infrastructure ▾ (community-run services)
+[[main]]
+  name = "Infrastructure"
+  identifier = "infra"
+  weight = 55
+
+[[main]]
+  name = "Paste"
+  pageRef = "/paste"
+  parent = "infra"
+  weight = 1
 
 # More ▾ (expand/collapse)
 [[main]]
@@ -36,22 +43,28 @@
   weight = 65
 
 [[main]]
+  name = "Contributing"
+  pageRef = "/contributing"
+  parent = "more"
+  weight = 1
+
+[[main]]
   name = "FAQ"
   pageRef = "/faq"
   parent = "more"
-  weight = 1
+  weight = 2
 
 [[main]]
   name = "Contributors"
   pageRef = "/contributors"
   parent = "more"
-  weight = 2
+  weight = 3
 
 [[main]]
   name = "Changelog"
   pageRef = "/changelog"
   parent = "more"
-  weight = 3
+  weight = 4
 
 [[main]]
   name = "Search"

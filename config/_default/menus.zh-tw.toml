@@ -19,16 +19,22 @@
   pageRef = "/posts"
   weight = 40
 
-# 貢獻指南升為頂欄一等公民（讓「參與」醒目，不再埋進「更多▾」）
-[[main]]
-  name = "貢獻指南"
-  pageRef = "/contributing"
-  weight = 50
-
 [[main]]
   name = "關於"
   pageRef = "/about"
   weight = 60
+
+# 基礎設施 ▾（社群自建服務）
+[[main]]
+  name = "基礎設施"
+  identifier = "infra"
+  weight = 55
+
+[[main]]
+  name = "Paste"
+  pageRef = "/paste"
+  parent = "infra"
+  weight = 1
 
 # 更多 ▾（可展開收起）
 [[main]]
@@ -37,22 +43,28 @@
   weight = 65
 
 [[main]]
+  name = "貢獻指南"
+  pageRef = "/contributing"
+  parent = "more"
+  weight = 1
+
+[[main]]
   name = "常見問題"
   pageRef = "/faq"
   parent = "more"
-  weight = 1
+  weight = 2
 
 [[main]]
   name = "貢獻者"
   pageRef = "/contributors"
   parent = "more"
-  weight = 2
+  weight = 3
 
 [[main]]
   name = "更新記錄"
   pageRef = "/changelog"
   parent = "more"
-  weight = 3
+  weight = 4
 
 [[main]]
   name = "Search"
