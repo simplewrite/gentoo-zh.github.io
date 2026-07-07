@@ -1,16 +1,21 @@
 ---
 title: "Contributing Guide"
-description: "How to contribute to the gentoo-zh overlay and the Gentoo-zh Community website"
+description: "How to contribute to the Gentoo-zh Overlay and the Gentoo-zh Community website"
 ---
 
-Welcome to the Gentoo-zh Community! There are two tracks for contributing, each with its own entry point and its own way onto the [contributor wall](/contributors/). Pick whichever fits what you want to do:
+Welcome to the Gentoo-zh Community! Contributions come in a few flavours:
 
-- **Contribute to the gentoo-zh overlay** (packages / ebuilds) — the main community track, and the source of the [contributor wall](/contributors/) (a script pulls everyone with 5+ commits to [gentoo-zh/overlay](https://github.com/gentoo-zh/overlay) every month). See "Contributing to the gentoo-zh overlay" below.
+- **Contribute to the Gentoo-zh Overlay** (packages / ebuilds) — the main community track, and the source of the [contributor wall](/contributors/) (a script pulls everyone with 5+ commits to [gentoo-zh/overlay](https://github.com/gentoo-zh/overlay) every month). See "Contributing to the Gentoo-zh Overlay" below.
 - **Contribute to the community website** (articles / translations / fixes) — lives in the [gentoo-zh.github.io](https://github.com/Gentoo-zh/gentoo-zh.github.io) repo. See "Contributing to the community website" in the second half of this page.
+- **Translate the official Gentoo Wiki** (Chinese translators) — see [How to help translate the Gentoo Wiki](https://gentoozh.org/posts/2026-06-30-gentoo-wiki-translation/).
 
-## Contributing to the gentoo-zh overlay
+## Contributing to the Gentoo-zh Overlay
 
 gentoo-zh is a `masters = gentoo` Gentoo overlay (stacked on top of the official Portage tree) carrying 450+ packages, with its source at [gentoo-zh/overlay](https://github.com/gentoo-zh/overlay). Adding or updating ebuilds, fixing bugs, keeping up with new upstream releases — it all goes through GitHub Pull Requests. Found a problem? File an [issue](https://github.com/gentoo-zh/overlay/issues) too.
+
+{{< callout type="info" >}}
+The overlay repo has moved to the org repo [gentoo-zh/overlay](https://github.com/gentoo-zh/overlay), and the links on this page all point there. The old `microcai/gentoo-zh` personal repo 301-redirects to the new one; update your fork and local remotes to the new URL when convenient. See the [announcement and migration record](/posts/2026-07-02-gentoo-zh-repo-migration/).
+{{< /callout >}}
 
 {{< callout type="info" >}}
 The [contributor wall](/contributors/) on the homepage counts exactly this kind of contribution — a script pulls everyone with 5+ commits to this repo every month.
@@ -143,7 +148,7 @@ git push                                 # 5. push to your fork, then open a PR 
 - **`assert` was removed** → use **`pipestatus`** (it checks the exit status of **every** command in the last pipeline: `foo | bar; pipestatus || die`).
 - **`domo` was removed** → use `insinto` + `newins`.
 - New: **`ver_replacing`** (compares a version against `REPLACING_VERSIONS`, handy in `pkg_postinst` for upgrade-path-specific messages) and **`edo`** (print a command and then run it, dying on failure — saves writing `echo` + `|| die`).
-- **A batch of variables are no longer exported to the environment**: `ROOT`, `EROOT`, `SYSROOT`, `BROOT`, `USE`, `FILESDIR`, `DISTDIR`, `WORKDIR`, `S` and others are now plain shell variables usable inside the ebuild but not exported to child processes (only `TMPDIR` and `HOME` stay exported). If an external program you call reads these from the environment, `export` them yourself.
+- **A batch of variables are no longer exported to the environment**: `ROOT`, `EROOT`, `USE`, `FILESDIR`, `DISTDIR`, `WORKDIR`, `S` and others are now plain shell variables usable inside the ebuild but not exported to child processes (the exceptions — `SYSROOT`, `ESYSROOT`, `BROOT`, `TMPDIR`, `HOME` — stay exported as before). If an external program you call reads these from the environment, `export` them yourself.
 - Bash is now 5.3; when merging `D` to `ROOT`, absolute symlinks are merged as-is.
 
 The full list is in the [Devmanual's EAPI differences table](https://devmanual.gentoo.org/ebuild-writing/eapi/).
@@ -225,22 +230,22 @@ The how-to is **governed by the official docs**; this page is just a pointer:
 
 ---
 
-What follows is the guide for **contributing to the community website (articles / translations / docs).**
+## Contributing to the community website (articles / translations / docs)
 
 ## Project overview
 
-This site is built with the [Hugo](https://gohugo.io/) static site generator and hosted on GitHub Pages. The presentation layer (the theme) is [Hextra](https://imfing.github.io/hextra/) plus our own patch module [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme) — the latter is pulled in via [Hugo Modules](https://gohugo.io/hugo-modules/) and layers its overrides on top of Hextra, giving a dependency chain of **site → gentoozh-theme → Hextra**. So this repo holds only content and config; the template/style source lives in the patch module.
+This site is built with the [Hugo](https://gohugo.io/) static site generator, built by GitHub Actions and deployed to Cloudflare Workers (static asset hosting). The presentation layer (the theme) is [Hextra](https://imfing.github.io/hextra/) plus our own patch module [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme) — the latter is pulled in via [Hugo Modules](https://gohugo.io/hugo-modules/) and layers its overrides on top of Hextra, giving a dependency chain of **site → gentoozh-theme → Hextra**. So this repo holds only content and config; the template/style source lives in the patch module.
 
-**Project repositories**: content/config at <https://github.com/Gentoo-zh/gentoo-zh.github.io>; theme patch module at <https://github.com/Gentoo-zh/gentoozh-theme>
+**Project repositories**: content/config at <https://github.com/gentoo-zh/gentoo-zh.github.io>; theme patch module at <https://github.com/gentoo-zh/gentoozh-theme>
 
 ## Project structure
 
 ### How content is organized
 
-Content is stored in per-language directories: Simplified Chinese under `content/zh-cn/`, Traditional Chinese under `content/zh-tw/`. The two have identical directory structures:
+Content is stored in per-language directories: Simplified Chinese under `content/zh-cn/`, Traditional Chinese under `content/zh-tw/`, and English under `content/en/`. All three have identical directory structures:
 
 - `download/` — download pages (mirrors and installation media)
-- `overlay/` — gentoo-zh overlay docs
+- `overlay/` — Gentoo-zh Overlay docs
 - `mirrorlist/` — mirror lists (Portage tree and Distfiles config)
 - `about/` — about pages (project history, community channels, language notes)
 - `contributors/` — contributors page (**auto-updated, no manual editing needed**)
@@ -248,21 +253,21 @@ Content is stored in per-language directories: Simplified Chinese under `content
 - `changelog/` — changelog
 - `posts/` — news articles and tutorials
 
-> The Simplified version of a given piece goes under `content/zh-cn/...` and the Traditional version under the matching `content/zh-tw/...`. The filenames are `index.md` / `_index.md` (the `index.zh-cn.md` language-suffix style is **no longer** used).
+> The Simplified version of a given piece goes under `content/zh-cn/...`, the Traditional version under the matching `content/zh-tw/...`, and the English version under the matching `content/en/...`. The filenames are `index.md` / `_index.md` (the `index.zh-cn.md` language-suffix style is **no longer** used).
 
 ### Configuration files
 
 The main config lives in `config/_default/`:
 
 - `hugo.toml` — main Hugo config (site info, taxonomies, Markdown rendering, output formats, etc.)
-- `languages.toml` — language config (both Simplified and Traditional, split into `[zh-cn]` / `[zh-tw]` within a single file)
-- `menus.zh-cn.toml` / `menus.zh-tw.toml` — navigation menus per language
+- `languages.toml` — language config (Simplified, Traditional and English, split into `[zh-cn]` / `[zh-tw]` / `[en]` within a single file)
+- `menus.zh-cn.toml` / `menus.zh-tw.toml` / `menus.en.toml` — navigation menus per language
 - `params.toml` — theme parameters (appearance, feature toggles)
 
 ### Multilingual support
 
-- UI string translations (`i18n/zh-cn.yaml`, `i18n/zh-tw.yaml`) belong to the presentation layer and live in the **gentoozh-theme patch module**; this repo holds only the body content
-- The default language is Simplified Chinese, served from the site root `/`; Traditional Chinese is served from `/zh-tw/`
+- UI string translations live mostly in the **gentoozh-theme patch module**'s `i18n/` (the presentation layer); this repo's `i18n/` holds only a few site-specific strings (such as contributor role names)
+- The default language is Simplified Chinese, served from the site root `/`; Traditional Chinese is served from `/zh-tw/`; English from `/en/`
 - Simplified-to-Traditional conversion is handled by the repo's `sync_to_tw.sh` script (see below)
 
 ### Theme and assets
@@ -328,11 +333,13 @@ Article body... (for author attribution, see section 3 below)
 
 Optional tags (`tags`, shown as `#tag` in the article list and on the article page, linked to the `/tags/` aggregation page; the homepage article cards also show the first tag): `tutorial`, `news`, `announcement`, `website`.
 
+The homepage "Latest posts" puts tutorials first and announcements last by default; for a major announcement you can add `featured: true` to the front matter to pin it to the very front of the homepage, and remove it once the event has passed.
+
 Once the Simplified version is done, generate the Traditional version with the script (see the next section) and put it at the matching `content/zh-tw/posts/.../index.md`.
 
 ### 2. Simplified-to-Traditional conversion
 
-`sync_to_tw.sh` wraps OpenCC (`s2twp`) plus this site's terminology fixes and known-misconversion cleanups. It **takes two path arguments: "source file → target file"**:
+`sync_to_tw.sh` wraps OpenCC (`s2twp`) plus this site's terminology fixes and known-misconversion cleanups. Pass it the Simplified source file — the Traditional target path is derived automatically:
 
 ```bash
 # install OpenCC first
@@ -340,10 +347,14 @@ emerge --ask app-i18n/opencc   # Gentoo
 brew install opencc            # macOS
 sudo apt install opencc        # Debian/Ubuntu
 
-# Simplified → Traditional
-./sync_to_tw.sh \
-  content/zh-cn/posts/2026-05-29-my-article/index.md \
-  content/zh-tw/posts/2026-05-29-my-article/index.md
+# Simplified → Traditional (target auto-generated at the matching content/zh-tw/ path)
+./sync_to_tw.sh content/zh-cn/posts/2026-05-29-my-article/index.md
+
+# no arguments: sync every Simplified file changed relative to git HEAD
+./sync_to_tw.sh
+
+# check only, don't write: report which Traditional versions lag their Simplified source (run this before committing)
+./sync_to_tw.sh --check
 ```
 
 After converting, check by hand for Taiwanese-usage differences.
@@ -363,9 +374,9 @@ authors:
 
 ### 4. Improving existing content / technical improvements
 
-Typos, outdated info, usage tips, missing Traditional Chinese translations — spot any and fix them on the spot. Improvements on the technical side — templates, styles, performance, features — are welcome too.
+Typos, outdated info, usage tips, missing Traditional Chinese, English translations — spot any and fix them on the spot. Improvements on the technical side — templates, styles, performance, features — are welcome too.
 
-> **The contributor lists (`content/*/contributors/`) are maintained automatically by a script.** It pulls everyone with 5+ commits to the [gentoo-zh overlay](https://github.com/gentoo-zh/overlay), shows their commit counts, sorts by commit volume, and updates monthly (`scripts/update-contributors.py` + GitHub Actions). **Do not edit that directory by hand**; the homepage contributor showcase updates along with it automatically.
+> **The contributor lists (`content/*/contributors/`) are maintained automatically by a script.** It pulls everyone with 5+ commits to the [Gentoo-zh Overlay](https://github.com/gentoo-zh/overlay), shows their commit counts, sorts by commit volume, and updates monthly (`scripts/update-contributors.py` + GitHub Actions). **Do not edit that directory by hand**; the homepage contributor showcase updates along with it automatically.
 
 ## Submitting a Pull Request
 
@@ -397,7 +408,7 @@ git push origin your-feature-branch
 
 ### How do I update the theme?
 
-The theme layer is a standalone [gentoozh-theme](https://github.com/Gentoo-zh/gentoozh-theme) patch module, so **the Hextra upgrade happens in that repo**:
+The theme layer is a standalone [gentoozh-theme](https://github.com/gentoo-zh/gentoozh-theme) patch module, so **the Hextra upgrade happens in that repo**:
 
 ```bash
 # in the gentoozh-theme repo
@@ -410,13 +421,13 @@ git tag vX.Y.Z          # tag a new release
 Then come back to **this** site's repo and pin the patch module to the new version:
 
 ```bash
-hugo mod get github.com/Gentoo-zh/gentoozh-theme@vX.Y.Z
+hugo mod get github.com/gentoo-zh/gentoozh-theme@vX.Y.Z
 git commit -am "bump gentoozh-theme"
 ```
 
 ### How do I add a new section page?
 
-Create `_index.md` under `content/zh-cn/<section>/`, generate `content/zh-tw/<section>/_index.md` with the script, and if you want it in the top navigation, add a `[[main]]` entry to both `config/_default/menus.zh-cn.toml` and `menus.zh-tw.toml`.
+Create `_index.md` under `content/zh-cn/<section>/`, generate `content/zh-tw/<section>/_index.md` with the script, and if you want it in the top navigation, add a `[[main]]` entry to `config/_default/menus.zh-cn.toml` and `menus.zh-tw.toml` (and `menus.en.toml` for an English entry).
 
 ### What if the Simplified and Traditional content gets out of sync?
 
@@ -428,7 +439,7 @@ Run into a problem, or have a suggestion?
 
 - **Telegram channel**: [@gentoocn](https://t.me/gentoocn)
 - **Telegram group**: [@gentoo_zh](https://t.me/gentoo_zh)
-- **GitHub Issues**: <https://github.com/Gentoo-zh/gentoo-zh.github.io/issues>
+- **GitHub Issues**: <https://github.com/gentoo-zh/gentoo-zh.github.io/issues>
 - **Site contact email**: <zakk@gentoozh.org>
 
 For more channels (IRC / Matrix / casual chat groups, etc.), see the [about page](/about/).
