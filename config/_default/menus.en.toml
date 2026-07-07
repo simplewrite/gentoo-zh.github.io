@@ -31,7 +31,7 @@
   weight = 55
 
 [[main]]
-  name = "Paste"
+  name = "Pastebin"
   pageRef = "/paste"
   parent = "infra"
   weight = 1

@@ -11,7 +11,7 @@ This page tracks the major updates to the site's content, so readers can follow 
 
 ## July 2026
 
-- **The community pastebin [paste.gentoozh.org](https://paste.gentoozh.org) is live** (built on [wastebin](https://github.com/matze/wastebin)): for sharing code and logs, with a web UI, command line (curl), and raw links. Entry points have been added in the top-bar "Infrastructure" menu and the [Paste guide](/paste/)
+- **The community Pastebin [paste.gentoozh.org](https://paste.gentoozh.org) is live** (built on [wastebin](https://github.com/matze/wastebin)): for sharing code and logs, with a web UI, command line (curl), and raw links. Entry points have been added in the top-bar "Infrastructure" menu and the [Pastebin guide](/paste/)
 - The [About page](/about/) now links to the community's page on the **Gentoo Wiki** ([Gentoo-zh](https://wiki.gentoo.org/wiki/Gentoo-zh)), with structured-data `sameAs`
 - Site maintenance and CI: hardened CI, upgraded dependencies, bumped GitHub Actions to their latest major versions (checkout v7, setup-node/go/python v6, still pinned by SHA), and did a round of site review and cleanup
 - **The community's main domain moved to [gentoozh.org](https://gentoozh.org/)**: the old domains (gentoo.org.cn, gentoocn.org) all redirect permanently (301), so existing bookmarks and links keep working, but please update them soon. See the [migration announcement](/posts/2026-07-01-domain-migration/) for details

@@ -11,7 +11,7 @@ slug: "changelog"
 
 ## 2026 年 7 月
 
-- **社群 Pastebin [paste.gentoozh.org](https://paste.gentoozh.org) 上線**（基於 [wastebin](https://github.com/matze/wastebin)）：貼程式碼 / 日誌用，支援網頁、指令列（curl）與 raw 連結；頂欄「基礎設施」選單和 [Paste 使用說明](/paste/) 已加入口
+- **社群 Pastebin [paste.gentoozh.org](https://paste.gentoozh.org) 上線**（基於 [wastebin](https://github.com/matze/wastebin)）：貼程式碼 / 日誌用，支援網頁、指令列（curl）與 raw 連結；頂欄「基礎設施」選單和 [Pastebin 使用說明](/paste/) 已加入口
 - [關於頁](/about/)補上社群在 **Gentoo Wiki** 的頁面連結（[User:Gentoo-zh](https://wiki.gentoo.org/wiki/User:Gentoo-zh)），並加入結構化資料 `sameAs`
 - 網站維護與 CI：加固 CI、升級依賴，GitHub Actions 升到最新大版本（checkout v7、setup-node/go/python v6，仍按 SHA 釘版），並做了一輪網站核對清理
 - **社群主域名遷往 [gentoozh.org](https://gentoozh.org/)**：舊域名（gentoo.org.cn、gentoocn.org）全部 301 永久跳轉，書籤與已有連結不失效，建議儘快更新；詳見[遷移公告](/posts/2026-07-01-domain-migration/)
