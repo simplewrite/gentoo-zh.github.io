@@ -11,6 +11,9 @@ This page tracks the major updates to the site's content, so readers can follow 
 
 ## July 2026
 
+- **The community pastebin [paste.gentoozh.org](https://paste.gentoozh.org) is live** (built on [wastebin](https://github.com/matze/wastebin)): for sharing code and logs, with a web UI, command line (curl), and raw links. Entry points have been added in the top-bar "Infrastructure" menu and the [Paste guide](/paste/)
+- The [About page](/about/) now links to the community's page on the **Gentoo Wiki** ([Gentoo-zh](https://wiki.gentoo.org/wiki/Gentoo-zh)), with structured-data `sameAs`
+- Site maintenance and CI: hardened CI, upgraded dependencies, bumped GitHub Actions to their latest major versions (checkout v7, setup-node/go/python v6, still pinned by SHA), and did a round of site review and cleanup
 - **The community's main domain moved to [gentoozh.org](https://gentoozh.org/)**: the old domains (gentoo.org.cn, gentoocn.org) all redirect permanently (301), so existing bookmarks and links keep working, but please update them soon. See the [migration announcement](/posts/2026-07-01-domain-migration/) for details
 - **The gentoo-zh overlay repo moved to the organization repo [gentoo-zh/overlay](https://github.com/gentoo-zh/overlay)**: the old `microcai/gentoo-zh` now redirects (301) to the new repo. If you've already added the overlay, update your sync source to the new URL. See the [repo migration announcement and record](/posts/2026-07-02-gentoo-zh-repo-migration/) for details
 - **The community forum [forum.gentoozh.org](https://forum.gentoozh.org/) is live** (Discourse, Simplified and Traditional Chinese): a good place for posts, questions, and long-term discussion. Entry points have been added on the homepage's "Join the community" and the [About page](/about/)
