@@ -5,3 +5,30 @@
   <p class="gz-footer-meta">{{ i18n "footer_license" }} <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noreferrer">CC BY-SA 4.0</a> / <a href="https://github.com/Gentoo-zh/gentoozh-theme/blob/master/LICENSE" target="_blank" rel="noreferrer">MIT</a> · <a href="https://github.com/Gentoo-zh/gentoozh-theme" target="_blank" rel="noreferrer">{{ i18n "footer_patchpack" }}</a></p>
   <p class="gz-footer-sub">{{ i18n "footer_contact_main" }} <a href="https://github.com/Gentoo-zh/gentoo-zh.github.io/issues" target="_blank" rel="noreferrer">GitHub Issues</a>{{ with site.Params.contactEmail }} · {{ i18n "footer_contact_backup" }} <a href="mailto:{{ . }}">{{ . }}</a>{{ end }}</p>
 </div>
+{{- /* 复制按钮兜底：Hextra 的代码复制用 navigator.clipboard.writeText，浏览器只在安全上下文
+       （HTTPS / localhost）才提供它，纯 HTTP 下是 undefined、一点就抛错。这里在缺失时补一个
+       基于 execCommand 的 writeText，让复制在任何地方都能用；HTTPS 下自动跳过、不影响原生实现。 */ -}}
+<script>
+(function () {
+  if (navigator.clipboard && navigator.clipboard.writeText) return;
+  function fallback(text) {
+    return new Promise(function (resolve, reject) {
+      try {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        ta.setAttribute('readonly', '');
+        ta.style.position = 'fixed';
+        ta.style.top = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        var ok = document.execCommand('copy');
+        document.body.removeChild(ta);
+        ok ? resolve() : reject(new Error('copy failed'));
+      } catch (e) { reject(e); }
+    });
+  }
+  try {
+    Object.defineProperty(navigator, 'clipboard', { value: { writeText: fallback }, configurable: true });
+  } catch (e) {}
+})();
+</script>
