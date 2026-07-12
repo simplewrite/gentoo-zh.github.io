@@ -90,7 +90,7 @@ Gentoo 中文社群論壇已正式啟用，地址：**[forum.gentoozh.org](https
 
 ## 感謝
 
-社群論壇初期的建設感謝依雲菊苣、蝸牛菊苣、睦菊苣等菊苣的指點，以及 Clover 撰寫的論壇規則。
+社群論壇初期的建設感謝[依雲](https://github.com/lilydjwg)菊苣、蝸牛菊苣、[睦](https://github.com/locez)菊苣等菊苣的指點，以及 Clover 撰寫的論壇規則。
 
 ## 版主招募
 

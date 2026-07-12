@@ -90,7 +90,7 @@ For the full version, see the forum's [Terms of Service](https://forum.gentoozh.
 
 ## Thanks
 
-For the forum's early build, thanks to Yiyun, Woniu, Mu, and the other gurus for their pointers, and to Clover for writing the forum rules.
+For the forum's early build, thanks to [Yiyun](https://github.com/lilydjwg), Woniu, [Locez](https://github.com/locez), and the other gurus for their pointers, and to Clover for writing the forum rules.
 
 ## Moderators Wanted
 
