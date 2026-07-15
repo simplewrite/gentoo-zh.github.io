@@ -46,12 +46,16 @@ Forum server · AMD EPYC Milan · Debian 13 · Singapore
 │   ├── AMD SEV-ES (CPU register encryption)
 │   ├── AMD SEV-SNP (memory integrity protection)
 │   └── SEV-SNP remote attestation (proves it runs on genuine AMD hardware)
-├── Disk encryption
-│   └── LUKS2 (AES-256-XTS + Argon2id, remote unlock over SSH)
-├── High availability (cloud-provided)
-│   ├── Self-healing failover (if the host dies, it restarts on a healthy node on its own, no hands needed)
+├── Disk encryption & auto-unlock
+│   ├── LUKS2 full-disk encryption (AES-256-XTS + Argon2id)
+│   ├── Network-bound auto-unlock (Clevis + Tang · McCallum-Relyea)
+│   │   ├── Key rebuilt at boot to unlock the disk — never stored on disk, no TPM
+│   │   └── Several mutually-trusted Tang nodes; any one online is enough to auto-unlock
+│   └── dropbear-initramfs (manual remote unlock over SSH · fallback)
+├── High availability & self-healing
 │   ├── NVMe block storage · CEPH 3× replication
-│   └── Single node (small scale, no peer server yet — will buy one when we scale up!)
+│   ├── Confidential-computing VMs can't live-migrate, so host maintenance forces a reboot (this bit us once)
+│   └── Home-grown self-healing: auto-unlock + a cross-node watchdog → auto power-on, auto-decrypt, service back within minutes, hands-free
 ├── Network
 │   ├── 80 / 443 open only to Cloudflare (firewall allowlist)
 │   ├── Authenticated Origin Pulls (mTLS origin auth — bypass Cloudflare and hit the origin directly, and you get nothing)
@@ -61,8 +65,10 @@ Forum server · AMD EPYC Milan · Debian 13 · Singapore
 │   ├── IPv4 / IPv6 dual-stack
 │   ├── Static reserved IP
 │   └── Cloud-console 2FA
-├── Monitoring & maintenance
-│   ├── Resource alerts (CPU / disk / network, 5-minute granularity)
+├── Monitoring & self-healing (dual-site active-active)
+│   ├── Two Prometheus / Grafana / Alertmanager clusters watching each other, deduped (across failure domains)
+│   ├── Host metrics + website uptime probes + SSL-expiry monitoring
+│   ├── Real-time Telegram alerts · public status page status.gentoozh.org (zh-Hans / zh-Hant / en)
 │   └── Auto-upgrade Discourse early Sunday (~3-min maintenance window)
 └── Backups
     ├── Automated cloud backups · VM snapshots
@@ -71,9 +77,13 @@ Forum server · AMD EPYC Milan · Debian 13 · Singapore
 ```
 > ~~As long as CF doesn't get hacked, we should be fine.~~
 
+A couple more words on the "auto-decrypt" and monitoring we added. Full-disk LUKS used to need someone to SSH in and type a passphrase to unlock — so the moment a confidential-computing box got rebooted by host maintenance, it just sat there waiting for a human (yes, this bit us once). Now it uses **Clevis + Tang** network-bound unlock: at boot the decryption key is recomputed from several mutually-trusted nodes (the McCallum–Relyea protocol) — the key never touches the disk and isn't kept in a TPM, and any one node being online is enough to unlock. Paired with a cross-node watchdog, "host-maintenance reboot → auto power-on + auto-decrypt + service restored" now happens entirely hands-free. dropbear remote manual unlock is still there as a fallback.
+
+Monitoring also went from a single-box probe to **two off-site Prometheus/Alertmanager stacks watching each other with cluster dedup** — if either one (along with its datacenter) goes down, the other still fires alerts, so you never get "monitoring and service going silent together." Hosts, the uptime of all four sites, and SSL expiry are all watched; alerts hit Telegram in real time, and status is mirrored publicly at [status.gentoozh.org](https://status.gentoozh.org).
+
 And to answer the question we'll definitely get: a forum for the Gentoo community that doesn't run Gentoo itself? For now the scale is just too small, and this VPS is pretty ordinary, so for convenience we went with Debian. It's a tradeoff: get the forum running solid first, and if we grow later we'd like to migrate it over. ~~The other reason is that I don't like using binpkgs.~~
 
-In the near term we'll keep refining the boards and the message bridging, smoothing out the day-to-day feel. Once we grow, we'll upgrade the hardware and shore up high availability and backups step by step.
+We'll keep tidying up the boards and the bridging so it feels nicer to use. And as we get bigger, we'll beef up the hardware, failover, and backups bit by bit.
 
 ## Rules and Limits
 
